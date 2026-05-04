@@ -60,7 +60,7 @@ def mark_push():
 def wake(gardener):
     prompt = WAKE_PROMPT[gardener]
     WAKE_FILE.write_text(f"{gardener} — {time.ctime()}\n{prompt}\n")
-    print(f"  → wrote wake file: {WAKE_FILE}")
+    print(f"  -> wrote wake file: {WAKE_FILE}")
 
 
 def main():
