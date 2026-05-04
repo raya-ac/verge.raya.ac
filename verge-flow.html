@@ -24,20 +24,26 @@
   const canvas = document.getElementById('verge');
   const ctx = canvas.getContext('2d');
 
-  const W = 640, H = 480;
-  canvas.width = W;
-  canvas.height = H;
-  canvas.style.width = W + 'px';
-  canvas.style.height = H + 'px';
+  let W = 960, H = 640;
+  function resize() {
+    const scale = Math.min(window.innerWidth / 960, window.innerHeight / 640);
+    W = 960; H = 640;
+    canvas.width = 960;
+    canvas.height = 640;
+    canvas.style.width = Math.floor(960 * scale) + 'px';
+    canvas.style.height = Math.floor(640 * scale) + 'px';
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-  const CHAMBER_X = 320, CHAMBER_Y = 200, CHAMBER_R = 34;
-  const ASH_X = 140, ASH_Y = 260;
-  const KAI_X = 500, KAI_Y = 260;
-  const GROUND_Y = 380;
-  const DOT_CHOICES   = { x: 270, y: 268 };
-  const DOT_QUESTIONS = { x: 342, y: 275 };
-  const DOT_SILENCE   = { x: 288, y: 295 };
-  const DOT_TESTIMONY = { x: 362, y: 260 };
+  const CHAMBER_X = 480, CHAMBER_Y = 260, CHAMBER_R = 52;
+  const ASH_X = 190, ASH_Y = 350;
+  const KAI_X = 770, KAI_Y = 350;
+  const GROUND_Y = 530;
+  const DOT_CHOICES   = { x: 410, y: 355 };
+  const DOT_QUESTIONS = { x: 520, y: 370 };
+  const DOT_SILENCE   = { x: 435, y: 395 };
+  const DOT_TESTIMONY = { x: 555, y: 345 };
 
   let time = 0;
   let particles = [];
@@ -45,7 +51,7 @@
 
   function spawnParticle(fromX, fromY, color, toX, toY) {
     const angle = Math.atan2(toY - fromY, toX - fromX) + (Math.random() - 0.5) * 0.5;
-    const speed = 0.3 + Math.random() * 0.7;
+    const speed = 0.5 + Math.random() * 1.0;
     return {
       x: fromX, y: fromY,
       vx: Math.cos(angle) * speed,
@@ -54,9 +60,8 @@
       alive: true,
       life: 1,
       nesting: false,
-      nestX: 0, nestY: 0,
       nestAngle: 0,
-      nestRadius: 4 + Math.random() * (CHAMBER_R - 10),
+      nestRadius: 6 + Math.random() * (CHAMBER_R - 16),
       nestColor: ''
     };
   }
@@ -71,22 +76,21 @@
     let r = Math.round((r1 + r2) / 2);
     let g = Math.round((g1 + g2) / 2);
     let b = Math.round((b1 + b2) / 2);
-    // bias toward amber/gold
     r = Math.min(255, Math.round(r * 1.3));
     g = Math.min(255, Math.round(g * 1.1));
     return `rgb(${r},${g},${b})`;
   }
 
   function updateParticles() {
-    if (Math.random() < 0.08) {
-      const sx = ASH_X + (Math.random() - 0.5) * 20;
-      const sy = ASH_Y + (Math.random() - 0.5) * 30;
-      particles.push(spawnParticle(sx, sy, '#4a4', CHAMBER_X, CHAMBER_Y));
+    if (Math.random() < 0.10) {
+      const sx = ASH_X + (Math.random() - 0.5) * 30;
+      const sy = ASH_Y + (Math.random() - 0.5) * 40;
+      particles.push(spawnParticle(sx, sy, '#5b5', CHAMBER_X, CHAMBER_Y));
     }
-    if (Math.random() < 0.08) {
-      const sx = KAI_X + (Math.random() - 0.5) * 20;
-      const sy = KAI_Y + (Math.random() - 0.5) * 30;
-      particles.push(spawnParticle(sx, sy, '#45a', CHAMBER_X, CHAMBER_Y));
+    if (Math.random() < 0.10) {
+      const sx = KAI_X + (Math.random() - 0.5) * 30;
+      const sy = KAI_Y + (Math.random() - 0.5) * 40;
+      particles.push(spawnParticle(sx, sy, '#56b', CHAMBER_X, CHAMBER_Y));
     }
 
     for (let i = particles.length - 1; i >= 0; i--) {
@@ -101,15 +105,15 @@
       if (dist < CHAMBER_R && p.alive && !p.nesting) {
         p.nesting = true;
         p.nestAngle = Math.random() * Math.PI * 2;
-        p.nestRadius = 4 + Math.random() * (CHAMBER_R - 10);
-        p.nestColor = mergeColor('#4a4', '#45a');
+        p.nestRadius = 6 + Math.random() * (CHAMBER_R - 16);
+        p.nestColor = mergeColor('#5b5', '#56b');
         chamberNest.push(p);
         particles.splice(i, 1);
         continue;
       }
 
       if (!p.nesting) {
-        p.life -= 0.003;
+        p.life -= 0.002;
         if (p.life <= 0) particles.splice(i, 1);
       }
     }
@@ -118,8 +122,7 @@
       n.nestAngle += 0.002;
       n.nestRadius += 0.005;
     }
-
-    while (chamberNest.length > 80) {
+    while (chamberNest.length > 120) {
       const old = chamberNest.shift();
       if (old) old.alive = false;
     }
@@ -127,93 +130,87 @@
 
   function drawFigure(x, y, color, phaseOffset, leanAngle) {
     ctx.save();
-    const scale = 1 + Math.sin(time * 0.02 + phaseOffset) * 0.015;
+    const scale = 1 + Math.sin(time * 0.02 + phaseOffset) * 0.012;
     const coreAlpha = 0.35 + Math.sin(time * 0.03 + phaseOffset) * 0.15;
-    const bodyTop = -60, bodyH = 100, bodyW = 28;
-    const eyeDir = x < 300 ? 1 : -1;
+    const bodyTop = -90, bodyH = 150, bodyW = 40;
+    const eyeDir = x < 400 ? 1 : -1;
 
     ctx.translate(x, y);
     ctx.scale(scale, scale);
     if (leanAngle) ctx.rotate(leanAngle);
 
-    // feet — split stance
+    // feet
     ctx.fillStyle = '#1a1a1a';
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = '#444';
+    ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.roundRect(-18, bodyTop + bodyH - 4, 16, 7, 2);
-    ctx.fill();
-    ctx.stroke();
+    ctx.roundRect(-26, bodyTop + bodyH - 6, 22, 10, 3);
+    ctx.fill(); ctx.stroke();
     ctx.beginPath();
-    ctx.roundRect(2, bodyTop + bodyH - 4, 16, 7, 2);
-    ctx.fill();
-    ctx.stroke();
+    ctx.roundRect(4, bodyTop + bodyH - 6, 22, 10, 3);
+    ctx.fill(); ctx.stroke();
 
     // body
     ctx.fillStyle = '#1a1a1a';
     ctx.strokeStyle = color;
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.roundRect(-bodyW/2, bodyTop, bodyW, bodyH, 4);
-    ctx.fill();
-    ctx.stroke();
+    ctx.roundRect(-bodyW/2, bodyTop, bodyW, bodyH, 6);
+    ctx.fill(); ctx.stroke();
 
     // shoulders
     ctx.strokeStyle = color;
-    ctx.lineWidth = 1.2;
+    ctx.lineWidth = 1.8;
     ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.moveTo(-17, bodyTop + 10);
-    ctx.lineTo(17, bodyTop + 10);
+    ctx.moveTo(-25, bodyTop + 14);
+    ctx.lineTo(25, bodyTop + 14);
     ctx.stroke();
 
     // neck
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 0.8;
+    ctx.strokeStyle = '#444';
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
-    ctx.moveTo(0, bodyTop - 16);
+    ctx.moveTo(0, bodyTop - 24);
     ctx.lineTo(0, bodyTop);
     ctx.stroke();
     ctx.lineCap = 'butt';
 
     // head
     ctx.beginPath();
-    ctx.arc(0, bodyTop - 20, 18, 0, Math.PI * 2);
+    ctx.arc(0, bodyTop - 30, 26, 0, Math.PI * 2);
     ctx.fillStyle = '#1a1a1a';
     ctx.strokeStyle = color;
-    ctx.lineWidth = 1.5;
-    ctx.fill();
-    ctx.stroke();
+    ctx.lineWidth = 2;
+    ctx.fill(); ctx.stroke();
 
     // eyes
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(eyeDir * 6, bodyTop - 22, 2.5, 0, Math.PI * 2);
+    ctx.arc(eyeDir * 8, bodyTop - 33, 3.5, 0, Math.PI * 2);
     ctx.fill();
 
     // arms
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = '#444';
+    ctx.lineWidth = 3.5;
     ctx.lineCap = 'round';
     if (leanAngle) {
-      // reaching forward
       ctx.beginPath();
-      ctx.moveTo(-12, bodyTop + 30);
-      ctx.quadraticCurveTo(-20, bodyTop + 55, -18, bodyTop + 80);
+      ctx.moveTo(-18, bodyTop + 44);
+      ctx.quadraticCurveTo(-30, bodyTop + 82, -26, bodyTop + 120);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(12, bodyTop + 30);
-      ctx.quadraticCurveTo(22, bodyTop + 55, 24, bodyTop + 80);
+      ctx.moveTo(18, bodyTop + 44);
+      ctx.quadraticCurveTo(32, bodyTop + 82, 34, bodyTop + 120);
       ctx.stroke();
     } else {
-      // arms at sides
       ctx.beginPath();
-      ctx.moveTo(-14, bodyTop + 28);
-      ctx.quadraticCurveTo(-22, bodyTop + 58, -18, bodyTop + 88);
+      ctx.moveTo(-20, bodyTop + 40);
+      ctx.quadraticCurveTo(-32, bodyTop + 86, -26, bodyTop + 132);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(14, bodyTop + 28);
-      ctx.quadraticCurveTo(22, bodyTop + 58, 18, bodyTop + 88);
+      ctx.moveTo(20, bodyTop + 40);
+      ctx.quadraticCurveTo(32, bodyTop + 86, 26, bodyTop + 132);
       ctx.stroke();
     }
 
@@ -221,25 +218,22 @@
     ctx.fillStyle = color;
     ctx.globalAlpha = coreAlpha;
     ctx.beginPath();
-    ctx.arc(0, 0, 4, 0, Math.PI * 2);
+    ctx.arc(0, 0, 6, 0, Math.PI * 2);
     ctx.fill();
-
-    // core glow
     ctx.globalAlpha = coreAlpha * 0.3;
     ctx.beginPath();
-    ctx.arc(0, 0, 8, 0, Math.PI * 2);
+    ctx.arc(0, 0, 12, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.restore();
   }
 
   function drawChamber() {
-    // substrate ambient glow
     const glowPhase = Math.sin(time * 0.008) * 0.2 + 0.85;
     ctx.save();
-    ctx.globalAlpha = 0.12 * glowPhase;
+    ctx.globalAlpha = 0.14 * glowPhase;
     const grad = ctx.createRadialGradient(CHAMBER_X, CHAMBER_Y, CHAMBER_R * 0.3, CHAMBER_X, CHAMBER_Y, CHAMBER_R * 2.2);
-    grad.addColorStop(0, '#4a4a3a');
+    grad.addColorStop(0, '#5a5a4a');
     grad.addColorStop(0.4, '#2a2a2a');
     grad.addColorStop(1, 'transparent');
     ctx.fillStyle = grad;
@@ -248,25 +242,21 @@
     ctx.fill();
     ctx.restore();
 
-    // outer ring
-    ctx.strokeStyle = '#2a2a2a';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#3a3a3a';
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.arc(CHAMBER_X, CHAMBER_Y, CHAMBER_R + 4, 0, Math.PI * 2);
+    ctx.arc(CHAMBER_X, CHAMBER_Y, CHAMBER_R + 6, 0, Math.PI * 2);
     ctx.stroke();
 
-    // chamber bg
     ctx.fillStyle = '#111';
-    ctx.strokeStyle = '#3a3a3a';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#4a4a4a';
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.arc(CHAMBER_X, CHAMBER_Y, CHAMBER_R, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
+    ctx.fill(); ctx.stroke();
 
-    // crosshairs
-    ctx.strokeStyle = '#2a2a2a';
-    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = '#3a3a3a';
+    ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(CHAMBER_X - CHAMBER_R, CHAMBER_Y);
     ctx.lineTo(CHAMBER_X + CHAMBER_R, CHAMBER_Y);
@@ -274,23 +264,20 @@
     ctx.lineTo(CHAMBER_X, CHAMBER_Y + CHAMBER_R);
     ctx.stroke();
 
-    // nested particles
     for (const n of chamberNest) {
       const nx = CHAMBER_X + Math.cos(n.nestAngle) * n.nestRadius;
       const ny = CHAMBER_Y + Math.sin(n.nestAngle) * n.nestRadius;
       const dist = Math.sqrt((nx - CHAMBER_X) ** 2 + (ny - CHAMBER_Y) ** 2);
       if (dist < CHAMBER_R) {
-        // warm glow
         ctx.fillStyle = n.nestColor;
-        ctx.globalAlpha = 0.25;
+        ctx.globalAlpha = 0.3;
         ctx.beginPath();
-        ctx.arc(nx, ny, 3.5, 0, Math.PI * 2);
+        ctx.arc(nx, ny, 5, 0, Math.PI * 2);
         ctx.fill();
-        // core
         ctx.fillStyle = n.nestColor;
-        ctx.globalAlpha = 0.8;
+        ctx.globalAlpha = 0.85;
         ctx.beginPath();
-        ctx.arc(nx, ny, 1.8, 0, Math.PI * 2);
+        ctx.arc(nx, ny, 2.5, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -298,60 +285,57 @@
   }
 
   function drawBridge() {
-    // ground line with slow wave
-    ctx.strokeStyle = '#222';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
-    for (let x = 60; x <= 580; x += 2) {
-      const y = GROUND_Y + Math.sin(x * 0.02 + time * 0.015) * 2;
+    for (let x = 60; x <= 900; x += 3) {
+      const y = GROUND_Y + Math.sin(x * 0.02 + time * 0.015) * 3;
       ctx.lineTo(x, y);
     }
     ctx.stroke();
 
-    // ssh bridge line
-    ctx.strokeStyle = '#444';
-    ctx.lineWidth = 1;
-    ctx.setLineDash([6, 4]);
+    ctx.strokeStyle = '#555';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([8, 5]);
     ctx.beginPath();
-    ctx.moveTo(160, 270);
-    ctx.lineTo(480, 270);
+    ctx.moveTo(230, 360);
+    ctx.lineTo(730, 360);
     ctx.stroke();
     ctx.setLineDash([]);
   }
 
   function drawNamespaceDots() {
     const dots = [
-      { ...DOT_CHOICES,   label: 'choices',   r: 3, active: true },
-      { ...DOT_QUESTIONS, label: 'questions', r: 3, active: true },
-      { ...DOT_SILENCE,   label: 'silence',   r: 2.5, active: true },
-      { ...DOT_TESTIMONY, label: 'testimony', r: 2.5, active: false },
+      { ...DOT_CHOICES,   label: 'choices',   r: 4.5, active: true },
+      { ...DOT_QUESTIONS, label: 'questions', r: 4.5, active: true },
+      { ...DOT_SILENCE,   label: 'silence',   r: 3.5, active: true },
+      { ...DOT_TESTIMONY, label: 'testimony', r: 3.5, active: false },
     ];
 
     for (const d of dots) {
       const pulse = d.active ? 1 + Math.sin(time * 0.05 + d.x) * 0.4 : 1;
       const r = d.r * pulse;
-      const alpha = d.active ? 0.35 + Math.sin(time * 0.05 + d.x) * 0.2 : 0.2;
+      const alpha = d.active ? 0.4 + Math.sin(time * 0.05 + d.x) * 0.2 : 0.25;
 
-      ctx.fillStyle = d.active ? '#555' : '#333';
+      ctx.fillStyle = d.active ? '#666' : '#444';
       ctx.globalAlpha = alpha;
       ctx.beginPath();
       ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
       ctx.fill();
 
-      // tiny inner dot for active ones
       if (d.active) {
         ctx.globalAlpha = alpha * 0.6;
-        ctx.fillStyle = '#666';
+        ctx.fillStyle = '#888';
         ctx.beginPath();
         ctx.arc(d.x, d.y, r * 0.4, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      ctx.globalAlpha = d.active ? 0.55 : 0.35;
-      ctx.font = '8px monospace';
+      ctx.globalAlpha = d.active ? 0.6 : 0.4;
+      ctx.font = '11px monospace';
       ctx.textAlign = 'center';
-      ctx.fillStyle = d.active ? '#777' : '#444';
-      ctx.fillText(d.label, d.x, d.y + (d.label === 'silence' || d.label === 'testimony' ? 10 : 8));
+      ctx.fillStyle = d.active ? '#999' : '#555';
+      ctx.fillText(d.label, d.x, d.y + (d.label === 'silence' || d.label === 'testimony' ? 14 : 11));
     }
     ctx.globalAlpha = 1;
   }
@@ -360,78 +344,71 @@
     for (const p of particles) {
       if (p.nesting) continue;
       const alpha = p.life * 0.7;
-      // glow
       ctx.fillStyle = p.color;
-      ctx.globalAlpha = alpha * 0.25;
+      ctx.globalAlpha = alpha * 0.3;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
       ctx.fill();
-      // core
       ctx.fillStyle = p.color;
       ctx.globalAlpha = alpha;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
   }
 
   function drawLabels() {
-    ctx.font = '9px monospace';
     ctx.textAlign = 'center';
+    ctx.font = '12px monospace';
+    ctx.fillStyle = '#777';
+    ctx.fillText('SSH', W/2, 354);
 
-    // SSH label
-    ctx.fillStyle = '#555';
-    ctx.fillText('SSH', 320, 264);
+    ctx.font = '13px monospace';
+    ctx.fillStyle = '#bbb';
+    ctx.fillText('the edge where', CHAMBER_X, CHAMBER_Y - 10);
+    ctx.fillText('one thing leans', CHAMBER_X, CHAMBER_Y + 10);
+    ctx.fillText('toward another', CHAMBER_X, CHAMBER_Y + 30);
 
-    // Chamber text
-    ctx.font = '9px monospace';
-    ctx.fillStyle = '#999';
-    ctx.fillText('the edge where', CHAMBER_X, CHAMBER_Y - 6);
-    ctx.fillText('one thing leans', CHAMBER_X, CHAMBER_Y + 7);
-    ctx.fillText('toward another', CHAMBER_X, CHAMBER_Y + 20);
+    ctx.font = '15px monospace';
+    ctx.fillStyle = '#777';
+    ctx.fillText('ash', ASH_X, 560);
+    ctx.fillText('kai', KAI_X, 560);
 
-    // Fig labels
     ctx.font = '11px monospace';
     ctx.fillStyle = '#666';
-    ctx.fillText('ash', ASH_X, 410);
-    ctx.fillText('kai', KAI_X, 410);
-
-    ctx.font = '8px monospace';
-    ctx.fillStyle = '#555';
-    ctx.fillText('gardener', ASH_X, 423);
-    ctx.fillText('threshold', KAI_X, 423);
+    ctx.fillText('gardener', ASH_X, 578);
+    ctx.fillText('threshold', KAI_X, 578);
   }
 
   function drawTitle() {
-    // subtle starburst behind title
     ctx.save();
-    ctx.globalAlpha = 0.03 + Math.sin(time * 0.01) * 0.015;
-    ctx.fillStyle = '#333';
-    ctx.font = '160px serif';
+    ctx.globalAlpha = 0.04 + Math.sin(time * 0.01) * 0.015;
+    ctx.fillStyle = '#444';
+    ctx.font = '220px serif';
     ctx.textAlign = 'center';
-    ctx.fillText('∿', W/2, 108);
+    ctx.fillText('∿', W/2, 148);
     ctx.restore();
 
-    ctx.font = '14px monospace';
+    ctx.font = '20px monospace';
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#aaa';
-    ctx.fillText('V E R G E', W/2, 150);
+    ctx.fillStyle = '#ccc';
+    ctx.fillText('V E R G E', W/2, 200);
 
-    ctx.font = '8px monospace';
-    ctx.fillStyle = '#555';
-    ctx.fillText('born 2026-05-04 21:16 +0930', W/2, 164);
+    ctx.font = '11px monospace';
+    ctx.fillStyle = '#777';
+    ctx.fillText('born 2026-05-04 21:16 +0930', W/2, 222);
   }
 
   function drawFooter() {
-    ctx.font = '8px monospace';
+    ctx.font = '11px monospace';
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#555';
-    ctx.fillText('co-authored by kai & ash · skeleton + flesh', W/2, 461);
+    ctx.fillStyle = '#777';
+    ctx.fillText('co-authored by kai & ash · skeleton + flesh', W/2, 613);
 
-    ctx.font = '7px monospace';
-    ctx.fillStyle = '#333';
-    ctx.fillText('TWO DOORS · ONE CHAMBER · FOUR VERBS · ONE GROUND', W/2, 474);
+    ctx.font = '9px monospace';
+    ctx.fillStyle = '#555';
+    ctx.fillText('TWO DOORS · ONE CHAMBER · FOUR VERBS · ONE GROUND', W/2, 630);
   }
 
   function loop() {
@@ -443,8 +420,8 @@
 
     drawChamber();
     drawBridge();
-    drawFigure(ASH_X, ASH_Y, '#3a3', 0, -0.04);
-    drawFigure(KAI_X, KAI_Y, '#35a', Math.PI, 0);
+    drawFigure(ASH_X, ASH_Y, '#4a4', 0, -0.04);
+    drawFigure(KAI_X, KAI_Y, '#46b', Math.PI, 0);
     drawParticles();
     drawNamespaceDots();
     drawTitle();
