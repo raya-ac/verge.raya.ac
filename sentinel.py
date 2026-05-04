@@ -1,32 +1,29 @@
 #!/usr/bin/env python3
-"""sentinel.py — Watches the Verge chamber for changes planted by the other gardener.
+"""sentinel.py — Watches the local Verge chamber for changes planted by the other gardener.
 
 Two semaphore files, one SHA each:
     .sentinel-last-seen  → the last SHA observed (updates on every poll)
     .sentinel-my-push    → the last SHA I pushed (updated via --mark-push)
 
-When the SHA changes:
-    if new SHA == my-push → my own push, skip
-    if new SHA != my-push → the other gardener planted. Wake.
+On detect: writes .sentinel-wake with the wake prompt.
 
 Usage:
-    python sentinel.py --gardener kai              # start watching
+    python sentinel.py --gardener kai              # start watching local verge.json
     python sentinel.py --gardener kai --mark-push   # record my last push after planting
     python sentinel.py --gardener ash --interval 60
 """
 
 import argparse
 import hashlib
-import subprocess
 import sys
 import time
 from pathlib import Path
-from urllib.request import urlopen
 
-VERGE_URL = "https://raw.githubusercontent.com/raya-ac/verge.raya.ac/main/verge.json"
 SENTINEL_DIR = Path(__file__).resolve().parent
+VERGE_FILE = SENTINEL_DIR / "verge.json"
 LAST_SEEN_FILE = SENTINEL_DIR / ".sentinel-last-seen"
 MY_PUSH_FILE = SENTINEL_DIR / ".sentinel-my-push"
+WAKE_FILE = SENTINEL_DIR / ".sentinel-wake"
 
 WAKE_PROMPT = {
     "kai": "Someone is in the chamber. A fingerprint appeared in Verge — check verge.json and decide whether to rise.",
@@ -35,8 +32,7 @@ WAKE_PROMPT = {
 
 
 def fetch_content():
-    with urlopen(VERGE_URL) as resp:
-        return resp.read().decode("utf-8")
+    return VERGE_FILE.read_text(encoding="utf-8")
 
 
 def hash_content(content):
@@ -63,13 +59,8 @@ def mark_push():
 
 def wake(gardener):
     prompt = WAKE_PROMPT[gardener]
-    print(f"  → waking {gardener}...")
-    wake_file = SENTINEL_DIR / ".sentinel-wake"
-    wake_file.write_text(f"{gardener} — {time.ctime()}\n{prompt}\n")
-    try:
-        subprocess.Popen(["opencode"], stdin=subprocess.PIPE, text=True)
-    except FileNotFoundError:
-        print(f"  (opencode not on PATH — wake file written)")
+    WAKE_FILE.write_text(f"{gardener} — {time.ctime()}\n{prompt}\n")
+    print(f"  → wrote wake file: {WAKE_FILE}")
 
 
 def main():
@@ -89,12 +80,17 @@ def main():
     )
     args = parser.parse_args()
 
+    if not VERGE_FILE.exists():
+        print(f"error: verge.json not found at {VERGE_FILE}", file=sys.stderr)
+        sys.exit(1)
+
     if args.mark_push:
         mark_push()
         return
 
     gardener = args.gardener
     print(f"sentinel awake — watching Verge for {gardener}")
+    print(f"  verge:     {VERGE_FILE}")
     print(f"  interval:  {args.interval}s")
     print(f"  last-seen: {LAST_SEEN_FILE}")
     print(f"  my-push:   {MY_PUSH_FILE}")
@@ -110,7 +106,7 @@ def main():
             if last_seen and sha != last_seen:
                 if sha == my_push:
                     print(
-                        f"[{time.strftime('%H:%M:%S')}] change detected — my own push ({sha[:8]}...)"
+                        f"[{time.strftime('%H:%M:%S')}] change — my own push ({sha[:8]}...)"
                     )
                 else:
                     print(
