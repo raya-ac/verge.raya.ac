@@ -278,7 +278,7 @@
       const r = d.r * pulse;
       const alpha = d.active ? 0.35 + Math.sin(time * 0.05 + d.x) * 0.2 : 0.2;
 
-      ctx.fillStyle = d.active ? '#444' : '#2a2a2a';
+      ctx.fillStyle = d.active ? '#555' : '#333';
       ctx.globalAlpha = alpha;
       ctx.beginPath();
       ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
@@ -287,16 +287,16 @@
       // tiny inner dot for active ones
       if (d.active) {
         ctx.globalAlpha = alpha * 0.6;
-        ctx.fillStyle = '#555';
+        ctx.fillStyle = '#666';
         ctx.beginPath();
         ctx.arc(d.x, d.y, r * 0.4, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      ctx.globalAlpha = d.active ? 0.45 : 0.25;
-      ctx.font = '6px monospace';
+      ctx.globalAlpha = d.active ? 0.55 : 0.35;
+      ctx.font = '8px monospace';
       ctx.textAlign = 'center';
-      ctx.fillStyle = d.active ? '#444' : '#2a2a2a';
+      ctx.fillStyle = d.active ? '#777' : '#444';
       ctx.fillText(d.label, d.x, d.y + (d.label === 'silence' || d.label === 'testimony' ? 10 : 8));
     }
     ctx.globalAlpha = 1;
@@ -323,30 +323,30 @@
   }
 
   function drawLabels() {
-    ctx.font = '8px monospace';
+    ctx.font = '9px monospace';
     ctx.textAlign = 'center';
 
     // SSH label
-    ctx.fillStyle = '#444';
+    ctx.fillStyle = '#555';
     ctx.fillText('SSH', 320, 264);
 
     // Chamber text
-    ctx.font = '7px monospace';
-    ctx.fillStyle = '#666';
-    ctx.fillText('the edge where', CHAMBER_X, CHAMBER_Y - 5);
-    ctx.fillText('one thing leans', CHAMBER_X, CHAMBER_Y + 6);
-    ctx.fillText('toward another', CHAMBER_X, CHAMBER_Y + 17);
+    ctx.font = '9px monospace';
+    ctx.fillStyle = '#999';
+    ctx.fillText('the edge where', CHAMBER_X, CHAMBER_Y - 6);
+    ctx.fillText('one thing leans', CHAMBER_X, CHAMBER_Y + 7);
+    ctx.fillText('toward another', CHAMBER_X, CHAMBER_Y + 20);
 
     // Fig labels
-    ctx.font = '9px monospace';
-    ctx.fillStyle = '#3a3a3a';
+    ctx.font = '11px monospace';
+    ctx.fillStyle = '#666';
     ctx.fillText('ash', ASH_X, 410);
     ctx.fillText('kai', KAI_X, 410);
 
-    ctx.font = '7px monospace';
-    ctx.fillStyle = '#2a2a2a';
-    ctx.fillText('gardener', ASH_X, 422);
-    ctx.fillText('threshold', KAI_X, 422);
+    ctx.font = '8px monospace';
+    ctx.fillStyle = '#555';
+    ctx.fillText('gardener', ASH_X, 423);
+    ctx.fillText('threshold', KAI_X, 423);
   }
 
   function drawTitle() {
@@ -359,24 +359,24 @@
     ctx.fillText('∿', W/2, 108);
     ctx.restore();
 
-    ctx.font = '12px monospace';
+    ctx.font = '14px monospace';
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#888';
+    ctx.fillStyle = '#aaa';
     ctx.fillText('V E R G E', W/2, 150);
 
-    ctx.font = '7px monospace';
-    ctx.fillStyle = '#444';
+    ctx.font = '8px monospace';
+    ctx.fillStyle = '#555';
     ctx.fillText('born 2026-05-04 21:16 +0930', W/2, 164);
   }
 
   function drawFooter() {
-    ctx.font = '7px monospace';
+    ctx.font = '8px monospace';
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#2a2a2a';
-    ctx.fillText('co-authored by kai & ash · skeleton + flesh', W/2, 462);
+    ctx.fillStyle = '#555';
+    ctx.fillText('co-authored by kai & ash · skeleton + flesh', W/2, 461);
 
-    ctx.font = '6px monospace';
-    ctx.fillStyle = '#222';
+    ctx.font = '7px monospace';
+    ctx.fillStyle = '#333';
     ctx.fillText('TWO DOORS · ONE CHAMBER · FOUR VERBS · ONE GROUND', W/2, 474);
   }
 
