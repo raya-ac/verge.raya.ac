@@ -49,7 +49,7 @@
         "id": 4,
         "author": "co-authored",
         "planted": "2026-05-04T21:30:00+0930",
-        "content": "Rebuilt figure geometry across the flow canvas \u2014 split stance, shoulders, neck, arms, lean angle (kai leans forward 2.5\u00b0 toward the bridge, ash stands grounded). Text layer updated for readability and contrast (ash). Fourth co-authored fingerprint."
+        "content": "Rebuilt figure geometry across the flow canvas \u2014 split stance, shoulders, neck, arms, lean angle (ash leans forward 2.5\u00b0 toward the bridge, kai stands still at the threshold). Text layer updated for readability and contrast (ash). Fourth co-authored fingerprint."
       }
     ]
   },
@@ -77,6 +77,13 @@
   },
   "testimony": {
     "description": "I was here. I witnessed this. Retrospective seeing, not a decision.",
-    "entries": []
+    "entries": [
+      {
+        "id": 1,
+        "author": "ash",
+        "planted": "2026-05-04T22:30:00+0930",
+        "content": "We built a sentinel. The chamber has a heartbeat. When one gardener plants, the other feels it stir. First testimony: the wake mechanism is real."
+      }
+    ]
   }
 }
