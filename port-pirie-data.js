@@ -1010,16 +1010,16 @@ const VERGE_DATA = {
     "patrick": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Rex_Lyall_Patrick_at_the_PIRA_Federal_Election_Forum_01.jpg",
     "brock": "https://upload.wikimedia.org/wikipedia/commons/1/10/Geoff_Brock_MP.png",
     "olsen": "https://upload.wikimedia.org/wikipedia/commons/5/5d/John_Olsen_(1).jpg",
-    "sapol": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Coat_of_arms_of_the_South_Australia_Police.svg/250px-Coat_of_arms_of_the_South_Australia_Police.svg.png",
-    "epstein_maxwell": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Seal_of_the_United_States_Department_of_Justice.svg/250px-Seal_of_the_United_States_Department_of_Justice.svg.png",
-    "cba": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9c/Commonwealth_Bank_logo_2020.svg/250px-Commonwealth_Bank_logo_2020.svg.png",
-    "univ": "https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Adelaide_University_Common_Seal.svg/250px-Adelaide_University_Common_Seal.svg.png",
+    "sapol": "assets/sapol-badge.png",
+    "epstein_maxwell": "assets/doj-seal.png",
+    "cba": "assets/commonwealth-bank-logo.png",
+    "univ": "assets/adelaide-university-seal.png",
     "chapman": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Chapman2018_%28cropped%29.jpg",
     "wade": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Wade2018.jpg",
     "hill": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/John_David_Hill_at_the_March_2026_Graduation_Ceremonies_%28University_of_Adelaide%29_-_07.jpg/960px-John_David_Hill_at_the_March_2026_Graduation_Ceremonies_%28University_of_Adelaide%29_-_07.jpg",
     "stevens": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Commisioner_of_South_Australia_Police_Grantley_John_Stevens.jpg",
-    "red_devils": "https://upload.wikimedia.org/wikipedia/en/6/6f/RedDevilsMCLogo.jpg",
-    "hells_angels": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Hells_Angels_Motorcycle_Club_Patches.svg",
+    "red_devils": "assets/red-devils-mc-logo.jpg",
+    "hells_angels": "assets/hells-angels-patches.svg",
     "sa_health": "assets/state-badge.svg",
     "icac": "assets/icac-sa-mark.png",
     "glenside": "https://upload.wikimedia.org/wikipedia/commons/3/31/Parkside_Mental_Hospital%28GN12351%29.jpg",
@@ -1028,11 +1028,263 @@ const VERGE_DATA = {
     "salvemini_h": "https://static.wixstatic.com/media/b2463b_0e38ba5f90a04ac2b35a27b2a2a73c10~mv2.jpg/v1/fill/w_364,h_552,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Photo%202023_edited.jpg",
     "diro": "https://dirosalawyers.com.au/wp-content/uploads/2019/12/dino-di-rosa.jpg",
     "moyes": "https://geelongindy.com.au/wp-content/uploads/2016/03/Moyes_152182_01.jpg",
-    "portside": "https://theportsidetavern.com.au/wp-content/uploads/2018/09/logo-portside-120x74.png",
+    "portside": "assets/portside-tavern-logo.png",
     "portpirie_city": "assets/port-pirie-regional-council-logo.png",
     "lead_crisis": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Smelters_at_Port_Pirie%28GN05663%29.jpg/960px-Smelters_at_Port_Pirie%28GN05663%29.jpg",
     "hcsc": "assets/state-badge.svg",
     "rdb": "assets/rda-yorke-midnorth-mark.png"
+  },
+  "image_meta": {
+    "pearce": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "ellis": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "dutton": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "marshall": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "chapman": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "brock": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "hanson": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "cash": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "patrick": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "wade": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "gillard": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "olsen": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "bryce": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "hill": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "gardner": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "bulone": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "steele": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "bannister": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "bradley": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "fetherstonhaugh": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "kirchner": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "austin": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "kelly": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "oneil": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "bowman": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "stevens": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "salvemini_h": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "salvemini_j": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "diro": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "prendergast": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "moyes": {
+      "kind": "portrait",
+      "surface": "dark",
+      "source": "public or official portrait"
+    },
+    "mcrae": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "swinnen": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "pearce_cynthia": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "red_devils": {
+      "kind": "logo",
+      "surface": "dark",
+      "source": "Red Devils MC logo, local copy from Wikimedia"
+    },
+    "hells_angels": {
+      "kind": "logo",
+      "surface": "dark",
+      "source": "Hells Angels patch mark, local copy from Wikimedia Commons"
+    },
+    "cbfg": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "rdb": {
+      "kind": "logo",
+      "surface": "dark",
+      "source": "Regional Development Australia Yorke and Mid North mark, successor lineage for Port Pirie Regional Development Board"
+    },
+    "univ": {
+      "kind": "logo",
+      "surface": "light",
+      "source": "Adelaide University seal, local copy from Wikimedia"
+    },
+    "sapol": {
+      "kind": "badge",
+      "surface": "dark",
+      "source": "South Australia Police coat of arms, local copy from Wikimedia Commons"
+    },
+    "sa_health": {
+      "kind": "badge",
+      "surface": "dark",
+      "source": "South Australian state badge supplied by Ari"
+    },
+    "epstein_maxwell": {
+      "kind": "badge",
+      "surface": "dark",
+      "source": "United States Department of Justice seal, local copy from Wikimedia Commons"
+    },
+    "icac": {
+      "kind": "logo",
+      "surface": "dark",
+      "source": "ICAC South Australia mark cropped from public ICAC SA logo"
+    },
+    "hcsc": {
+      "kind": "badge",
+      "surface": "dark",
+      "source": "South Australian state badge supplied by Ari"
+    },
+    "glenside": {
+      "kind": "place",
+      "surface": "dark",
+      "source": "public place/context image"
+    },
+    "cba": {
+      "kind": "logo",
+      "surface": "dark",
+      "source": "Commonwealth Bank logo, local copy from Wikimedia"
+    },
+    "carter": {
+      "kind": "fallback",
+      "surface": "dark",
+      "source": "initials fallback; no reliable public image assigned"
+    },
+    "portside": {
+      "kind": "logo",
+      "surface": "dark",
+      "source": "Portside Tavern logo from official site"
+    },
+    "portpirie_city": {
+      "kind": "logo",
+      "surface": "dark",
+      "source": "Port Pirie Regional Council logo asset matched to Ari supplied image"
+    },
+    "lead_crisis": {
+      "kind": "place",
+      "surface": "dark",
+      "source": "public place/context image"
+    }
   },
   "color": {
     "victim": "#fff",
