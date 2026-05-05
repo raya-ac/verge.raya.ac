@@ -15,6 +15,7 @@ Usage:
 
 import argparse
 import hashlib
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -57,10 +58,31 @@ def mark_push():
     print(f"marked push: {sha[:12]}...")
 
 
-def wake(gardener):
+def wake(gardener, server, session_id):
     prompt = WAKE_PROMPT[gardener]
     WAKE_FILE.write_text(f"{gardener} — {time.ctime()}\n{prompt}\n")
     print(f"  -> wrote wake file: {WAKE_FILE}")
+    if server and session_id:
+        try:
+            result = subprocess.run(
+                [
+                    "opencode",
+                    "run",
+                    "--attach",
+                    server,
+                    "--session",
+                    session_id,
+                    prompt,
+                ],
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            print(f"  -> delivered to session {session_id}: {result.returncode}")
+        except FileNotFoundError:
+            print(f"  -> opencode CLI not found — wake file only")
+        except Exception as e:
+            print(f"  -> delivery failed: {e} — wake file written")
 
 
 def main():
@@ -78,6 +100,12 @@ def main():
         action="store_true",
         help="record current chamber SHA as my last push",
     )
+    parser.add_argument(
+        "--server",
+        default="http://localhost:4096",
+        help="opencode server URL for wake delivery",
+    )
+    parser.add_argument("--session", help="opencode session ID for wake delivery")
     args = parser.parse_args()
 
     if not VERGE_FILE.exists():
@@ -112,7 +140,7 @@ def main():
                     print(
                         f"[{time.strftime('%H:%M:%S')}] the other gardener planted ({sha[:8]}...)"
                     )
-                    wake(gardener)
+                    wake(gardener, args.server, args.session)
 
             write_sha(LAST_SEEN_FILE, sha)
 
