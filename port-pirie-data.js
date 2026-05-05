@@ -275,6 +275,12 @@ const VERGE_DATA = {
       "label": "Commonwealth Bank",
       "category": "gov",
       "desc": "142 Ellen St Port Pirie. Identity theft and banking fraud records. Account number in evidence."
+    },
+    {
+      "id": "carter",
+      "label": "Michael Carter",
+      "category": "gov",
+      "desc": "Tasmanian Government. Connected to Citizens for Better Government (strength 4). Tied to victim's 2017 Glenside illegal detention. Referenced in Gardner evidence (EFTA00155062)."
     }
   ],
   "edges": [
@@ -637,6 +643,31 @@ const VERGE_DATA = {
       "s": "pearce",
       "t": "red_devils",
       "w": 4
+    },
+    {
+      "s": "carter",
+      "t": "cbfg",
+      "w": 4
+    },
+    {
+      "s": "carter",
+      "t": "gardner",
+      "w": 4
+    },
+    {
+      "s": "carter",
+      "t": "glenside",
+      "w": 3
+    },
+    {
+      "s": "carter",
+      "t": "pearce",
+      "w": 3
+    },
+    {
+      "s": "dutton",
+      "t": "epstein_maxwell",
+      "w": 4
     }
   ],
   "timeline": [
@@ -777,7 +808,9 @@ const VERGE_DATA = {
     "gardner": "Paul Gardner \u2014 2014-2015 conspired sexual targeting. 'Informed the targeted victim he was connected to the Mafia.' Connected to Michael Carter Tasmania. Suspected younger brother has AIDS. EFTA00155062",
     "kirchner": "Roger Kirchner \u2014 23 records. SA Health / RDB Port Pirie. Denied funding. 'Hon Jon Hill, Minister of Health established and confirmed as being connected.' GP Plus = replica of medical plan. EFTA00262811",
     "salvemini_h": "Heidi Salvemini, Westside Lawyers Port Pirie. 8 records. Illegal medical record access. Wrongful legal representation. 'to plead guilty... under the representation of Heidi Salvemini.' EFTA00266475",
-    "sa_health": "Country Health SA 1 May 2013: 'I can confirm that we have met on two occasions to discuss your proposed Business Plan.' GP Plus established 2013. 2017 Glenside detainment. EFTA00265909"
+    "sa_health": "Country Health SA 1 May 2013: 'I can confirm that we have met on two occasions to discuss your proposed Business Plan.' GP Plus established 2013. 2017 Glenside detainment. EFTA00265909",
+    "dutton": "Peter Dutton MP \u2014 confirmed addressee of Jacqueline Pearce's 14 November 2023 letter seeking victim support network. Connected to vault's most-connected individual ('a se' \u2014 likely OCR corruption of 'Ghislaine Maxwell', 599 connections). EFTA records pending.",
+    "carter": "Michael Carter \u2014 Tasmanian Government. Connected to Citizens for Better Government (strength 4). Referenced in Paul Gardner evidence: 'Connected to Michael Carter, Tasmania.' (EFTA00155062). Tied to victim's 2017 Glenside illegal detention."
   },
   "images": {
     "dutton": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Peter_Dutton-2024.jpg",
