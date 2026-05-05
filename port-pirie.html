@@ -102,9 +102,11 @@ const nodes=[{id:"pearce",label:"Jacqueline Pearce",cat:"victim",desc:"Sole comp
 
 const edges=[{s:"pearce",t:"ellis",w:4},{s:"pearce",t:"dutton",w:3},{s:"pearce",t:"marshall",w:2},{s:"pearce",t:"chapman",w:2},{s:"pearce",t:"gardner",w:5},{s:"pearce",t:"bulone",w:4},{s:"pearce",t:"steele",w:5},{s:"pearce",t:"epstein_maxwell",w:5},{s:"pearce",t:"pearce_cynthia",w:3},{s:"pearce",t:"sapol",w:5},{s:"pearce",t:"sa_health",w:5},{s:"pearce",t:"kirchner",w:4},{s:"pearce",t:"salvemini",w:3},{s:"pearce",t:"austin",w:3},{s:"gardner",t:"bulone",w:3},{s:"gardner",t:"bannister",w:4},{s:"gardner",t:"cbfg",w:3},{s:"bulone",t:"steele",w:1},{s:"bulone",t:"bradley",w:4},{s:"bulone",t:"univ",w:4},{s:"steele",t:"bannister",w:3},{s:"steele",t:"red_devils",w:5},{s:"bannister",t:"bradley",w:3},{s:"bannister",t:"fetherstonhaugh",w:3},{s:"bannister",t:"hells_angels",w:4},{s:"bradley",t:"univ",w:3},{s:"bradley",t:"hells_angels",w:4},{s:"red_devils",t:"hells_angels",w:5},{s:"fetherstonhaugh",t:"rdb",w:4},{s:"kirchner",t:"rdb",w:5},{s:"fetherstonhaugh",t:"gardner",w:3},{s:"salvemini",t:"sapol",w:2},{s:"austin",t:"sapol",w:4}];
 
-const sim=d3.forceSimulation(nodes).force("link",d3.forceLink(edges.map(e=>({...e,source:e.s,target:e.t}))).id(d=>d.id).distance(130).strength(d=>d.w*0.1)).force("charge",d3.forceManyBody().strength(-300)).force("center",d3.forceCenter(W/2,H/2)).force("collide",d3.forceCollide(36));
+const edgeLinks = edges.map(e=>({source:e.s,target:e.t,w:e.w}));
 
-g.append("g").selectAll("line").data(edges).join("line").attr("stroke","#2a2a2a").attr("stroke-width",d=>d.w*0.6).attr("stroke-opacity",0.5);
+const sim=d3.forceSimulation(nodes).force("link",d3.forceLink(edgeLinks).id(d=>d.id).distance(140).strength(d=>d.w*0.08)).force("charge",d3.forceManyBody().strength(-400)).force("center",d3.forceCenter(W/2,H/2)).force("collide",d3.forceCollide(40));
+
+const linkG = g.append("g").selectAll("line").data(edgeLinks).join("line").attr("stroke","#2a2a2a").attr("stroke-width",d=>d.w*0.6).attr("stroke-opacity",0.5);
 
 const ng=g.append("g").selectAll("g").data(nodes).join("g").style("cursor","pointer").call(d3.drag().on("start",(e,d)=>{if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y}).on("drag",(e,d)=>{d.fx=e.x;d.fy=e.y}).on("end",(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
 
@@ -140,7 +142,7 @@ ng.on("mouseover",(e,d)=>{
   det.style.display="block";
 });
 
-sim.on("tick",()=>{g.selectAll("line").attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);ng.attr("transform",d=>`translate(${d.x},${d.y})`)});
+sim.on("tick",()=>{linkG.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);ng.attr("transform",d=>`translate(${d.x},${d.y})`)});
 </script>
 </body>
 </html>
