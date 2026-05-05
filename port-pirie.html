@@ -162,10 +162,32 @@ body{background:var(--bg);color:var(--text);font-family:'SF Mono','Fira Code','M
       .force('center', d3.forceCenter(W/2, H/2))
       .force('collide', d3.forceCollide(38));
     var linkG = g.append('g').selectAll('line').data(linkData).join('line').attr('stroke', '#1a1a2a').attr('stroke-width', 0.5);
-    var ng = g.append('g').selectAll('g').data(NODES).join('g').style('cursor', 'pointer')
-      .call(d3.drag().on('start', function(e, d){ if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-        .on('drag', function(e, d){ d.fx = e.x; d.fy = e.y; })
-        .on('end', function(e, d){ if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+    var ng = g.append('g').selectAll('g').data(NODES).join('g').style('cursor', 'pointer');
+    // Drag
+    ng.call(d3.drag()
+      .on('start', function(e, d){ this._dragMoved = false; if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on('drag', function(e, d){ this._dragMoved = true; d.fx = e.x; d.fy = e.y; })
+      .on('end', function(e, d){ if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+    // Click (only if not dragged)
+    ng.on('click', function(e, d){
+      if (this._dragMoved) return;
+      var ev = EVIDENCE[d.id], cl = COLOR[d.category]||'#888';
+      var img = IMG[d.id];
+      var imgHtml = img ? '<img src="' + img + '" style="width:64px;height:64px;border-radius:6px;object-fit:cover;float:left;margin-right:1rem;background:#111" onerror="this.style.display=\\'none\\'">' : '';
+      var old = document.getElementById('graph-detail');
+      if (old) old.remove();
+      var div = document.createElement('div');
+      div.id = 'graph-detail';
+      div.style.cssText = 'background:var(--surface);border:1px solid var(--border);padding:1rem 1.5rem;margin:0 2rem;border-radius:6px;position:relative;max-width:700px';
+      div.innerHTML = '<button onclick="this.parentElement.remove()" style="position:absolute;top:.5rem;right:1rem;color:var(--muted);cursor:pointer;font-size:1.2rem;border:none;background:none">&times;</button>' +
+        imgHtml +
+        '<h3 style="color:' + cl + ';font-size:1rem;margin-bottom:.3rem">' + d.label + '</h3>' +
+        '<div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem">' + d.category + '</div>' +
+        '<div style="color:var(--text);font-size:.82rem;line-height:1.6">' + d.desc + '</div>' +
+        (ev ? '<div style="color:#c95;font-size:.78rem;font-style:italic;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--border)">Evidence: "' + ev + '"</div>' : '');
+      document.getElementById('graph').after(div);
+      setTimeout(function(){ div.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
+    });
     ng.each(function(d){
       var el = d3.select(this), r = 22, imgUrl = IMG[d.id], cl = COLOR[d.category] || '#888';
       if (imgUrl) {
