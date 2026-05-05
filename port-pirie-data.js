@@ -99,19 +99,19 @@ const VERGE_DATA = {
     {
       "id": "steele",
       "label": "Shaun Steele",
-      "category": "mc",
+      "category": "motorcycle",
       "desc": "Former partner. Mining FIFO worker. Red Devils MC Port Pirie. Death threats."
     },
     {
       "id": "bannister",
       "label": "Peter Bannister",
-      "category": "mc",
+      "category": "motorcycle",
       "desc": "LiL Devil Designs. Red Devils MC / Hells Angels. Port Pirie-Adelaide. Connected to RDB via Fetherstonhaugh."
     },
     {
       "id": "bradley",
       "label": "David Bradley",
-      "category": "mc",
+      "category": "motorcycle",
       "desc": "Tasmania. Adelaide University. Hells Angels. Illicit knowledge of victim's manuscript."
     },
     {
@@ -206,14 +206,14 @@ const VERGE_DATA = {
     },
     {
       "id": "red_devils",
-      "label": "Red Devils MC \u2014 Port Pirie",
-      "category": "mc",
+      "label": "Red Devils MC",
+      "category": "motorcycle",
       "desc": "Port Pirie chapter. Affiliated with Hells Angels Adelaide. Named in stalking and death threat records."
     },
     {
       "id": "hells_angels",
-      "label": "Hells Angels MC \u2014 Adelaide",
-      "category": "mc",
+      "label": "Hells Angels",
+      "category": "motorcycle",
       "desc": "Adelaide chapter. Parent org to Red Devils MC Port Pirie."
     },
     {
@@ -799,7 +799,7 @@ const VERGE_DATA = {
     "political": "#e55",
     "co-conspirator": "#f80",
     "academic": "#58f",
-    "mc": "#d44",
+    "motorcycle": "#d44",
     "gov": "#aaa",
     "legal": "#b6b",
     "police": "#48a",
