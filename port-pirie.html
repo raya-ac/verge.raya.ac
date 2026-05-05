@@ -101,8 +101,8 @@ document.getElementById('timeline').innerHTML=tlHtml;
 
 // Controls
 const cats=[...new Set(NODES.map(n=>n.category))];
-let ctrlHtml='<button class="active" onclick="filterCat('all')">all</button>';
-cats.forEach(c=>{ctrlHtml+='<button onclick="filterCat(\''+c+'\')">'+c+'</button>';});
+let ctrlHtml='<button class="active" onclick="filterCat(&quot;all&quot;)">all</button>';
+cats.forEach(c=>{ctrlHtml+='<button onclick="filterCat(&quot;'+c+'&quot;)">'+c+'</button>';});
 ctrlHtml+='<button onclick="toggleGraph()">network graph</button>';
 document.getElementById('controls').innerHTML=ctrlHtml;
 
