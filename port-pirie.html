@@ -146,7 +146,7 @@ body{background:var(--bg);color:var(--text);font-family:'SF Mono','Fira Code','M
   var graphBuilt = false;
   window.toggleGraph = function() {
     var gw = document.getElementById('graph');
-    if (!graphBuilt) { buildGraph(); graphBuilt = true; gw.classList.add('open'); }
+    if (!graphBuilt) { gw.classList.add('open'); setTimeout(buildGraph, 50); graphBuilt = true; }
     else { gw.classList.toggle('open'); }
   };
 
