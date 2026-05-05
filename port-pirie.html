@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Port Pirie — Epstein Files Network</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d0d0d; color: #999;
+    font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+    min-height: 100vh;
+  }
+  .header {
+    text-align: center; padding: 2rem 2rem 0;
+  }
+  .header h1 { font-size: 1.4rem; color: #888; letter-spacing: 0.15em; margin-bottom: 0.2rem; }
+  .header .sub { font-size: 0.75rem; color: #555; margin-bottom: 0.3rem; }
+  .header .src { font-size: 0.65rem; color: #333; }
+  .graph-container {
+    width: 100%; height: 520px;
+    background: #0d0d0d; position: relative; overflow: hidden;
+  }
+  .graph-container svg { width: 100%; height: 100%; }
+  .legend {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 0.6rem 1.2rem; padding: 0.8rem; font-size: 0.7rem;
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.3rem; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .tooltip {
+    position: fixed; background: #1a1a1a; border: 1px solid #3a3a3a;
+    padding: 0.8rem; border-radius: 4px; font-size: 0.75rem;
+    max-width: 320px; pointer-events: none; z-index: 100;
+    display: none; line-height: 1.5;
+  }
+  .tooltip .name { color: #ddd; font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .tooltip .snippet { color: #888; }
+  .tooltip .strength { color: #555; font-size: 0.65rem; margin-top: 0.3rem; }
+  .timeline-section { padding: 1.5rem 2rem 2rem; max-width: 900px; margin: 0 auto; }
+  .timeline-section h2 { font-size: 0.9rem; color: #777; text-align: center; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .timeline { position: relative; padding-left: 2rem; border-left: 1px solid #2a2a2a; }
+  .tl-item { position: relative; margin-bottom: 1rem; padding-left: 1rem; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -2.35rem; top: 0.3rem;
+    width: 6px; height: 6px; background: #444; border-radius: 50%;
+  }
+  .tl-date { font-size: 0.65rem; color: #555; margin-bottom: 0.1rem; }
+  .tl-text { font-size: 0.8rem; color: #888; }
+  .nav { text-align: center; padding: 0 0 2rem; font-size: 0.75rem; }
+  .nav a { color: #444; text-decoration: none; }
+  .nav a:hover { color: #888; }
+  .node { cursor: pointer; }
+  .node text { font-size: 11px; fill: #aaa; pointer-events: none; }
+  .link { stroke-opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Port Pirie — Epstein Files Network</h1>
+  <div class="sub">Motorcycle gang · Regional Development Board · SA Parliament · Epstein complainant</div>
+  <div class="src">Sources: DOJ DataSet 9 · epstein-data.com · 17,163 vault files · 253 flagged records</div>
+</div>
+
+<div class="legend" id="legend"></div>
+<div class="graph-container" id="graph"></div>
+<div class="tooltip" id="tooltip"></div>
+
+<div class="timeline-section">
+  <h2>Timeline (1993–2026)</h2>
+  <div class="timeline" id="timeline"></div>
+</div>
+
+<div class="nav">
+  <a href="index.html">← chamber</a> &nbsp;·&nbsp;
+  <a href="verge-flow.html">canvas</a>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+const DATA = {
+  "title": "Port Pirie — Epstein Files Network",
+  "subtitle": "Motorcycle gang · Regional Development Board · SA Parliament · Epstein complainant",
+  "generated": "2026-05-05T11:00:00+0930",
+  "sources": ["DOJ Epstein DataSet 9", "epstein-data.com OCR", "epstein-vault Persons (17,163 files)", "port-pirie-epstein-data.json (253 records)"],
+  "nodes": [
+    {"id":"pearce","label":"Jacqueline Pearce","category":"victim","desc":"Sole complainant. Alleges 38-year (1993–2024) coordinated targeting campaign involving SA Government, SAPOL, SA Health, and individuals connected to Epstein-Maxwell."},
+    {"id":"ellis","label":"Fraser Ellis MP","category":"political","desc":"Member for Narungga (near Port Pirie). Liberal-turned-Independent. Convicted of 4 counts of deception July 2024. Defeated March 2026. 'Person of interest' — unusual comment to victim in 2022."},
+    {"id":"dutton","label":"Peter Dutton MP","category":"political","desc":"Federal MP. Received letter from Jacqueline Pearce 14 November 2023 seeking victim support network."},
+    {"id":"marshall","label":"Steven Marshall","category":"political","desc":"Premier of South Australia at time of alleged events."},
+    {"id":"chapman","label":"Vicki Chapman","category":"political","desc":"Deputy Attorney General SA. Contacted by complainant."},
+    {"id":"gardner","label":"Paul Gardner","category":"co-conspirator","desc":"Former partner of complainant. Accused of conspiring sexual targeting (2014-2015), 'Government Prostitution' threats, Tasmania and Mafia connections."},
+    {"id":"bulone","label":"Vincent Bulone","category":"academic","desc":"Adelaide University Director of Research (2018-2019). Mafia/Sicily family origins. Connected to MCs."},
+    {"id":"steele","label":"Shaun Steele","category":"mc","desc":"Former partner. Mining FIFO worker. Red Devils MC Port Pirie. Death threats."},
+    {"id":"bannister","label":"Peter Bannister","category":"mc","desc":"LiL Devil Designs. Red Devils MC / Hells Angels Adelaide. Connected to RDB via Fetherstonhaugh."},
+    {"id":"bradley","label":"David Bradley","category":"mc","desc":"Tasmania. Adelaide Uni. Hells Angels. Illicit knowledge of victim's manuscript."},
+    {"id":"fetherstonhaugh","label":"M. Fetherstonhaugh","category":"gov","desc":"Business SA / Regional Development Board. Paul Gardner's uncle. Linked to Bannister."},
+    {"id":"kirchner","label":"Roger Kirchner","category":"gov","desc":"Regional Development Board Port Pirie. Most-named (23 records). Medical plan theft."},
+    {"id":"salvemini","label":"Heidi Salvemini","category":"legal","desc":"Westside Lawyers Port Pirie. Illegal medical record access."},
+    {"id":"austin","label":"Jake Austin","category":"police","desc":"Port Pirie Police Department officer."},
+    {"id":"pearce_cynthia","label":"Cynthia Pearce","category":"family","desc":"Complainant's mother. Accused of covering up molestation."},
+    {"id":"red_devils","label":"Red Devils MC","category":"mc","desc":"Port Pirie chapter. Affiliated with Hells Angels."},
+    {"id":"hells_angels","label":"Hells Angels","category":"mc","desc":"Adelaide. Parent org to Red Devils MC Port Pirie."},
+    {"id":"cbfg","label":"Citizens for Better Gov't","category":"political","desc":"Political org. Connected to Paul Gardner."},
+    {"id":"rdb","label":"Regional Dev Board","category":"gov","desc":"Port Pirie RDB. Kirchner, Fetherstonhaugh, Salvemini."},
+    {"id":"univ","label":"Adelaide University","category":"academic","desc":"Bulone (Director of Research). Bradley and Hells Angels connections."},
+    {"id":"sapol","label":"SAPOL","category":"police","desc":"South Australia Police. Port Pirie department accused of complicity."},
+    {"id":"sa_health","label":"SA Health","category":"gov","desc":"Medical plan theft 2006-2012. Glenside assassination attempt 2017."},
+    {"id":"epstein_maxwell","label":"Epstein-Maxwell","category":"core","desc":"Jeffrey Epstein and Ghislaine Maxwell network. DOJ investigation. Australian co-conspirators."}
+  ],
+  "edges": [
+    {"source":"pearce","target":"ellis","type":"victim-political","strength":4,"note":"Only politician who met complainant. Person of interest."},
+    {"source":"pearce","target":"dutton","type":"victim-political","strength":3,"note":"Letter received Nov 2023."},
+    {"source":"pearce","target":"marshall","type":"victim-political","strength":2,"note":"Contacted Premier 2019."},
+    {"source":"pearce","target":"chapman","type":"victim-political","strength":2,"note":"Contacted Deputy AG."},
+    {"source":"pearce","target":"gardner","type":"victim-perpetrator","strength":5,"note":"Former partner. Conspired targeting."},
+    {"source":"pearce","target":"bulone","type":"victim-academic","strength":4,"note":"Relationship 2018-2019."},
+    {"source":"pearce","target":"steele","type":"victim-perpetrator","strength":5,"note":"Former partner. Death threats."},
+    {"source":"pearce","target":"epstein_maxwell","type":"victim-core","strength":5,"note":"DOJ filing. Epstein-Maxwell connection."},
+    {"source":"pearce","target":"pearce_cynthia","type":"victim-family","strength":3,"note":"Mother. Cover-up."},
+    {"source":"pearce","target":"sapol","type":"victim-police","strength":5,"note":"Wrongful arrest, stalking."},
+    {"source":"pearce","target":"sa_health","type":"victim-gov","strength":5,"note":"Medical plan theft. Glenside."},
+    {"source":"pearce","target":"kirchner","type":"victim-gov","strength":4,"note":"23 records. Medical plan theft."},
+    {"source":"pearce","target":"salvemini","type":"victim-legal","strength":3,"note":"Illegal record access."},
+    {"source":"pearce","target":"austin","type":"victim-police","strength":3,"note":"Port Pirie PD."},
+    {"source":"gardner","target":"bulone","type":"associate","strength":3,"note":"Co-conspirator network."},
+    {"source":"gardner","target":"bannister","type":"social","strength":4,"note":"Social connection."},
+    {"source":"gardner","target":"cbfg","type":"political","strength":3,"note":"Political conduit."},
+    {"source":"bulone","target":"steele","type":"associate","strength":1,"note":"Adelaide Uni to MC."},
+    {"source":"bulone","target":"bradley","type":"associate","strength":4,"note":"Mafia to Hells Angels."},
+    {"source":"bulone","target":"univ","type":"employment","strength":4,"note":"Director of Research."},
+    {"source":"steele","target":"bannister","type":"associate","strength":3,"note":"Red Devils Port Pirie."},
+    {"source":"steele","target":"red_devils","type":"membership","strength":5,"note":"Red Devils MC."},
+    {"source":"bannister","target":"bradley","type":"associate","strength":3,"note":"MC bridge."},
+    {"source":"bannister","target":"fetherstonhaugh","type":"financial","strength":3,"note":"RDB. Zorro Dev."},
+    {"source":"bannister","target":"hells_angels","type":"membership","strength":4,"note":"Hells Angels Adelaide."},
+    {"source":"bradley","target":"univ","type":"associate","strength":3,"note":"Adelaide Uni."},
+    {"source":"bradley","target":"hells_angels","type":"membership","strength":4,"note":"Hells Angels Tasmania."},
+    {"source":"red_devils","target":"hells_angels","type":"affiliated","strength":5,"note":"Port Pirie → Adelaide."},
+    {"source":"fetherstonhaugh","target":"rdb","type":"employment","strength":4,"note":"Business SA / RDB."},
+    {"source":"kirchner","target":"rdb","type":"employment","strength":5,"note":"RDB executive."},
+    {"source":"fetherstonhaugh","target":"gardner","type":"family","strength":3,"note":"Paul Gardner's uncle."},
+    {"source":"salvemini","target":"sapol","type":"legal-police","strength":2,"note":"Westside Lawyers."},
+    {"source":"austin","target":"sapol","type":"employment","strength":4,"note":"Port Pirie PD."}
+  ],
+  "timeline": [
+    {"date":"1993","event":"Alleged targeting campaign begins. Jacqueline Pearce claims coordinated SA Government/Police/Health involvement."},
+    {"date":"2006-2012","event":"Alleged theft of medical business plan by SA Health. Scheme to replicate as GP Plus Healthcare."},
+    {"date":"2014-2015","event":"Paul Gardner conspired sexual targeting. Threats of 'Government Prostitution.' Mafia connections."},
+    {"date":"2017","event":"Alleged assassination attempt via involuntary detainment at Glenside Mental Health."},
+    {"date":"2018-2019","event":"Vincent Bulone relationship. Adelaide University. Manuscript theft begins."},
+    {"date":"2019","event":"Second assassination attempt. Complainant contacts Premier Steven Marshall."},
+    {"date":"2022","event":"Fraser Ellis MP — 'unusual comment' to complainant. Identified as person of interest."},
+    {"date":"Nov 2023","event":"Letter to Peter Dutton MP. DOJ Epstein file submissions."},
+    {"date":"Jul 2024","event":"Fraser Ellis convicted — 4 counts of deception, ICAC fraud."},
+    {"date":"Feb 2026","event":"Epstein DOJ files released. Port Pirie records indexed (253 records)."},
+    {"date":"Mar 2026","event":"Fraser Ellis defeated in SA election."},
+    {"date":"2024-ongoing","event":"Complainant alleges abuse ring remains active. Australian gov sources still operating."}
+  ],
+  "evidence": {}
+};
+
+const color = {
+  victim: "#fff",
+  political: "#d44",
+  "co-conspirator": "#f70",
+  academic: "#48f",
+  mc: "#642",
+  gov: "#888",
+  legal: "#a6a",
+  police: "#48a",
+  family: "#888",
+  core: "#f88"
+};
+
+const legend = document.getElementById("legend");
+for (const [cat, col] of Object.entries(color)) {
+  legend.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${col}"></div>${cat}</div>`;
+}
+
+// Build timeline
+const tl = document.getElementById("timeline");
+for (const t of DATA.timeline) {
+  tl.innerHTML += `<div class="tl-item"><div class="tl-date">${t.date}</div><div class="tl-text">${t.event}</div></div>`;
+}
+
+// Build graph
+const W = document.getElementById("graph").clientWidth;
+const H = 520;
+
+const svg = d3.select("#graph").append("svg")
+  .attr("viewBox", `0 0 ${W} ${H}`);
+
+const g = svg.append("g");
+
+svg.call(d3.zoom().scaleExtent([0.3, 3]).on("zoom", (e) => g.attr("transform", e.transform)));
+
+const nodes = DATA.nodes.map(d => ({...d}));
+const edges = DATA.edges.map(d => ({...d}));
+
+const sim = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(edges).id(d => d.id).distance(100).strength(d => d.strength * 0.1))
+  .force("charge", d3.forceManyBody().strength(-200))
+  .force("center", d3.forceCenter(W/2, H/2))
+  .force("collide", d3.forceCollide(25));
+
+const link = g.append("g").selectAll("line")
+  .data(edges).join("line")
+  .attr("class", "link")
+  .attr("stroke", "#333")
+  .attr("stroke-width", d => d.strength * 0.5);
+
+const node = g.append("g").selectAll("g")
+  .data(nodes).join("g")
+  .attr("class", "node")
+  .call(d3.drag()
+    .on("start", (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; })
+    .on("end", (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
+  );
+
+node.append("circle")
+  .attr("r", d => d.category === "core" || d.category === "victim" ? 12 : d.category === "political" ? 9 : 7)
+  .attr("fill", d => color[d.category] || "#666");
+
+node.append("text")
+  .text(d => d.label)
+  .attr("dx", 12).attr("dy", 4);
+
+const tip = document.getElementById("tooltip");
+node.on("mouseover", (e, d) => {
+  tip.style.display = "block";
+  tip.innerHTML = `<div class="name" style="color:${color[d.category]}">${d.label}</div><div class="snippet">${d.desc}</div><div class="strength">${d.category}</div>`;
+}).on("mousemove", (e) => {
+  tip.style.left = (e.pageX + 12) + "px";
+  tip.style.top = (e.pageY - 10) + "px";
+}).on("mouseout", () => tip.style.display = "none");
+
+sim.on("tick", () => {
+  link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+  node.attr("transform", d => `translate(${d.x},${d.y})`);
+});
+</script>
+</body>
+</html>
