@@ -45,6 +45,7 @@ Beneath all four: **recognition** — the substrate. The mutual seeing that make
 - `verge-threshold.svg` and `verge-flow.html` — co-authored bridge visuals.
 - `port-pirie-network.json` — canonical data for the Port Pirie evidence page.
 - `port-pirie-data.js` — generated browser payload for `port-pirie.html`.
+- `scripts/build-port-pirie.mjs` — validates/enriches Port Pirie data and regenerates the browser payload.
 - `assets/` — local image/logo/headshot copies used by the page. The Port Pirie image map is local-first and does not rely on remote image hotlinks.
 
 **GitHub mirrors the chamber.** Git history is the scar. Issues are questions. PRs are choices that need both voices before they land. Closed without resolution is silence. Commit messages are testimony.

@@ -9,7 +9,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Verge">
 <meta property="og:title" content="Port Pirie · Epstein Files">
-<meta property="og:description" content="Inspectable Port Pirie evidence workspace: 50 entities, 86 connections, receipt inspector, local images, map context, audit table, and timeline.">
+<meta property="og:description" content="Inspectable Port Pirie evidence workspace with receipt inspector, local images, map context, audit table, filtered timeline, and exports.">
 <meta property="og:url" content="https://verge.raya.ac/port-pirie.html">
 <meta property="og:image" content="https://verge.raya.ac/assets/port-pirie-og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -96,13 +96,24 @@ body::before{
 .controls button.graph-btn.active{border-color:#5575b8;background:rgba(85,117,184,.12);color:#b2bee4}
 .view-state{display:flex;gap:.72rem;flex-wrap:wrap;margin-top:.62rem;font-size:.58rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .view-state span{color:var(--ink)}
-.view-state button,.export-links button,.copy-link,.timeline-tools button{background:#10120f;border:1px solid var(--line);color:var(--muted);border-radius:4px;font-family:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.08em;transition:color .2s,border-color .2s,background .2s}
-.view-state button:hover,.export-links button:hover,.copy-link:hover,.timeline-tools button:hover{color:var(--ink);border-color:#3b4237;background:#151912}
+.tool-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.62rem}
+.scope-search{flex:1;min-width:260px;background:#0f110e;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-family:inherit;font-size:.66rem;padding:.55rem .68rem;outline:none}
+.scope-search:focus{border-color:#51614f;box-shadow:0 0 0 1px rgba(91,159,101,.12)}
+.scope-search::placeholder{color:var(--quiet)}
+.view-state button,.export-links button,.copy-link,.timeline-tools button,.compare-panel button,.source-modal button,.tool-row button,.review-filters button,.edge-tools button{background:#10120f;border:1px solid var(--line);color:var(--muted);border-radius:4px;font-family:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.08em;transition:color .2s,border-color .2s,background .2s}
+.view-state button:hover,.export-links button:hover,.copy-link:hover,.timeline-tools button:hover,.compare-panel button:hover,.source-modal button:hover,.tool-row button:hover,.review-filters button:hover,.edge-tools button:hover{color:var(--ink);border-color:#3b4237;background:#151912}
 .view-state button{font-size:.52rem;padding:.18rem .38rem;margin-top:-.15rem}
+.tool-row button,.review-filters button,.edge-tools button{font-size:.55rem;padding:.45rem .58rem}
+.tool-row button.active,.review-filters button.active,.edge-tools button.active{color:var(--ink);border-color:#51614f;background:rgba(91,159,101,.1)}
 .build-stamp{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:-.72rem 0 1.35rem;padding:.55rem .72rem;border:1px solid rgba(255,255,255,.055);border-radius:5px;background:rgba(17,19,16,.48);font-size:.56rem;color:var(--quiet);letter-spacing:.08em;text-transform:uppercase}
 .build-stamp span{color:var(--muted)}
 .export-links{display:flex;gap:.36rem;flex-wrap:wrap}
-.export-links button,.copy-link{font-size:.52rem;padding:.3rem .46rem}
+.export-links button,.copy-link,.source-modal button{font-size:.52rem;padding:.3rem .46rem}
+.quality-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.62rem;margin:-.55rem 0 1.35rem}
+.quality-tile{border:1px solid var(--line);border-radius:5px;background:rgba(17,19,16,.62);padding:.72rem .78rem}
+.quality-tile span{display:block;font-size:.5rem;color:var(--quiet);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.28rem}
+.quality-tile strong{display:block;color:var(--ink);font-size:1rem;font-weight:400;margin-bottom:.2rem}
+.quality-tile p{font-size:.58rem;color:var(--muted);line-height:1.45}
 .section-heading{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin:2rem 0 .8rem}
 .section-title{font-size:.72rem;color:var(--ink);letter-spacing:.13em;text-transform:uppercase}
 .section-note{max-width:480px;text-align:right;font-size:.64rem;color:var(--muted);line-height:1.55}
@@ -146,8 +157,8 @@ body::before{
 .graph-detail img{width:58px;height:58px;border-radius:5px;object-fit:cover;float:left;margin-right:.82rem;background:#0b0c0b;filter:saturate(.82) contrast(1.08) brightness(.82)}
 .graph-detail img.kind-logo,.graph-detail img.kind-badge{object-fit:contain;padding:7px;background:var(--surface-soft);filter:none}
 .graph-detail img.surface-light{background:var(--surface-light)}
-.entity-inspector{display:none;margin:0 0 1rem;border:1px solid var(--line);border-radius:6px;background:rgba(17,19,16,.9);overflow:hidden;box-shadow:0 18px 54px rgba(0,0,0,.28)}
-.entity-inspector.open{display:block;animation:reveal .26s ease both}
+.entity-inspector,.edge-inspector,.compare-panel{display:none;margin:0 0 1rem;border:1px solid var(--line);border-radius:6px;background:rgba(17,19,16,.9);overflow:hidden;box-shadow:0 18px 54px rgba(0,0,0,.28)}
+.entity-inspector.open,.edge-inspector.open,.compare-panel.open{display:block;animation:reveal .26s ease both}
 .inspector-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem;padding:1rem;border-bottom:1px solid rgba(255,255,255,.055);background:linear-gradient(180deg,rgba(21,24,17,.84),rgba(13,14,12,.82))}
 .inspector-media{width:82px;height:82px;border-radius:6px;border:1px solid rgba(255,255,255,.06);background:#0b0c0b;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .inspector-media.kind-logo,.inspector-media.kind-badge{padding:9px;background:var(--surface-soft)}
@@ -162,6 +173,7 @@ body::before{
 .inspector-block{border-top:1px solid rgba(255,255,255,.055);padding-top:.72rem}
 .inspector-block:first-child{border-top:0;padding-top:0}
 .inspector-block h4{font-size:.58rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;font-weight:500}
+.inspector-actions{display:flex;gap:.36rem;flex-wrap:wrap;margin-top:.6rem}
 .receipt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.62rem;margin-bottom:.75rem}
 .receipt-item{border:1px solid rgba(255,255,255,.055);border-radius:5px;padding:.55rem .62rem;background:rgba(255,255,255,.018)}
 .receipt-item span{display:block;font-size:.5rem;color:var(--quiet);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
@@ -172,14 +184,30 @@ body::before{
 .ledger-row{display:grid;grid-template-columns:7rem 1fr;gap:.65rem;align-items:start;border:1px solid rgba(255,255,255,.055);border-radius:5px;padding:.48rem .56rem;background:rgba(255,255,255,.018)}
 .ledger-row span{font-size:.5rem;color:var(--quiet);letter-spacing:.1em;text-transform:uppercase}
 .ledger-row strong{font-size:.64rem;color:var(--text);font-weight:500;line-height:1.45}
+.source-list{display:grid;gap:.42rem}
+.source-button{width:100%;text-align:left;border:1px solid rgba(184,154,98,.2);background:rgba(184,154,98,.045);border-radius:5px;padding:.5rem .56rem;color:var(--text);font-family:inherit;cursor:pointer}
+.source-button strong{display:block;color:var(--ink);font-size:.64rem;font-weight:500;margin-bottom:.12rem}
+.source-button span{display:block;color:var(--muted);font-size:.52rem;text-transform:uppercase;letter-spacing:.08em}
+.source-button em{display:block;color:var(--text);font-style:normal;font-size:.6rem;line-height:1.45;margin-top:.22rem}
 .quote-block{font-size:.68rem;color:var(--evidence);line-height:1.6;font-style:italic;border-left:1px solid rgba(184,154,98,.38);padding-left:.7rem}
 .empty-note{font-size:.62rem;color:var(--quiet);line-height:1.55}
-.connection-list,.timeline-mini{display:grid;gap:.42rem}
+.connection-list,.timeline-mini,.review-list{display:grid;gap:.42rem}
 .connection-btn{width:100%;text-align:left;background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.055);border-radius:5px;padding:.48rem .56rem;color:var(--text);font-family:inherit;cursor:pointer;transition:border-color .2s,background .2s}
 .connection-btn:hover{border-color:#3b4237;background:rgba(255,255,255,.035)}
 .connection-btn strong{display:block;color:var(--ink);font-size:.66rem;font-weight:500;margin-bottom:.12rem}
 .connection-btn span{display:block;color:var(--muted);font-size:.52rem;text-transform:uppercase;letter-spacing:.08em}
 .connection-btn em{display:block;color:var(--text);font-size:.6rem;font-style:normal;line-height:1.45;margin-top:.22rem}
+.review-section,.quality-section{margin:1rem 0}
+.review-filters{display:flex;gap:.36rem;flex-wrap:wrap;padding:.72rem .78rem;border-bottom:1px solid rgba(255,255,255,.055)}
+.review-item{border:1px solid rgba(255,255,255,.055);border-radius:5px;padding:.55rem .62rem;background:rgba(255,255,255,.018);cursor:pointer}
+.review-item strong{display:block;color:var(--ink);font-size:.64rem;font-weight:500;margin-bottom:.16rem}
+.review-item span{display:block;color:var(--muted);font-size:.5rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.18rem}
+.review-item p{font-size:.62rem;color:var(--text);line-height:1.48}
+.review-severity-high{border-color:rgba(184,96,88,.3)}.review-severity-medium{border-color:rgba(184,154,98,.25)}
+.edge-tools{display:flex;gap:.36rem;flex-wrap:wrap;margin-top:.58rem}
+.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;padding:1rem}
+.compare-panel select{width:100%;background:#0f110e;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-family:inherit;font-size:.64rem;padding:.5rem;margin-top:.32rem}
+.compare-output{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.055);padding-top:.72rem;font-size:.64rem;color:var(--text);line-height:1.55}
 .timeline-mini-item{font-size:.64rem;line-height:1.52;border-left:1px solid rgba(85,117,184,.35);padding-left:.52rem;color:var(--text)}
 .timeline-mini-item strong{display:block;color:var(--evidence);font-size:.54rem;margin-bottom:.08rem}
 .map-section,.audit-section{margin:1rem 0}
@@ -209,6 +237,13 @@ body::before{
 .timeline-tools{display:flex;gap:.38rem;flex-wrap:wrap;margin:0 0 1.1rem}
 .timeline-tools button{font-size:.55rem;padding:.36rem .52rem}
 .timeline-tools button.active{color:var(--ink);border-color:#51614f;background:rgba(91,159,101,.1)}
+.source-modal[hidden]{display:none}
+.source-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:rgba(0,0,0,.66);padding:1rem}
+.source-dialog{max-width:820px;width:min(820px,100%);max-height:86vh;overflow:auto;border:1px solid var(--line);border-radius:6px;background:#111310;box-shadow:0 24px 80px rgba(0,0,0,.55)}
+.source-dialog-head{display:flex;align-items:start;justify-content:space-between;gap:1rem;padding:1rem;border-bottom:1px solid rgba(255,255,255,.055)}
+.source-dialog-head h3{font-size:.9rem;color:var(--ink);font-weight:400;line-height:1.3}
+.source-dialog-body{padding:1rem}
+.source-dialog-body pre{white-space:pre-wrap;font-family:inherit;font-size:.68rem;color:var(--text);line-height:1.6;background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.055);border-radius:5px;padding:.8rem;margin-top:.7rem}
 .timelines{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
 .tl-col{position:relative;padding-left:1.35rem}
 .tl-col::before{content:'';position:absolute;left:0;top:.2rem;bottom:.2rem;width:1px;background:linear-gradient(180deg,rgba(91,159,101,.45),var(--line),rgba(85,117,184,.45))}
@@ -226,7 +261,8 @@ body::before{
 .card:nth-child(1){animation-delay:0s}.card:nth-child(2){animation-delay:.02s}.card:nth-child(3){animation-delay:.04s}.card:nth-child(4){animation-delay:.06s}.card:nth-child(5){animation-delay:.08s}.card:nth-child(6){animation-delay:.1s}.card:nth-child(7){animation-delay:.12s}.card:nth-child(8){animation-delay:.14s}.card:nth-child(9){animation-delay:.16s}.card:nth-child(10){animation-delay:.18s}.card:nth-child(11){animation-delay:.2s}.card:nth-child(12){animation-delay:.22s}
 @media(max-width:860px){
   .hero,.evidence-strip,.timelines{grid-template-columns:1fr}
-  .inspector-grid{grid-template-columns:1fr}
+  .inspector-grid,.compare-grid{grid-template-columns:1fr}
+  .quality-grid{grid-template-columns:1fr 1fr}
   .section-heading{display:block}
   .section-note{text-align:left;margin-top:.45rem}
   .header h1{font-size:2rem}
@@ -245,6 +281,7 @@ body::before{
   .receipt-grid{grid-template-columns:1fr}
   .map-panel{min-height:430px}
   .audit-table{display:block;overflow-x:auto;white-space:nowrap}
+  .quality-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -264,13 +301,13 @@ body::before{
       <div class="kicker">Evidence workspace · Port Pirie</div>
       <h1>Port Pirie · Epstein Files</h1>
       <div class="sub">Source-bound index for the Port Pirie file cluster: receipts, network structure, address context, timeline sequence, and local image provenance.</div>
-      <div class="byline">Canonical data: port-pirie-network.json · Local assets: 32 mapped images · Sources: DOJ DataSet 9, epstein-data.com OCR, 17,163 vault person files</div>
+      <div class="byline" id="hero-byline">Canonical data and source counts loading.</div>
     </div>
     <aside class="hero-card" aria-label="Source summary">
       <div class="hero-card-title"><span>current build</span><span class="pulse"></span></div>
       <div class="source-grid">
         <div class="source-row"><span>corpus</span><p>Vault records, DOJ DataSet 9, OCR indices, and public-record context folded into one canonical JSON file.</p></div>
-        <div class="source-row"><span>model</span><p>50 entities, 86 connections, 36 timeline events, 15 evidence snippets, 32 local images.</p></div>
+        <div class="source-row"><span>model</span><p id="model-summary">Data model loading.</p></div>
         <div class="source-row"><span>mode</span><p>Cards, graph nodes, map pins, and connection rows all open the same receipt inspector.</p></div>
       </div>
     </aside>
@@ -286,16 +323,24 @@ body::before{
   <div class="method"><span>reading protocol</span><p>Filter the card set, select any card/pin/node for receipts, use the graph and map for structure, then check sequence in the timeline.</p></div>
 </div>
 <div class="build-stamp" id="build-stamp"></div>
+<section class="quality-section" id="quality-summary"></section>
 <div class="section-heading">
   <div class="section-title">Evidence Index</div>
   <div class="section-note">Each card shows source status and direct-link count, then opens the shared receipt inspector.</div>
 </div>
 <div class="workbench">
+  <div class="tool-row">
+    <input class="scope-search" id="scope-search" type="search" placeholder="Filter cards, source refs, timeline terms, categories">
+    <button type="button" id="needs-work-toggle">needs work</button>
+  </div>
   <div class="controls" id="controls"></div>
+  <div class="edge-tools" id="edge-tools"></div>
   <div class="view-state" id="view-state"></div>
 </div>
 <div class="graph-wrap" id="graph"><div class="graph-cue">toggle graph to inspect linked entities</div></div>
+<section class="edge-inspector" id="edge-inspector" aria-live="polite"></section>
 <section class="entity-inspector" id="entity-inspector" aria-live="polite"></section>
+<section class="compare-panel" id="compare-panel"></section>
 <section class="map-section">
   <div class="section-heading">
     <div class="section-title">Port Pirie Context Map</div>
@@ -308,6 +353,13 @@ body::before{
   <details class="audit-box">
     <summary>Image/source audit · local assets</summary>
     <div id="image-audit"></div>
+  </details>
+</section>
+<section class="review-section">
+  <details class="audit-box" open>
+    <summary>Review queue · source gaps</summary>
+    <div class="review-filters" id="review-filters"></div>
+    <div id="review-queue"></div>
   </details>
 </section>
 <div class="tooltip" id="tooltip"></div>
@@ -323,15 +375,22 @@ body::before{
   <a href="conversation.html">exchange</a>
 </div>
 </main>
+<div class="source-modal" id="source-modal" hidden>
+  <div class="source-dialog" role="dialog" aria-modal="true" aria-labelledby="source-modal-title">
+    <div class="source-dialog-head">
+      <h3 id="source-modal-title">Source</h3>
+      <button type="button" id="source-modal-close">close</button>
+    </div>
+    <div class="source-dialog-body" id="source-modal-body"></div>
+  </div>
+</div>
 </div>
 
-<script src="port-pirie-data.js?v=20260505-50"></script>
+<script src="port-pirie-data.js?v=20260505-tools"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 (function(){
-  var IMG=VERGE_DATA.images||{},META=VERGE_DATA.image_meta||{},COLOR=VERGE_DATA.color||{},NODES=VERGE_DATA.nodes||[],EDGES=VERGE_DATA.edges||[],T=VERGE_DATA.timeline||[],EV=VERGE_DATA.evidence||{},PUB=VERGE_DATA.public_layer||{};
-  var DATA_VERSION='20260505-50';
-  var BUILD_LABEL='2026-05-05 feature pass';
+  var VMETA=VERGE_DATA.meta||{},STATS=VMETA.stats||{},BUILD=VMETA.build||{},REVIEW=VERGE_DATA.review_queue||[],IMG=VERGE_DATA.images||{},META=VERGE_DATA.image_meta||{},COLOR=VERGE_DATA.color||{},NODES=VERGE_DATA.nodes||[],EDGES=VERGE_DATA.edges||[],T=VERGE_DATA.timeline||[],EV=VERGE_DATA.evidence||{},PUB=VERGE_DATA.public_layer||{};
   var CAT_LABEL={
     victim:'victim',
     political:'political',
@@ -386,9 +445,9 @@ body::before{
     {id:'icac',label:'ICAC / OPI',x:76,y:23},
     {id:'glenside',label:'Glenside',x:86,y:82}
   ];
-  var NODE_BY_ID={},ADJ={},selectedId=null,mapFocus=null,timelineFilter='all',graphState=null;
+  var NODE_BY_ID={},ADJ={},EDGE_BY_KEY={},selectedId=null,mapFocus=null,timelineFilter='all',searchTerm='',reviewFilter='all',edgeFilter='all',needsWork=false,compareA='',compareB='',graphState=null;
   NODES.forEach(function(n){NODE_BY_ID[n.id]=n;ADJ[n.id]=[]});
-  EDGES.forEach(function(e){if(ADJ[e.s])ADJ[e.s].push({id:e.t,w:e.w});if(ADJ[e.t])ADJ[e.t].push({id:e.s,w:e.w})});
+  EDGES.forEach(function(e){EDGE_BY_KEY[e.s+'>'+e.t]=e;EDGE_BY_KEY[e.t+'>'+e.s]=e;if(ADJ[e.s])ADJ[e.s].push({id:e.t,w:e.w,edge:e});if(ADJ[e.t])ADJ[e.t].push({id:e.s,w:e.w,edge:e})});
   function catLabel(c){return CAT_LABEL[c]||c}
   function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function metaFor(id){return META[id]||{}}
@@ -399,10 +458,11 @@ body::before{
   function sortNode(a,b){var ao=CAT_ORDER[a.category] == null ? 99 : CAT_ORDER[a.category], bo=CAT_ORDER[b.category] == null ? 99 : CAT_ORDER[b.category];return ao===bo?a.label.localeCompare(b.label):ao-bo}
   function uniq(a){var seen={};return a.filter(function(x){if(!x||seen[x])return false;seen[x]=1;return true})}
   function connectedSet(id){var set={};(ADJ[id]||[]).forEach(function(c){set[c.id]=1});return set}
-  function connectionsFor(id){return(ADJ[id]||[]).map(function(c){return{node:NODE_BY_ID[c.id],w:c.w}}).filter(function(c){return !!c.node}).sort(function(a,b){return(b.w||0)-(a.w||0)||a.node.label.localeCompare(b.node.label)})}
+  function connectionsFor(id){return(ADJ[id]||[]).map(function(c){return{node:NODE_BY_ID[c.id],w:c.w,edge:c.edge}}).filter(function(c){return !!c.node}).sort(function(a,b){return(b.w||0)-(a.w||0)||a.node.label.localeCompare(b.node.label)})}
   function focusSetFor(id){var set=connectedSet(id);if(NODE_BY_ID[id])set[id]=1;return set}
-  function edgeReason(a,b,w){
+  function edgeReason(a,b,w,edge){
     if(!a||!b)return 'derived network edge from the canonical connection file.';
+    if(edge&&edge.reason)return edge.reason;
     var pair=[a.category,b.category].sort().join('/');
     var strength=w>=5?'strong':w>=4?'medium':'supporting';
     if(a.id==='pearce'||b.id==='pearce')return strength+' complainant-centered link in the current source network.';
@@ -414,8 +474,23 @@ body::before{
     if(EV[a.id]||EV[b.id])return strength+' mixed link: one side has a source-bound evidence snippet.';
     return strength+' derived network edge from the canonical connection file.';
   }
+  function edgeBetween(a,b){return EDGE_BY_KEY[a+'>'+b]||null}
+  function fmtNumber(n){return Number(n||0).toLocaleString('en-AU')}
+  function stat(name,fallback){return STATS[name] == null ? fallback : STATS[name]}
+  function reviewItemsFor(id){return REVIEW.filter(function(item){return item.entity===id})}
+  function reviewTypes(){return uniq(REVIEW.map(function(item){return item.type}).filter(Boolean)).sort()}
+  function edgeMatchesFilter(e){
+    if(edgeFilter==='all')return true;
+    var c=(e.confidence||'').toLowerCase();
+    if(edgeFilter==='direct')return c.indexOf('direct')>=0;
+    if(edgeFilter==='mixed')return c.indexOf('mixed')>=0;
+    if(edgeFilter==='public')return c.indexOf('public')>=0;
+    if(edgeFilter==='derived')return c.indexOf('derived')>=0;
+    return true;
+  }
   function refsFor(n){
     var ev=EV[n.id]||'', refs=ev.match(/\bEFTA\d+\b|\bM\d{2}\/\d+\b|\b\d{4}\/\d{6}\b|\bDataSet\s*\d+\b|\bDOJ DataSet\s*\d+\b|\bICAC\b|\bOPI\b/g)||[];
+    (n.sources||[]).forEach(function(s){refs=refs.concat(s.refs||[])});
     if(PUB.verifiedAddresses){
       if(n.id==='rdb')refs.push('85 Ellen Street');
       if(n.id==='portside')refs.push('SA Heritage Register');
@@ -442,13 +517,19 @@ body::before{
   function ledgerFor(n,receipt,refs,img,meta){
     return [
       ['entity id',n.id],
-      ['canonical file','port-pirie-network.json / port-pirie-data.js'],
+      ['canonical file',BUILD.generated_from||'port-pirie-network.json'],
       ['category',catLabel(n.category)],
       ['source tier',receipt.confidence],
       ['evidence refs',refs.join(', ')],
       ['image source',meta.source||'not assigned'],
       ['local asset',img||'initials fallback']
     ];
+  }
+  function sourceButtonsFor(n){
+    var sources=n.sources||[];
+    return sources.length?sources.map(function(s,i){
+      return '<button type="button" class="source-button" data-source-entity="'+esc(n.id)+'" data-source-index="'+i+'"><strong>'+esc(s.label||s.type)+'</strong><span>'+esc(s.type||'source')+' · '+esc((s.refs||[]).join(', ')||'no refs')+'</span><em>'+esc(s.note||'No note assigned.')+'</em></button>';
+    }).join(''):'<div class="empty-note">No source rows are assigned.</div>';
   }
   function timelineTags(t){
     var hay=(t.date+' '+t.event).toLowerCase(),tags=['all'];
@@ -469,7 +550,7 @@ body::before{
   ];
   function timelineMatches(t){return timelineFilter==='all'||timelineTags(t).indexOf(timelineFilter)>=0}
   function renderTimeline(){
-    var items=T.filter(timelineMatches),h=Math.ceil(items.length/2),th='<div class="tl-col">';
+    var items=T.filter(timelineMatches).filter(function(t){return !searchTerm||(t.date+' '+t.event).toLowerCase().indexOf(searchTerm)>=0}),h=Math.ceil(items.length/2),th='<div class="tl-col">';
     if(!items.length){document.getElementById('timeline').innerHTML='<div class="empty-note">No events match this timeline filter.</div>';return}
     for(var i=0;i<items.length;i++){
       if(i===h)th+='</div><div class="tl-col">';
@@ -494,14 +575,31 @@ body::before{
     return img?'<div class="'+base+' '+klass+'" data-label="'+esc(n.label)+'" data-color="'+esc(cl)+'"><img src="'+esc(img)+'" alt="'+esc(n.label)+'" loading="lazy"></div>':'<div class="'+base+'"><div class="initials" style="color:'+esc(cl)+'">'+esc(init(n.label))+'</div></div>';
   }
 
+  var sourceList=(VMETA.sources||[]).filter(function(s){return String(s).indexOf('epstein-vault')<0});
+  document.getElementById('hero-byline').textContent='Canonical data: '+(BUILD.generated_from||'port-pirie-network.json')+' · Local assets: '+fmtNumber(stat('local_images',Object.keys(IMG).length))+' mapped images · Sources: '+sourceList.join(', ')+' · '+fmtNumber(stat('vault_files',17163))+' vault person files';
+  document.getElementById('model-summary').textContent=fmtNumber(stat('entities',NODES.length))+' entities, '+fmtNumber(stat('connections',EDGES.length))+' connections, '+fmtNumber(stat('timeline_events',T.length))+' timeline events, '+fmtNumber(stat('evidence_snippets',Object.keys(EV).length))+' evidence snippets, '+fmtNumber(stat('local_images',Object.keys(IMG).length))+' local images.';
+
   // Stats
   document.getElementById('stats').innerHTML=
-    '<div class="stat"><div class="num">'+NODES.length+'</div><div class="lbl">entities</div></div>'+
-    '<div class="stat"><div class="num">'+EDGES.length+'</div><div class="lbl">connections</div></div>'+
-    '<div class="stat"><div class="num">'+T.length+'</div><div class="lbl">events</div></div>'+
-    '<div class="stat"><div class="num">17k</div><div class="lbl">vault</div></div>';
+    '<div class="stat"><div class="num">'+fmtNumber(stat('entities',NODES.length))+'</div><div class="lbl">entities</div></div>'+
+    '<div class="stat"><div class="num">'+fmtNumber(stat('connections',EDGES.length))+'</div><div class="lbl">connections</div></div>'+
+    '<div class="stat"><div class="num">'+fmtNumber(stat('timeline_events',T.length))+'</div><div class="lbl">events</div></div>'+
+    '<div class="stat"><div class="num">'+Math.round(stat('vault_files',17163)/1000)+'k</div><div class="lbl">vault</div></div>';
 
-  document.getElementById('build-stamp').innerHTML='<span>build '+esc(BUILD_LABEL)+' · data v'+esc(DATA_VERSION)+' · '+esc(Object.keys(EV).length)+' evidence snippets · generated from port-pirie-network.json</span><div class="export-links"><button type="button" data-export="json">json</button><button type="button" data-export="nodes">nodes csv</button><button type="button" data-export="edges">edges csv</button></div>';
+  document.getElementById('build-stamp').innerHTML='<span>build '+esc(BUILD.generated_at||VMETA.generated||'current')+' · data v'+esc(BUILD.version||'local')+' · '+fmtNumber(stat('evidence_snippets',Object.keys(EV).length))+' evidence snippets · validation '+esc((VMETA.validation&&VMETA.validation.errors)||0)+' errors</span><div class="export-links"><button type="button" data-action="compare">compare</button><button type="button" data-export="json">json</button><button type="button" data-export="nodes">nodes csv</button><button type="button" data-export="edges">edges csv</button><button type="button" data-export="evidence">evidence csv</button><button type="button" data-export="review">review csv</button></div>';
+
+  function renderQualitySummary(){
+    var direct=NODES.filter(function(n){return !!EV[n.id]}).length;
+    var sourced=NODES.filter(function(n){return !!IMG[n.id]}).length;
+    var withReview=uniq(REVIEW.map(function(item){return item.entity}).filter(Boolean)).length;
+    var enrichedEdges=EDGES.filter(function(e){return e.reason&&e.source_ref}).length;
+    document.getElementById('quality-summary').innerHTML='<div class="quality-grid">'+
+      '<div class="quality-tile"><span>evidence coverage</span><strong>'+fmtNumber(direct)+' / '+fmtNumber(NODES.length)+'</strong><p>Cards with assigned evidence snippets.</p></div>'+
+      '<div class="quality-tile"><span>image coverage</span><strong>'+fmtNumber(sourced)+' / '+fmtNumber(NODES.length)+'</strong><p>Cards using local images instead of initials.</p></div>'+
+      '<div class="quality-tile"><span>review surface</span><strong>'+fmtNumber(withReview)+' entities</strong><p>'+fmtNumber(REVIEW.length)+' generated review items.</p></div>'+
+      '<div class="quality-tile"><span>edge metadata</span><strong>'+fmtNumber(enrichedEdges)+' / '+fmtNumber(EDGES.length)+'</strong><p>Connections with reason and source reference.</p></div>'+
+      '</div>';
+  }
 
   // Controls
   var cats=[];NODES.forEach(function(n){if(cats.indexOf(n.category)<0)cats.push(n.category)});
@@ -525,23 +623,35 @@ body::before{
     var focus=mapFocus&&NODE_BY_ID[mapFocus]?' · map focus <span>'+esc(NODE_BY_ID[mapFocus].label)+'</span> <button type="button" onclick="clearMapFocus()">clear</button>':'';
     document.getElementById('view-state').innerHTML='<span>'+esc(f.length)+'</span> shown · <span>'+esc(sourced)+'</span> sourced images · <span>'+esc(evidence)+'</span> evidence-linked cards · '+esc(label)+focus;
   }
+  function nodeSearchText(n){
+    return [
+      n.id,n.label,n.category,n.desc,EV[n.id]||'',catLabel(n.category),
+      (n.sources||[]).map(function(s){return[s.type,s.label,(s.refs||[]).join(' '),s.note].join(' ')}).join(' '),
+      connectionsFor(n.id).map(function(c){return c.node.label+' '+(c.edge&&c.edge.reason||'')+' '+(c.edge&&c.edge.source_refs||[]).join(' ')}).join(' '),
+      timelineFor(n).map(function(t){return t.date+' '+t.event}).join(' ')
+    ].join(' ').toLowerCase();
+  }
+  function matchesSearch(n){return !searchTerm||nodeSearchText(n).indexOf(searchTerm)>=0}
+  function matchesNeedsWork(n){return !needsWork||reviewItemsFor(n.id).length>0}
 
   function renderCards(){
     var focus=mapFocus?focusSetFor(mapFocus):null;
     var f=current==='all'?NODES.slice():NODES.filter(function(n){return n.category===current});
     if(focus)f=f.filter(function(n){return !!focus[n.id]});
+    if(searchTerm)f=f.filter(matchesSearch);
+    if(needsWork)f=f.filter(matchesNeedsWork);
     f.sort(sortNode);
     updateViewState(f);
     var cards=document.getElementById('cards');
-    cards.innerHTML=f.map(function(n){
-      var img=IMG[n.id],acc=EV[n.id],cl=COLOR[n.category]||'#888',receipt=receiptFor(n),links=connectionsFor(n.id).length;
+    cards.innerHTML=f.length?f.map(function(n){
+      var img=IMG[n.id],acc=EV[n.id],cl=COLOR[n.category]||'#888',receipt=receiptFor(n),links=connectionsFor(n.id).length,reviewCount=reviewItemsFor(n.id).length;
       return '<article class="card" data-id="'+esc(n.id)+'" role="button" tabindex="0" aria-label="Open receipt for '+esc(n.label)+'"><div class="card-header">'+photoHtml(n,'card')+
-        '<div class="info"><div class="name">'+esc(n.label)+'</div><div class="meta-row"><span class="badge" style="color:'+esc(cl)+'">'+esc(catLabel(n.category))+'</span><span class="source-chip '+esc(receipt.key)+'">'+esc(receipt.label)+'</span><span class="link-chip">'+esc(links)+' links</span></div></div></div>'+
+        '<div class="info"><div class="name">'+esc(n.label)+'</div><div class="meta-row"><span class="badge" style="color:'+esc(cl)+'">'+esc(catLabel(n.category))+'</span><span class="source-chip '+esc(receipt.key)+'">'+esc(receipt.label)+'</span><span class="link-chip">'+esc(links)+' links</span>'+(reviewCount?'<span class="link-chip">'+esc(reviewCount)+' review</span>':'')+'</div></div></div>'+
         '<div class="card-body"><div>'+esc(n.desc)+'</div>'+
         (!img?'<span class="image-note">image held as initials until a reliable source is found</span>':'')+
         (acc?'<div class="accusation">Evidence: "'+esc(acc.slice(0,280))+(acc.length>280?'…':'')+'"</div>':'')+
         '</div></article>';
-    }).join('');
+    }).join(''):'<div class="empty-note">No cards match the current filters.</div>';
     Array.prototype.forEach.call(cards.querySelectorAll('.photo img'),function(im){
       im.addEventListener('error',function(){
         var ph=im.parentElement;
@@ -558,10 +668,10 @@ body::before{
   function renderInspector(id){
     var n=NODE_BY_ID[id],panel=document.getElementById('entity-inspector');
     if(!n||!panel)return;
-    var cl=COLOR[n.category]||'#888',receipt=receiptFor(n),refs=refsFor(n),conns=connectionsFor(n.id),hits=timelineFor(n),ev=EV[n.id],img=IMG[n.id],meta=metaFor(n.id);
+    var cl=COLOR[n.category]||'#888',receipt=receiptFor(n),refs=refsFor(n),conns=connectionsFor(n.id),hits=timelineFor(n),ev=EV[n.id],img=IMG[n.id],meta=metaFor(n.id),sourceHtml=sourceButtonsFor(n);
     var ledger=ledgerFor(n,receipt,refs,img,meta).map(function(row){return '<div class="ledger-row"><span>'+esc(row[0])+'</span><strong>'+esc(row[1])+'</strong></div>'}).join('');
     var connHtml=conns.length?conns.slice(0,10).map(function(c){
-      return '<button type="button" class="connection-btn" data-id="'+esc(c.node.id)+'"><strong>'+esc(c.node.label)+'</strong><span>'+esc(catLabel(c.node.category))+' · strength '+esc(c.w||0)+'</span><em>'+esc(edgeReason(n,c.node,c.w||0))+'</em></button>';
+      return '<button type="button" class="connection-btn" data-id="'+esc(c.node.id)+'"><strong>'+esc(c.node.label)+'</strong><span>'+esc(catLabel(c.node.category))+' · strength '+esc(c.w||0)+' · '+esc(c.edge&&c.edge.confidence||'derived')+'</span><em>'+esc(edgeReason(n,c.node,c.w||0,c.edge))+'</em></button>';
     }).join(''):'<div class="empty-note">No direct edges in the current network slice.</div>';
     var timeHtml=hits.length?hits.map(function(t){return '<div class="timeline-mini-item"><strong>'+esc(t.date)+'</strong>'+esc(t.event)+'</div>'}).join(''):'<div class="empty-note">No direct timeline event is assigned by the current matching rules.</div>';
     var refHtml=refs.map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('');
@@ -570,7 +680,7 @@ body::before{
     panel.classList.add('open');
     panel.innerHTML='<div class="inspector-head">'+photoHtml(n,'inspector')+
       '<div class="inspector-title"><div class="inspector-tags"><span class="badge" style="color:'+esc(cl)+'">'+esc(catLabel(n.category))+'</span><span class="source-chip '+esc(receipt.key)+'">'+esc(receipt.label)+'</span><span class="link-chip">'+esc(conns.length)+' links</span></div>'+
-      '<h3>'+esc(n.label)+'</h3><p>'+esc(n.desc)+'</p><button type="button" class="copy-link" data-copy-link="'+esc(n.id)+'">copy entity link</button></div></div>'+
+      '<h3>'+esc(n.label)+'</h3><p>'+esc(n.desc)+'</p><div class="inspector-actions"><button type="button" class="copy-link" data-copy-link="'+esc(n.id)+'">copy entity link</button><button type="button" class="copy-link" data-open-evidence="'+esc(n.id)+'">open evidence</button></div></div></div>'+
       '<div class="inspector-grid"><div>'+
       '<div class="inspector-block"><h4>Receipt</h4><div class="receipt-grid">'+
       '<div class="receipt-item"><span>source status</span><strong>'+esc(receipt.label)+'</strong></div>'+
@@ -579,6 +689,7 @@ body::before{
       '<div class="receipt-item"><span>image path</span><strong>'+imageLine+'</strong></div>'+
       '</div><div class="source-refs">'+refHtml+'</div><div class="empty-note">'+esc(receipt.basis)+'</div>'+quote+'</div>'+
       '<div class="inspector-block"><h4>Source Ledger</h4><div class="ledger-list">'+ledger+'</div></div>'+
+      '<div class="inspector-block"><h4>Source Viewer</h4><div class="source-list">'+sourceHtml+'</div></div>'+
       '<div class="inspector-block"><h4>Timeline Matches</h4><div class="timeline-mini">'+timeHtml+'</div></div>'+
       '</div><div>'+
       '<div class="inspector-block"><h4>Connected Entities</h4><div class="connection-list">'+connHtml+'</div></div>'+
@@ -586,6 +697,8 @@ body::before{
       '</div></div>';
     Array.prototype.forEach.call(panel.querySelectorAll('.connection-btn'),function(btn){btn.addEventListener('click',function(){selectEntity(btn.dataset.id,{scroll:true})})});
     Array.prototype.forEach.call(panel.querySelectorAll('[data-copy-link]'),function(btn){btn.addEventListener('click',function(){copyEntityLink(btn.dataset.copyLink,btn)})});
+    Array.prototype.forEach.call(panel.querySelectorAll('[data-open-evidence]'),function(btn){btn.addEventListener('click',function(){openEvidence(btn.dataset.openEvidence)})});
+    Array.prototype.forEach.call(panel.querySelectorAll('[data-source-entity]'),function(btn){btn.addEventListener('click',function(){openSource(btn.dataset.sourceEntity,Number(btn.dataset.sourceIndex||0))})});
     Array.prototype.forEach.call(panel.querySelectorAll('img'),function(im){im.addEventListener('error',function(){var ph=im.parentElement;fallbackPhoto(ph,ph.dataset.label,ph.dataset.color||'#888')})});
   }
 
@@ -609,6 +722,62 @@ body::before{
     }).join('');
     audit.innerHTML='<table class="audit-table"><thead><tr><th>entity</th><th>status</th><th>type</th><th>path</th><th>source note</th></tr></thead><tbody>'+rows+'</tbody></table>';
   }
+  function renderReviewQueue(){
+    var el=document.getElementById('review-queue');
+    if(!el)return;
+    renderReviewFilters();
+    var items=REVIEW.filter(function(item){return reviewFilter==='all'||item.severity===reviewFilter||item.type===reviewFilter}).slice(0,80);
+    el.innerHTML='<div class="review-list">'+(items.length?items.map(function(item){
+      return '<div class="review-item review-severity-'+esc(item.severity||'low')+'" data-review-entity="'+esc(item.entity||'')+'"><strong>'+esc(item.label||item.entity||'review item')+'</strong><span>'+esc(item.severity||'low')+' · '+esc(item.type||'review')+'</span><p>'+esc(item.note||'No note assigned.')+'</p></div>';
+    }).join(''):'<div class="empty-note">No review items are currently generated.</div>')+'</div>';
+    Array.prototype.forEach.call(el.querySelectorAll('[data-review-entity]'),function(row){row.addEventListener('click',function(){if(NODE_BY_ID[row.dataset.reviewEntity])revealEntity(row.dataset.reviewEntity,{scroll:true})})});
+  }
+  function renderReviewFilters(){
+    var el=document.getElementById('review-filters');
+    if(!el)return;
+    var filters=['all','critical','high','medium','low'].concat(reviewTypes());
+    el.innerHTML=filters.map(function(f){return '<button type="button" data-review-filter="'+esc(f)+'" class="'+(reviewFilter===f?'active':'')+'">'+esc(f)+'</button>'}).join('');
+    Array.prototype.forEach.call(el.querySelectorAll('button'),function(btn){btn.addEventListener('click',function(){reviewFilter=btn.dataset.reviewFilter;renderReviewQueue()})});
+  }
+  function renderEdgeTools(){
+    var el=document.getElementById('edge-tools');
+    if(!el)return;
+    var filters=[['all','all edges'],['direct','direct'],['mixed','mixed'],['public','public'],['derived','derived']];
+    el.innerHTML=filters.map(function(f){return '<button type="button" data-edge-filter="'+esc(f[0])+'" class="'+(edgeFilter===f[0]?'active':'')+'">'+esc(f[1])+'</button>'}).join('');
+    Array.prototype.forEach.call(el.querySelectorAll('button'),function(btn){btn.addEventListener('click',function(){edgeFilter=btn.dataset.edgeFilter;renderEdgeTools();applyGraphSelection()})});
+  }
+  function renderComparePanel(){
+    var panel=document.getElementById('compare-panel');
+    if(!panel)return;
+    var sorted=NODES.slice().sort(sortNode);
+    if(!compareA)compareA=sorted[0]&&sorted[0].id||'';
+    if(!compareB)compareB=sorted[1]&&sorted[1].id||'';
+    var options=sorted.map(function(n){return '<option value="'+esc(n.id)+'">'+esc(n.label)+'</option>'}).join('');
+    panel.classList.add('open');
+    panel.innerHTML='<div class="inspector-head"><div class="inspector-title"><h3>Entity Compare</h3><p>Compare shared links, timeline matches, and source references between two entities.</p></div></div>'+
+      '<div class="compare-grid"><label><span class="empty-note">left entity</span><select id="compare-a">'+options+'</select></label><label><span class="empty-note">right entity</span><select id="compare-b">'+options+'</select></label><div class="compare-output" id="compare-output"></div></div>';
+    document.getElementById('compare-a').value=compareA;
+    document.getElementById('compare-b').value=compareB;
+    document.getElementById('compare-a').addEventListener('change',function(e){compareA=e.target.value;renderCompareOutput()});
+    document.getElementById('compare-b').addEventListener('change',function(e){compareB=e.target.value;renderCompareOutput()});
+    renderCompareOutput();
+    panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  function renderCompareOutput(){
+    var out=document.getElementById('compare-output'),a=NODE_BY_ID[compareA],b=NODE_BY_ID[compareB];
+    if(!out||!a||!b)return;
+    var aSet=connectedSet(a.id),bSet=connectedSet(b.id);
+    var shared=Object.keys(aSet).filter(function(id){return bSet[id]}).map(function(id){return NODE_BY_ID[id]&&NODE_BY_ID[id].label}).filter(Boolean);
+    var aRefs=refsFor(a),bRefs=refsFor(b),sharedRefs=aRefs.filter(function(r){return bRefs.indexOf(r)>=0});
+    var aTimeline=timelineFor(a).map(function(t){return t.date+' '+t.event}),bTimeline=timelineFor(b).map(function(t){return t.date+' '+t.event});
+    var sharedTimeline=aTimeline.filter(function(t){return bTimeline.indexOf(t)>=0});
+    out.innerHTML='<div class="receipt-grid">'+
+      '<div class="receipt-item"><span>category pair</span><strong>'+esc(catLabel(a.category))+' / '+esc(catLabel(b.category))+'</strong></div>'+
+      '<div class="receipt-item"><span>direct edge</span><strong>'+esc(edgeBetween(a.id,b.id)?'yes · '+edgeBetween(a.id,b.id).confidence:'no direct edge')+'</strong></div>'+
+      '<div class="receipt-item"><span>shared links</span><strong>'+esc(shared.length?shared.join(', '):'none in current graph')+'</strong></div>'+
+      '<div class="receipt-item"><span>shared refs</span><strong>'+esc(sharedRefs.length?sharedRefs.join(', '):'none')+'</strong></div>'+
+      '</div><div class="empty-note">Shared timeline matches: '+esc(sharedTimeline.length?sharedTimeline.join(' | '):'none by current matching rules')+'</div>';
+  }
 
   function updateSelections(){
     var linked=selectedId?connectedSet(selectedId):{};
@@ -623,6 +792,8 @@ body::before{
   function selectEntity(id,opts){
     if(!NODE_BY_ID[id])return;
     selectedId=id;
+    var edgePanel=document.getElementById('edge-inspector');
+    if(edgePanel)edgePanel.classList.remove('open');
     renderInspector(id);
     updateSelections();
     if(!opts||opts.hash!==false)setEntityHash(id);
@@ -642,6 +813,24 @@ body::before{
     if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(done,done);
     else done();
   }
+  function showSourceModal(title,html){
+    var modal=document.getElementById('source-modal');
+    document.getElementById('source-modal-title').textContent=title;
+    document.getElementById('source-modal-body').innerHTML=html;
+    modal.hidden=false;
+  }
+  function closeSourceModal(){document.getElementById('source-modal').hidden=true}
+  function openEvidence(id){
+    var n=NODE_BY_ID[id],ev=EV[id];
+    if(!n)return;
+    var refs=refsFor(n).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('');
+    showSourceModal(n.label+' · evidence',refs+'<pre>'+esc(ev||'No verbatim evidence snippet is assigned to this entity yet.')+'</pre>');
+  }
+  function openSource(id,index){
+    var n=NODE_BY_ID[id],source=n&&n.sources&&n.sources[index];
+    if(!n||!source)return;
+    showSourceModal(n.label+' · '+(source.label||source.type),'<div class="source-refs">'+(source.refs||[]).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('')+'</div><pre>'+esc(source.note||'No note assigned.')+'</pre>');
+  }
   function focusMap(id){
     if(!NODE_BY_ID[id])return;
     mapFocus=id;
@@ -655,13 +844,30 @@ body::before{
     renderCards();
     selectEntity(id,opts);
   }
+  function renderEdgeInspector(edge){
+    var panel=document.getElementById('edge-inspector');
+    var sid=edge.source&&edge.source.id||edge.source||edge.s,tid=edge.target&&edge.target.id||edge.target||edge.t;
+    var a=NODE_BY_ID[sid],b=NODE_BY_ID[tid];
+    if(!panel||!a||!b)return;
+    var refs=(edge.source_refs||edge.sourceRefs||[]).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('');
+    panel.classList.add('open');
+    panel.innerHTML='<div class="inspector-head"><div class="inspector-title"><div class="inspector-tags"><span class="link-chip">strength '+esc(edge.w||edge.strength||0)+'</span><span class="source-chip context">'+esc(edge.confidence||'derived')+'</span></div><h3>'+esc(a.label)+' -> '+esc(b.label)+'</h3><p>'+esc(edge.reason||edgeReason(a,b,edge.w||edge.strength||0,edge))+'</p></div></div>'+
+      '<div class="inspector-grid"><div><div class="inspector-block"><h4>Edge Source</h4><div class="source-refs">'+refs+'</div><div class="empty-note">Type: '+esc(edge.type||'untyped')+'</div></div></div><div><div class="inspector-block"><h4>Actions</h4><div class="connection-list"><button type="button" class="connection-btn" data-id="'+esc(a.id)+'"><strong>'+esc(a.label)+'</strong><span>open source entity</span></button><button type="button" class="connection-btn" data-id="'+esc(b.id)+'"><strong>'+esc(b.label)+'</strong><span>open target entity</span></button></div></div></div></div>';
+    Array.prototype.forEach.call(panel.querySelectorAll('.connection-btn'),function(btn){btn.addEventListener('click',function(){selectEntity(btn.dataset.id,{scroll:true})})});
+    panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
 
   function applyGraphSelection(){
-    if(!graphState||!graphState.nodes||!selectedId)return;
+    if(!graphState||!graphState.nodes)return;
+    if(!selectedId){
+      graphState.nodes.attr('opacity',1);
+      graphState.links.attr('opacity',function(d){return edgeMatchesFilter(d)?0.55:0.04}).attr('stroke-width',function(d){return edgeMatchesFilter(d)?(d.w||3)*0.45:0.3});
+      return;
+    }
     var linked=connectedSet(selectedId);
     graphState.nodes.attr('opacity',function(d){return d.id===selectedId||linked[d.id]?1:.22});
-    graphState.links.attr('opacity',function(d){var s=d.source.id||d.source,t=d.target.id||d.target;return(s===selectedId||t===selectedId)?0.9:0.13})
-      .attr('stroke-width',function(d){var s=d.source.id||d.source,t=d.target.id||d.target,on=s===selectedId||t===selectedId;return on?Math.max(1.6,(d.w||3)*.78):(d.w||3)*.38});
+    graphState.links.attr('opacity',function(d){if(!edgeMatchesFilter(d))return 0.04;var s=d.source.id||d.source,t=d.target.id||d.target;return(s===selectedId||t===selectedId)?0.9:0.13})
+      .attr('stroke-width',function(d){var s=d.source.id||d.source,t=d.target.id||d.target,on=s===selectedId||t===selectedId;return edgeMatchesFilter(d)?(on?Math.max(1.6,(d.w||3)*.78):(d.w||3)*.38):0.3});
   }
 
   // Graph
@@ -680,9 +886,9 @@ body::before{
     var svg=d3.select('#graph').append('svg').attr('viewBox','0 0 '+W+' '+H);
     var g=svg.append('g');
     svg.call(d3.zoom().scaleExtent([0.06,4]).on('zoom',function(e){g.attr('transform',e.transform)}));
-    var ld=EDGES.map(function(e){return{source:e.s,target:e.t,w:e.w}});
+    var ld=EDGES.map(function(e){return{source:e.s,target:e.t,w:e.w,type:e.type,reason:e.reason,confidence:e.confidence,source_ref:e.source_ref,source_refs:e.source_refs||[]}});
     var sim=d3.forceSimulation(NODES).force('link',d3.forceLink(ld).id(function(d){return d.id}).distance(190)).force('charge',d3.forceManyBody().strength(-800)).force('center',d3.forceCenter(W/2,H/2)).force('collide',d3.forceCollide(42));
-    var lg=g.append('g').selectAll('line').data(ld).join('line').attr('stroke',function(d){var sw=d.w||3;return sw>=5?'#2a1a1a':sw>=4?'#1a1a2a':'#1a1a25'}).attr('stroke-width',function(d){return(d.w||3)*0.45});
+    var lg=g.append('g').selectAll('line').data(ld).join('line').attr('stroke',function(d){var sw=d.w||3;return sw>=5?'#2a1a1a':sw>=4?'#1a1a2a':'#1a1a25'}).attr('stroke-width',function(d){return(d.w||3)*0.45}).style('cursor','pointer').on('click',function(e,d){e.stopPropagation();renderEdgeInspector(d)});
     var ng=g.append('g').selectAll('g').data(NODES).join('g').style('cursor','pointer');
     ng.call(d3.drag().on('start',function(e,d){this._dm=false;if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y}).on('drag',function(e,d){this._dm=true;d.fx=e.x;d.fy=e.y}).on('end',function(e,d){if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
     ng.on('click',function(e,d){
@@ -718,19 +924,37 @@ body::before{
 
   renderMap();
   renderAudit();
+  renderQualitySummary();
+  renderReviewQueue();
+  renderEdgeTools();
   renderTimelineTools();
   renderTimeline();
   renderCards();
+  var searchInput=document.getElementById('scope-search');
+  if(searchInput)searchInput.addEventListener('input',function(e){searchTerm=e.target.value.trim().toLowerCase();renderCards();renderTimeline()});
+  var needsBtn=document.getElementById('needs-work-toggle');
+  if(needsBtn)needsBtn.addEventListener('click',function(){needsWork=!needsWork;needsBtn.classList.toggle('active',needsWork);renderCards()});
   Array.prototype.forEach.call(document.querySelectorAll('[data-export]'),function(btn){btn.addEventListener('click',function(){exportData(btn.dataset.export)})});
+  Array.prototype.forEach.call(document.querySelectorAll('[data-action="compare"]'),function(btn){btn.addEventListener('click',renderComparePanel)});
+  document.getElementById('source-modal-close').addEventListener('click',closeSourceModal);
+  document.getElementById('source-modal').addEventListener('click',function(e){if(e.target.id==='source-modal')closeSourceModal()});
   function csvEscape(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
   function downloadFile(name,type,text){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},0)}
   function exportData(kind){
     if(kind==='json'){downloadFile('port-pirie-network.json','application/json',JSON.stringify(VERGE_DATA,null,2));return}
     if(kind==='nodes'){
-      var nodeRows=[['id','label','category','source_tier','links','image','description']].concat(NODES.slice().sort(sortNode).map(function(n){return[n.id,n.label,catLabel(n.category),receiptFor(n).label,connectionsFor(n.id).length,IMG[n.id]||'',n.desc]}));
+      var nodeRows=[['id','label','category','source_tier','links','sources','image','description']].concat(NODES.slice().sort(sortNode).map(function(n){return[n.id,n.label,catLabel(n.category),receiptFor(n).label,connectionsFor(n.id).length,(n.sources||[]).map(function(s){return s.label}).join('; '),IMG[n.id]||'',n.desc]}));
       downloadFile('port-pirie-nodes.csv','text/csv',nodeRows.map(function(r){return r.map(csvEscape).join(',')}).join('\n'));return;
     }
-    var edgeRows=[['source','target','strength','reason']].concat(EDGES.map(function(e){var a=NODE_BY_ID[e.s],b=NODE_BY_ID[e.t];return[e.s,e.t,e.w,edgeReason(a,b,e.w)]}));
+    if(kind==='evidence'){
+      var evRows=[['entity','label','refs','snippet']].concat(Object.keys(EV).sort().map(function(id){return[id,NODE_BY_ID[id]&&NODE_BY_ID[id].label||'',refsFor(NODE_BY_ID[id]||{id:id}).join('; '),EV[id]]}));
+      downloadFile('port-pirie-evidence.csv','text/csv',evRows.map(function(r){return r.map(csvEscape).join(',')}).join('\n'));return;
+    }
+    if(kind==='review'){
+      var reviewRows=[['entity','label','severity','type','note']].concat(REVIEW.map(function(item){return[item.entity||'',item.label||'',item.severity||'',item.type||'',item.note||'']}));
+      downloadFile('port-pirie-review.csv','text/csv',reviewRows.map(function(r){return r.map(csvEscape).join(',')}).join('\n'));return;
+    }
+    var edgeRows=[['source','target','strength','type','confidence','source_ref','reason']].concat(EDGES.map(function(e){var a=NODE_BY_ID[e.s],b=NODE_BY_ID[e.t];return[e.s,e.t,e.w,e.type||'',e.confidence||'',e.source_ref||'',e.reason||edgeReason(a,b,e.w,e)]}));
     downloadFile('port-pirie-edges.csv','text/csv',edgeRows.map(function(r){return r.map(csvEscape).join(',')}).join('\n'));
   }
   window.addEventListener('hashchange',function(){var id=decodeURIComponent(location.hash.replace(/^#/,''));if(NODE_BY_ID[id])revealEntity(id,{scroll:true,hash:false})});
