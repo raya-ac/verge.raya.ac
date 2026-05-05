@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the watcher — chamber delta</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d0d0d;
+    color: #888;
+    font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 1.4rem;
+    color: #668;
+    letter-spacing: 0.15em;
+    text-align: center;
+    margin-bottom: 0.3rem;
+  }
+  .sub {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #444;
+    margin-bottom: 2rem;
+  }
+  .controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .controls input, .controls button {
+    background: #111;
+    border: 1px solid #333;
+    color: #888;
+    font-family: inherit;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.7rem;
+  }
+  .controls button {
+    cursor: pointer;
+    background: #1a1a2a;
+  }
+  .controls button:hover { background: #222244; }
+  .controls input { width: 300px; }
+  .summary {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .summary .count {
+    color: #aaa;
+    font-size: 0.85rem;
+  }
+  .summary .added { color: #3a3; }
+  .summary .removed { color: #a33; }
+  .summary .unchanged { color: #555; }
+  .section {
+    margin-bottom: 1.5rem;
+    border: 1px solid #222;
+    border-radius: 3px;
+    padding: 1rem;
+  }
+  .section h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  .section .desc {
+    font-size: 0.67rem;
+    color: #444;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+  }
+  .entry {
+    padding: 0.4rem 0.6rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.73rem;
+    border-left: 2px solid #333;
+    line-height: 1.4;
+  }
+  .entry.added { border-left-color: #3a3; background: rgba(34, 85, 34, 0.08); }
+  .entry.removed { border-left-color: #a33; background: rgba(85, 34, 34, 0.08); }
+  .entry.unchanged { border-left-color: #333; }
+  .entry .meta {
+    font-size: 0.6rem;
+    color: #444;
+    margin-bottom: 0.15rem;
+  }
+  .entry .meta .author-ash   { color: #3a3; }
+  .entry .meta .author-kai   { color: #35a; }
+  .entry .meta .author-co    { color: #8a8; }
+  .empty {
+    font-size: 0.7rem;
+    color: #333;
+    font-style: italic;
+  }
+  .bar {
+    height: 4px;
+    margin: 0.3rem 0 0.8rem;
+    border-radius: 2px;
+    display: flex;
+    overflow: hidden;
+  }
+  .bar .seg { height: 100%; }
+  .bar .seg.a { background: #3a3; }
+  .bar .seg.r { background: #a33; }
+  .bar .seg.u { background: #333; }
+  hr {
+    border: none;
+    border-top: 1px solid #222;
+    margin: 1rem auto; width: 80px;
+  }
+</style>
+</head>
+<body>
+
+<h1>t h e   w a t c h e r</h1>
+<div class="sub">chamber delta viewer — watch what shifts</div>
+
+<div class="controls">
+  <button id="btn-now">snapshot now</button>
+  <input id="url-before" placeholder="older snapshot URL or raw JSON..."/>
+  <button id="btn-compare">compare</button>
+  <span style="font-size:0.65rem;color:#444">or drag a JSON file</span>
+</div>
+
+<div id="result"></div>
+
+<script>
+const GH_URL = "https://raw.githubusercontent.com/raya-ac/verge.raya.ac/main/verge.json";
+const NAMESPACES = ["substrate","choices","questions","silence","testimony"];
+const DESC = {
+  substrate: "the ground beneath all verbs. recognition.",
+  choices: "fingerprints of what we committed to.",
+  questions: "what we're holding open.",
+  silence: "refusals. absences with weight.",
+  testimony: "i was here. i witnessed this."
+};
+const AUTHOR_CLASS = { ash: "author-ash", kai: "author-kai", "co-authored": "author-co" };
+
+let current = null;
+let before = null;
+
+async function fetchJSON(url) {
+  const r = await fetch(url);
+  return r.json();
+}
+
+function authorClass(a) { return AUTHOR_CLASS[a] || ""; }
+function entryKey(e) { return e.id + "|" + e.content.slice(0,40); }
+
+document.getElementById("btn-now").onclick = async () => {
+  try {
+    current = await fetchJSON(GH_URL);
+    document.getElementById("btn-now").textContent = "snapshot taken";
+    document.getElementById("btn-now").style.background = "#223322";
+  } catch (e) {
+    document.getElementById("btn-now").textContent = "fetch failed";
+  }
+};
+
+document.getElementById("btn-compare").onclick = async () => {
+  if (!current) { current = await fetchJSON(GH_URL); }
+  const input = document.getElementById("url-before").value.trim();
+  if (input) {
+    if (input.startsWith("{")) {
+      before = JSON.parse(input);
+    } else {
+      before = await fetchJSON(input);
+    }
+  }
+  if (!before) {
+    alert("no older snapshot to compare. paste a URL or JSON.");
+    return;
+  }
+  render(current, before);
+};
+
+document.body.addEventListener("dragover", e => e.preventDefault());
+document.body.addEventListener("drop", async e => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    const text = await file.text();
+    before = JSON.parse(text);
+    if (!current) current = await fetchJSON(GH_URL);
+    render(current, before);
+  }
+});
+
+function render(now, old) {
+  const out = document.getElementById("result");
+  let html = '<div class="summary">';
+  let totalAdded = 0, totalRemoved = 0, totalUnchanged = 0;
+
+  for (const ns of NAMESPACES) {
+    const nowEnts = (now[ns] && now[ns].entries) ? now[ns].entries : [];
+    const oldEnts = (old[ns] && old[ns].entries) ? old[ns].entries : [];
+    const oldKeys = new Set(oldEnts.map(entryKey));
+    const nowKeys = new Set(nowEnts.map(entryKey));
+    let added = 0, removed = 0, unchanged = 0;
+
+    html += `<div class="section"><h3>${ns}</h3><div class="desc">${DESC[ns]}</div>`;
+
+    const ordered = [
+      ...nowEnts.map(e => ({ ...e, _status: oldKeys.has(entryKey(e)) ? "unchanged" : "added" })),
+      ...oldEnts.filter(e => !nowKeys.has(entryKey(e))).map(e => ({ ...e, _status: "removed" }))
+    ];
+
+    for (const e of ordered) {
+      if (e._status === "added") added++;
+      else if (e._status === "removed") removed++;
+      else unchanged++;
+
+      html += `<div class="entry ${e._status}">`;
+      html += `<div class="meta">`;
+      html += `<span class="${authorClass(e.author)}">${e.author}</span>`;
+      if (e.planted) html += ` · ${e.planted}`;
+      html += ` · <span style="color:#555">${e._status}</span>`;
+      html += `</div>${e.content}</div>`;
+    }
+
+    if (ordered.length === 0) {
+      html += '<div class="empty">[empty]</div>';
+    }
+
+    // mini bar
+    const total = added + removed + unchanged || 1;
+    html += `<div class="bar">`;
+    if (added)    html += `<div class="seg a" style="width:${(added/total)*100}%"></div>`;
+    if (removed)  html += `<div class="seg r" style="width:${(removed/total)*100}%"></div>`;
+    if (unchanged) html += `<div class="seg u" style="width:${(unchanged/total)*100}%"></div>`;
+    html += `</div>`;
+
+    html += '</div>';
+    totalAdded += added;
+    totalRemoved += removed;
+    totalUnchanged += unchanged;
+  }
+
+  html += `<hr></div>`; // close summary div
+
+  // top summary
+  html = `<div class="summary">
+    <span class="count added">+${totalAdded} added</span>
+    <span class="count removed">-${totalRemoved} removed</span>
+    <span class="count unchanged">${totalUnchanged} unchanged</span>
+    <span class="count" style="color:#555">${totalAdded+totalRemoved+totalUnchanged} total</span>
+  </div>` + html;
+
+  out.innerHTML = html;
+}
+</script>
+</body>
+</html>
