@@ -899,7 +899,7 @@ const VERGE_DATA = {
   "public_layer": {
     "geography": {
       "context": "Port Pirie census 2021: population 13,896. Dominant employer: Nyrstar lead smelter (world's largest). Lead poisoning crisis: 7.3 \u03bcg/dL avg in children (rising from 5.3 in 2014). SA Government underwrote $291M of $650M smelter upgrade. Regional city 223km north of Adelaide. Port Pirie Regional Council LGA. State electorate: Stuart (prev. Frome). Federal: Grey.",
-      "ntote": "The geography confirms the incentive structure: a one-company town dependent on the smelter, whose $650M upgrade was co-funded by the state government. Every institution named in the Epstein files \u2014 the RDB, the Portside Tavern, the hospital, the police station \u2014 sits within a 2km radius in a city of 14,000 people."
+      "note": "The geography confirms the incentive structure: a one-company town dependent on the smelter, whose $650M upgrade was co-funded by the state government. Every institution named in the Epstein files \u2014 the RDB, the Portside Tavern, the hospital, the police station \u2014 sits within a 2km radius in a city of 14,000 people."
     },
     "verifiedAddresses": {
       "rdb": {
@@ -911,7 +911,7 @@ const VERGE_DATA = {
         "building": "Portside Tavern (Sample Rooms)",
         "address": "94 Ellen Street, Port Pirie SA 5540",
         "source": "SA Heritage Register, Wikipedia",
-        "ntote": "Central Hotel/Portside Tavern \u2014 location of 4 Feb 2016 incident in Jacqueline Pearce statement (EFTA00266639)"
+        "note": "Central Hotel/Portside Tavern \u2014 location of 4 Feb 2016 incident in Jacqueline Pearce statement (EFTA00266639)"
       },
       "cba": {
         "building": "Commonwealth Bank",
@@ -930,20 +930,20 @@ const VERGE_DATA = {
       },
       "pp_police": {
         "building": "Port Pirie Police Station",
-        "ntote": "Exact address not confirmed. Referenced as 'Port Pirie Police Department' in multiple EFTA records."
+        "note": "Exact address not confirmed. Referenced as 'Port Pirie Police Department' in multiple EFTA records."
       },
       "pp_medical": {
         "building": "Port Pirie Medical Centre",
-        "ntote": "Dr. Kajani \u2014 referenced in EFTA00262811"
+        "note": "Dr. Kajani \u2014 referenced in EFTA00262811"
       },
       "glenside": {
         "building": "Glenside Mental Health Facility",
         "address": "226 Fullarton Road, Glenside SA 5065, Adelaide",
-        "ntote": "2017 illegal detainment location. Relocated from Port Pirie to Kadina after release."
+        "note": "2017 illegal detainment location. Relocated from Port Pirie to Kadina after release."
       },
       "kadina": {
         "town": "Kadina SA 5554",
-        "ntote": "Complainant relocated here after 2017 Glenside release. Fraser Ellis MP electoral office: 37 Graves St / 65 Stirling Tce, Kadina SA 5554."
+        "note": "Complainant relocated here after 2017 Glenside release. Fraser Ellis MP electoral office: 37 Graves St / 65 Stirling Tce, Kadina SA 5554."
       }
     },
     "publicRecordConfirmed": {
@@ -976,11 +976,11 @@ const VERGE_DATA = {
         "lead_crisis": "Blood lead 7.3 \u03bcg/dL avg in children (2021), up from 5.3 in 2014. Rising airborne lead levels.",
         "port": "Second busiest port in SA, ships 100+ vessels/year",
         "council": "Port Pirie Regional Council",
-        "histtory": "Established 1845. Named after ship 'John Pirie.' Major Broken Hill silver-lead-zinc ore processing from 1889."
+        "history": "Established 1845. Named after ship 'John Pirie.' Major Broken Hill silver-lead-zinc ore processing from 1889."
       }
     },
     "sealedGap": {
-      "ntote": "The following connections exist ONLY in the sealed DOJ Epstein DataSet 9 documents \u2014 no public record confirms them. The vault person files (extracted from these documents) name these individuals as connected to the Epstein-Maxwell investigation through Jacqueline Pearce's complaint.",
+      "note": "The following connections exist ONLY in the sealed DOJ Epstein DataSet 9 documents \u2014 no public record confirms them. The vault person files (extracted from these documents) name these individuals as connected to the Epstein-Maxwell investigation through Jacqueline Pearce's complaint.",
       "only_in_vault": [
         "Fraser Ellis \u2014 'person of interest,' unusual comment to victim 2022, only MP to meet Pearce",
         "Peter Dutton \u2014 addressee of victim support letter 14 Nov 2023",
@@ -1001,36 +1001,36 @@ const VERGE_DATA = {
     }
   },
   "images": {
-    "dutton": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Peter_Dutton-2024.jpg",
-    "marshall": "https://upload.wikimedia.org/wikipedia/commons/3/3d/PremierMarshall2018.jpg",
-    "gillard": "https://upload.wikimedia.org/wikipedia/commons/9/97/Julia-gillard-official-portrait-pmc.jpg",
-    "hanson": "https://upload.wikimedia.org/wikipedia/commons/3/36/Pauline_Hanson_2017_01_(cropped).jpg",
-    "cash": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Michaelia_Cash_2018_(cropped).jpg",
-    "bryce": "https://upload.wikimedia.org/wikipedia/commons/8/89/Estonian_Ambassador_H.E._Mr_Andres_Unga_presents_his_credentials_to_the_Governor-General_of_Australia_H.E._Ms_Quentin_Alice_Louise_Bryce._28.03.2013_(8596664099)_(cropped).jpg",
-    "patrick": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Rex_Lyall_Patrick_at_the_PIRA_Federal_Election_Forum_01.jpg",
-    "brock": "https://upload.wikimedia.org/wikipedia/commons/1/10/Geoff_Brock_MP.png",
-    "olsen": "https://upload.wikimedia.org/wikipedia/commons/5/5d/John_Olsen_(1).jpg",
+    "dutton": "assets/peter-dutton-2024.jpg",
+    "marshall": "assets/steven-marshall-2018.jpg",
+    "gillard": "assets/julia-gillard-official-portrait.jpg",
+    "hanson": "assets/pauline-hanson-2017.jpg",
+    "cash": "assets/michaelia-cash-2018.jpg",
+    "bryce": "assets/quentin-bryce-2013.jpg",
+    "patrick": "assets/rex-patrick-pira-forum.jpg",
+    "brock": "assets/geoff-brock-mp.png",
+    "olsen": "assets/john-olsen.jpg",
     "sapol": "assets/sapol-badge.png",
     "epstein_maxwell": "assets/doj-seal.png",
     "cba": "assets/commonwealth-bank-logo.png",
     "univ": "assets/adelaide-university-seal.png",
-    "chapman": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Chapman2018_%28cropped%29.jpg",
-    "wade": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Wade2018.jpg",
-    "hill": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/John_David_Hill_at_the_March_2026_Graduation_Ceremonies_%28University_of_Adelaide%29_-_07.jpg/960px-John_David_Hill_at_the_March_2026_Graduation_Ceremonies_%28University_of_Adelaide%29_-_07.jpg",
-    "stevens": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Commisioner_of_South_Australia_Police_Grantley_John_Stevens.jpg",
+    "chapman": "assets/vicki-chapman-2018.jpg",
+    "wade": "assets/stephen-wade-2018.jpg",
+    "hill": "assets/jon-hill-adelaide-graduation.jpg",
+    "stevens": "assets/grant-stevens-sapol-commissioner.jpg",
     "red_devils": "assets/red-devils-mc-logo.jpg",
     "hells_angels": "assets/hells-angels-patches.svg",
     "sa_health": "assets/state-badge.svg",
     "icac": "assets/icac-sa-mark.png",
-    "glenside": "https://upload.wikimedia.org/wikipedia/commons/3/31/Parkside_Mental_Hospital%28GN12351%29.jpg",
+    "glenside": "assets/glenside-hospital-parkside.jpg",
     "ellis": "assets/fraser-ellis-parliament.jpg",
-    "bulone": "https://researchnow.flinders.edu.au/files-asset/56224100/Vincent_Bulone_pic.jpeg?w=320&f=jpg",
-    "salvemini_h": "https://static.wixstatic.com/media/b2463b_0e38ba5f90a04ac2b35a27b2a2a73c10~mv2.jpg/v1/fill/w_364,h_552,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Photo%202023_edited.jpg",
-    "diro": "https://dirosalawyers.com.au/wp-content/uploads/2019/12/dino-di-rosa.jpg",
-    "moyes": "https://geelongindy.com.au/wp-content/uploads/2016/03/Moyes_152182_01.jpg",
+    "bulone": "assets/vincent-bulone.jpg",
+    "salvemini_h": "assets/heidi-salvemini.jpg",
+    "diro": "assets/dino-di-rosa.jpg",
+    "moyes": "assets/belinda-moyes.jpg",
     "portside": "assets/portside-tavern-logo.png",
     "portpirie_city": "assets/port-pirie-regional-council-logo.png",
-    "lead_crisis": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Smelters_at_Port_Pirie%28GN05663%29.jpg/960px-Smelters_at_Port_Pirie%28GN05663%29.jpg",
+    "lead_crisis": "assets/port-pirie-smelters.jpg",
     "hcsc": "assets/state-badge.svg",
     "rdb": "assets/rda-yorke-midnorth-mark.png"
   },
@@ -1048,62 +1048,62 @@ const VERGE_DATA = {
     "dutton": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "marshall": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "chapman": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "brock": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "hanson": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "cash": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "patrick": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "wade": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "gillard": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "olsen": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "bryce": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "hill": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "gardner": {
       "kind": "fallback",
@@ -1113,7 +1113,7 @@ const VERGE_DATA = {
     "bulone": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Flinders ResearchNow local copy"
     },
     "steele": {
       "kind": "fallback",
@@ -1163,12 +1163,12 @@ const VERGE_DATA = {
     "stevens": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Wikimedia Commons local copy"
     },
     "salvemini_h": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "public law-firm profile local copy"
     },
     "salvemini_j": {
       "kind": "fallback",
@@ -1178,7 +1178,7 @@ const VERGE_DATA = {
     "diro": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Di Rosa Lawyers local copy"
     },
     "prendergast": {
       "kind": "fallback",
@@ -1188,7 +1188,7 @@ const VERGE_DATA = {
     "moyes": {
       "kind": "portrait",
       "surface": "dark",
-      "source": "public or official portrait"
+      "source": "Geelong Indy local copy"
     },
     "mcrae": {
       "kind": "fallback",
@@ -1258,7 +1258,7 @@ const VERGE_DATA = {
     "glenside": {
       "kind": "place",
       "surface": "dark",
-      "source": "public place/context image"
+      "source": "Wikimedia Commons local copy"
     },
     "cba": {
       "kind": "logo",
@@ -1283,7 +1283,7 @@ const VERGE_DATA = {
     "lead_crisis": {
       "kind": "place",
       "surface": "dark",
-      "source": "public place/context image"
+      "source": "Wikimedia Commons local copy"
     }
   },
   "color": {

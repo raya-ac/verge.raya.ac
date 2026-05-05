@@ -15,6 +15,7 @@ Network analysis of the Port Pirie Epstein files — 50 entities, 86 connections
 | `port-pirie.html` | Main page — entity cards, receipt inspector, D3 force graph, address sketch, image audit, timeline |
 | `port-pirie-data.js` | `const VERGE_DATA = {...}` — nodes, edges, timeline, evidence, public layer, images, image metadata, color map. Loaded by `port-pirie.html` via `<script src>` |
 | `port-pirie-network.json` | Source JSON — canonical data. Use to regenerate `port-pirie-data.js` |
+| `port-pirie-public-layer.json` | Public-record source fragment folded into `port-pirie-network.json.public_layer` |
 | `assets/port-pirie-og.png` | OpenGraph/social preview image generated from the live page |
 | `index.html` | Verge chamber home page |
 | `plant.html` | Plant/review form — dual-mode for staging entries |
@@ -32,7 +33,7 @@ Network analysis of the Port Pirie Epstein files — 50 entities, 86 connections
 - **Map:** schematic Port Pirie address/context sketch with pins for RDB, Portside, CBA, SAPOL, SA Health, HCSCC, ICAC, Glenside, council, and lead-smelter context.
 - **Audit:** collapsible image/source audit table for all 50 nodes.
 - **Timeline:** 36 events split into two-column layout. Data from `VERGE_DATA.timeline`.
-- **Images:** 32 verified public/official image mappings in `VERGE_DATA.images`. `VERGE_DATA.image_meta` records portrait/logo/badge/place rendering and dark/light surface choice. Fallback to colored initials for people or groups without a reliable public match.
+- **Images:** 32 verified public/official image mappings in `VERGE_DATA.images`, all served from local `assets/` files. `VERGE_DATA.image_meta` records portrait/logo/badge/place rendering and dark/light surface choice. Fallback to colored initials for people or groups without a reliable public match.
 - **Publish metadata:** canonical URL plus OpenGraph/Twitter metadata points to `assets/port-pirie-og.png`.
 - **Disclaimer:** at top.
 - **No search** — removed per request.
@@ -52,7 +53,7 @@ with open('port-pirie-data.js', 'w') as f:
         'timeline': data['timeline'],
         'evidence': data.get('evidence', {}),
         'public_layer': data.get('public_layer', {}),
-        'images': { ... },
+        'images': data.get('images', {}),
         'color': data.get('color', {}),
         'image_meta': data.get('image_meta', {}),
     }, indent=2) + ';')
@@ -74,4 +75,4 @@ GitHub Pages serves from `main` branch root. DNS: `verge.raya.ac` → GitHub Pag
 - Graph builds only when toggle is clicked (lazy), not on page load.
 - Click vs drag: `_dragMoved` flag prevents click firing during drag.
 - The map is a schematic address/context sketch, not a precise GIS layer.
-- Local asset copies are preferred for logos/badges so GitHub Pages does not depend on remote image hotlinking.
+- All mapped images are local asset copies so GitHub Pages does not depend on remote image hotlinking.
