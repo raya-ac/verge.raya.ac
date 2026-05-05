@@ -1029,9 +1029,9 @@ const VERGE_DATA = {
     "diro": "https://dirosalawyers.com.au/wp-content/uploads/2019/12/dino-di-rosa.jpg",
     "moyes": "https://geelongindy.com.au/wp-content/uploads/2016/03/Moyes_152182_01.jpg",
     "portside": "https://theportsidetavern.com.au/wp-content/uploads/2018/09/logo-portside-120x74.png",
-    "portpirie_city": "https://upload.wikimedia.org/wikipedia/en/2/28/Port_Pirie_Regional_Council_Logo.png",
+    "portpirie_city": "assets/port-pirie-regional-council-logo.png",
     "lead_crisis": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Smelters_at_Port_Pirie%28GN05663%29.jpg/960px-Smelters_at_Port_Pirie%28GN05663%29.jpg",
-    "hcsc": "assets/hcscc-mark.jpg",
+    "hcsc": "assets/state-badge.svg",
     "rdb": "assets/rda-yorke-midnorth-mark.png"
   },
   "color": {
