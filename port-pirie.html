@@ -187,7 +187,24 @@ body{background:var(--bg);color:var(--text);font-family:'SF Mono','Fira Code','M
         '</div><div style="color:#888;font-size:.75rem">' + d.desc + '</div>' +
         (ev ? '<div style="color:#c95;font-size:.7rem;font-style:italic;margin-top:.4rem;padding-top:.4rem;border-top:1px solid #2a2a2a">"' + ev.slice(0,200) + '"</div>' : '');
     }).on('mousemove', function(e){ tip.style.left = (e.pageX + 14) + 'px'; tip.style.top = (e.pageY - 10) + 'px'; })
-      .on('mouseout', function(){ tip.style.display = 'none'; });
+      .on('mouseout', function(){ tip.style.display = 'none'; })
+      .on('click', function(e, d){
+        var ev = EVIDENCE[d.id], cl = COLOR[d.category]||'#888';
+        var img = IMG[d.id];
+        var imgHtml = img ? '<img src="' + img + '" style="width:64px;height:64px;border-radius:6px;object-fit:cover;float:left;margin-right:1rem;background:#111">' : '';
+        document.getElementById('graph').insertAdjacentHTML('afterend',
+          '<div id="graph-detail" style="background:var(--surface);border:1px solid var(--border);padding:1rem 1.5rem;margin:0 2rem;border-radius:6px;position:relative">' +
+          '<button onclick="this.parentElement.remove()" style="position:absolute;top:.5rem;right:1rem;color:var(--muted);cursor:pointer;font-size:1.2rem;border:none;background:none">&times;</button>' +
+          imgHtml +
+          '<h3 style="color:' + cl + ';font-size:1rem;margin-bottom:.3rem">' + d.label + '</h3>' +
+          '<div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem">' + d.category + '</div>' +
+          '<div style="color:var(--text);font-size:.82rem;line-height:1.6">' + d.desc + '</div>' +
+          (ev ? '<div style="color:#c95;font-size:.78rem;font-style:italic;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--border)">Evidence: "' + ev + '"</div>' : '') +
+          '</div>');
+        var prev = document.getElementById('graph-detail');
+        if (prev) prev.remove();
+        setTimeout(function(){ var el = document.getElementById('graph-detail'); if (el) el.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
+      });
     sim.on('tick', function(){
       linkG.attr('x1', function(d){ return d.source.x; }).attr('y1', function(d){ return d.source.y; })
         .attr('x2', function(d){ return d.target.x; }).attr('y2', function(d){ return d.target.y; });
