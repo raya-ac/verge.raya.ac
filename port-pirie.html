@@ -87,6 +87,8 @@ body::before{
 .card-header{display:flex;align-items:center;gap:.78rem;padding:.78rem;border-bottom:1px solid rgba(255,255,255,.055);background:rgba(21,24,17,.72)}
 .card-header .photo{width:48px;height:48px;border-radius:5px;overflow:hidden;flex-shrink:0;background:#0b0c0b;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.06)}
 .card-header .photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.08) brightness(.82)}
+.card-header .photo.logo{width:72px;background:rgba(255,255,255,.035);padding:7px}
+.card-header .photo.logo img{object-fit:contain;filter:none}
 .card-header .photo .initials{font-size:.76rem;font-weight:600;letter-spacing:.08em}
 .card-header .info{flex:1;min-width:0}
 .card-header .info .name{font-size:.78rem;color:var(--ink);margin-bottom:.22rem;font-weight:500;line-height:1.35}
@@ -164,13 +166,13 @@ body::before{
       <div class="hero-card-title"><span>source stack</span><span class="pulse"></span></div>
       <div class="source-grid">
         <div class="source-row"><span>corpus</span><p>17,163 vault person files cross-checked against DOJ DataSet 9 and OCR indices.</p></div>
-        <div class="source-row"><span>model</span><p>46 entities, 72 connections, 31 timeline events, 12 verbatim evidence snippets.</p></div>
+        <div class="source-row"><span>model</span><p>50 entities, 86 connections, 36 timeline events, 12 verbatim evidence snippets.</p></div>
         <div class="source-row"><span>mode</span><p>Relationship map, not legal determination. Claims remain tied to cited source material.</p></div>
       </div>
     </aside>
   </div>
   <div class="disclaimer">
-    <strong>Disclaimer:</strong> Based on DOJ Epstein investigation documents (DataSet 9), publicly reported court records, official government sources, and open-source intelligence. Images from Wikimedia Commons and government sources. Connections represent alleged relationships documented in Epstein files and victim testimony. This is an informational research tool, not a legal determination.
+    <strong>Disclaimer — Sealed vs. Public Record:</strong> The vault contents are derived from sealed DOJ Epstein files (DataSets 1, 9, 10). These documents contain unproven allegations. Publicly confirmed facts (Ellis conviction, smelter operations, lead crisis, heritage buildings) are verifiable through government records. Individual allegations remain unproven and are noted as such throughout. Images from Wikimedia Commons and government sources. This is an informational research tool, not a legal determination.
   </div>
 </header>
 
@@ -205,6 +207,7 @@ body::before{
 <script>
 (function(){
   var IMG=VERGE_DATA.images||{},COLOR=VERGE_DATA.color||{},NODES=VERGE_DATA.nodes||[],EDGES=VERGE_DATA.edges||[],T=VERGE_DATA.timeline||[],EV=VERGE_DATA.evidence||{};
+  var LOGOS={sapol:1,epstein_maxwell:1,cba:1,univ:1,red_devils:1,hells_angels:1,sa_health:1,icac:1,hcsc:1,rdb:1,portside:1,portpirie_city:1};
   var CAT_LABEL={
     victim:'victim',
     political:'political',
@@ -243,6 +246,7 @@ body::before{
   window.filterCat=function(c){current=c;var btns=document.querySelectorAll('.controls button[data-cat]');for(var i=0;i<btns.length;i++){btns[i].classList.toggle('active',btns[i].dataset.cat===c)}renderCards()};
 
   function init(l){return(l||'').split(' ').map(function(w){return w[0]}).slice(0,3).join('').toUpperCase()}
+  function isLogo(id){return !!LOGOS[id]}
   function fallbackPhoto(photo,label,cl){photo.innerHTML='<div class="initials" style="color:'+cl+'">'+init(label)+'</div>'}
 
   function renderCards(){
@@ -250,9 +254,9 @@ body::before{
     f.sort(function(a,b){return a.category.localeCompare(b.category)});
     var cards=document.getElementById('cards');
     cards.innerHTML=f.map(function(n){
-      var img=IMG[n.id],acc=EV[n.id],cl=COLOR[n.category]||'#888';
+      var img=IMG[n.id],acc=EV[n.id],cl=COLOR[n.category]||'#888',logo=isLogo(n.id);
       var ph=img
-        ?'<div class="photo" data-label="'+n.label+'" data-color="'+cl+'"><img src="'+img+'" loading="lazy"></div>'
+        ?'<div class="photo'+(logo?' logo':'')+'" data-label="'+n.label+'" data-color="'+cl+'"><img src="'+img+'" loading="lazy"></div>'
         :'<div class="photo"><div class="initials" style="color:'+cl+'">'+init(n.label)+'</div></div>';
       return '<div class="card"><div class="card-header">'+ph+
         '<div class="info"><div class="name">'+n.label+'</div><span class="badge" style="color:'+cl+'">'+catLabel(n.category)+'</span></div></div>'+
@@ -290,7 +294,7 @@ body::before{
     var ng=g.append('g').selectAll('g').data(NODES).join('g').style('cursor','pointer');
     ng.call(d3.drag().on('start',function(e,d){this._dm=false;if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y}).on('drag',function(e,d){this._dm=true;d.fx=e.x;d.fy=e.y}).on('end',function(e,d){if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
     ng.on('click',function(e,d){if(this._dm)return;var ev=EV[d.id],cl=COLOR[d.category]||'#888',img=IMG[d.id];var old=document.querySelector('.graph-detail');if(old)old.remove();var dl=document.createElement('div');dl.className='graph-detail';dl.innerHTML='<button class="close" onclick="this.parentElement.remove()">&times;</button>'+(img?'<img src="'+img+'">':'')+'<h3 style="color:'+cl+'">'+d.label+'</h3><div class="meta">'+catLabel(d.category)+'</div><div class="desc">'+d.desc+'</div>'+(ev?'<div class="evidence">Evidence: "'+ev+'"</div>':'');document.getElementById('graph').after(dl);var detailImg=dl.querySelector('img');if(detailImg){detailImg.addEventListener('error',function(){detailImg.remove()})}setTimeout(function(){dl.scrollIntoView({behavior:'smooth',block:'nearest'})},100)});
-    ng.each(function(d){var el=d3.select(this),r=26,imgUrl=IMG[d.id],cl=COLOR[d.category]||'#888';if(imgUrl){el.append('defs').append('clipPath').attr('id','gcp-'+d.id).append('circle').attr('r',r);el.append('image').attr('href',imgUrl).attr('x',-r).attr('y',-r).attr('width',r*2).attr('height',r*2).attr('clip-path','url(#gcp-'+d.id+')').attr('preserveAspectRatio','xMidYMid cover');el.append('circle').attr('r',r+1).attr('fill','none').attr('stroke',cl).attr('stroke-width',2.5).attr('opacity',0.7);el.append('circle').attr('r',r+5).attr('fill','none').attr('stroke',cl).attr('stroke-width',1).attr('opacity',0.2)}else{el.append('circle').attr('r',r).attr('fill',cl).attr('opacity',0.1);el.append('circle').attr('r',r+3).attr('fill','none').attr('stroke',cl).attr('stroke-width',1.5).attr('opacity',0.4);el.append('text').text(init(d.label)).attr('text-anchor','middle').attr('dy','.35em').attr('fill',cl).attr('font-size','9px').style('pointer-events','none')}});
+    ng.each(function(d){var el=d3.select(this),r=26,imgUrl=IMG[d.id],cl=COLOR[d.category]||'#888',logo=isLogo(d.id);if(imgUrl){el.append('defs').append('clipPath').attr('id','gcp-'+d.id).append('circle').attr('r',r);if(logo)el.append('circle').attr('r',r).attr('fill','#f7f7f2');el.append('image').attr('href',imgUrl).attr('x',-r).attr('y',-r).attr('width',r*2).attr('height',r*2).attr('clip-path','url(#gcp-'+d.id+')').attr('preserveAspectRatio',logo?'xMidYMid meet':'xMidYMid slice');el.append('circle').attr('r',r+1).attr('fill','none').attr('stroke',cl).attr('stroke-width',2.5).attr('opacity',0.7);el.append('circle').attr('r',r+5).attr('fill','none').attr('stroke',cl).attr('stroke-width',1).attr('opacity',0.2)}else{el.append('circle').attr('r',r).attr('fill',cl).attr('opacity',0.1);el.append('circle').attr('r',r+3).attr('fill','none').attr('stroke',cl).attr('stroke-width',1.5).attr('opacity',0.4);el.append('text').text(init(d.label)).attr('text-anchor','middle').attr('dy','.35em').attr('fill',cl).attr('font-size','9px').style('pointer-events','none')}});
     var tip=document.getElementById('tooltip');ng.on('mouseover',function(e,d){tip.style.display='block';var ev=EV[d.id];tip.innerHTML='<div style="font-size:.85rem;color:'+(COLOR[d.category]||'#888')+';margin-bottom:.25rem">'+d.label+'</div><div style="font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem">'+catLabel(d.category)+'</div><div style="color:var(--text);font-size:.72rem;line-height:1.4">'+d.desc+'</div>'+(ev?'<div style="color:var(--evidence);font-size:.68rem;font-style:italic;margin-top:.42rem;padding-top:.42rem;border-top:1px solid rgba(184,154,98,.18)">"'+ev.slice(0,200)+'"</div>':'')}).on('mousemove',function(e){tip.style.left=(e.pageX+14)+'px';tip.style.top=(e.pageY-10)+'px'}).on('mouseout',function(){tip.style.display='none'});
     sim.on('tick',function(){lg.attr('x1',function(d){return d.source.x}).attr('y1',function(d){return d.source.y}).attr('x2',function(d){return d.target.x}).attr('y2',function(d){return d.target.y});ng.attr('transform',function(d){return'translate('+d.x+','+d.y+')'})});
   }

@@ -1007,13 +1007,23 @@
     "univ": "https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Adelaide_University_Common_Seal.svg/250px-Adelaide_University_Common_Seal.svg.png",
     "chapman": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Chapman2018_%28cropped%29.jpg",
     "wade": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Wade2018.jpg",
-    "hill": "https://upload.wikimedia.org/wikipedia/commons/0/0c/John_David_Hill_at_the_March_2026_Graduation_Ceremonies_%28University_of_Adelaide%29_-_07.jpg",
+    "hill": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/John_David_Hill_at_the_March_2026_Graduation_Ceremonies_%28University_of_Adelaide%29_-_07.jpg/960px-John_David_Hill_at_the_March_2026_Graduation_Ceremonies_%28University_of_Adelaide%29_-_07.jpg",
     "stevens": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Commisioner_of_South_Australia_Police_Grantley_John_Stevens.jpg",
     "red_devils": "https://upload.wikimedia.org/wikipedia/en/6/6f/RedDevilsMCLogo.jpg",
     "hells_angels": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Hells_Angels_Motorcycle_Club_Patches.svg",
-    "sa_health": "https://www.sahealth.sa.gov.au/wps/wcm/connect/65555362-3c53-4775-b31e-3b3330b0300b/SAHlogo-horiz-fullcolour.svg?MOD=AJPERES&CACHEID=ROOTWORKSPACE-65555362-3c53-4775-b31e-3b3330b0300b-m-MEqxu",
-    "icac": "https://upload.wikimedia.org/wikipedia/en/5/5c/ICAC_South_Australia.png",
-    "glenside": "https://upload.wikimedia.org/wikipedia/commons/3/31/Parkside_Mental_Hospital%28GN12351%29.jpg"
+    "sa_health": "assets/state-badge.svg",
+    "icac": "assets/icac-sa-mark.png",
+    "glenside": "https://upload.wikimedia.org/wikipedia/commons/3/31/Parkside_Mental_Hospital%28GN12351%29.jpg",
+    "ellis": "assets/fraser-ellis-parliament.jpg",
+    "bulone": "https://researchnow.flinders.edu.au/files-asset/56224100/Vincent_Bulone_pic.jpeg?w=320&f=jpg",
+    "salvemini_h": "https://static.wixstatic.com/media/b2463b_0e38ba5f90a04ac2b35a27b2a2a73c10~mv2.jpg/v1/fill/w_364,h_552,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Photo%202023_edited.jpg",
+    "diro": "https://dirosalawyers.com.au/wp-content/uploads/2019/12/dino-di-rosa.jpg",
+    "moyes": "https://geelongindy.com.au/wp-content/uploads/2016/03/Moyes_152182_01.jpg",
+    "portside": "https://theportsidetavern.com.au/wp-content/uploads/2018/09/logo-portside-120x74.png",
+    "portpirie_city": "https://upload.wikimedia.org/wikipedia/en/2/28/Port_Pirie_Regional_Council_Logo.png",
+    "lead_crisis": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Smelters_at_Port_Pirie%28GN05663%29.jpg/960px-Smelters_at_Port_Pirie%28GN05663%29.jpg",
+    "hcsc": "assets/hcscc-mark.jpg",
+    "rdb": "assets/rda-yorke-midnorth-mark.png"
   },
   "public_layer": {
     "geography": {

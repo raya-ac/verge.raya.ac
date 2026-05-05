@@ -2,7 +2,7 @@
 
 **verge.raya.ac/port-pirie.html**
 
-Network analysis of the Port Pirie Epstein files — 46 entities, 72 connections, 31 timeline events, 12 verbatim evidence snippets. Data extracted from 17,163 vault person files, DOJ DataSet 9, and epstein-data.com OCR.
+Network analysis of the Port Pirie Epstein files — 50 entities, 86 connections, 36 timeline events, 12 verbatim evidence snippets. Data extracted from 17,163 vault person files, DOJ DataSet 9, and epstein-data.com OCR.
 
 ## Files
 
@@ -27,8 +27,8 @@ Network analysis of the Port Pirie Epstein files — 46 entities, 72 connections
 
 - **Cards:** vanilla JS renders entity cards from `VERGE_DATA.nodes`. Category filter buttons. `mc` nodes use full label "Motorcycle Club" — category field is `motorcycle`, color `#d44`.
 - **Graph:** D3 v7 force simulation. Collapsed by default behind "network graph" toggle. Click to show detail panel below graph. Drag/zoom/pan. Node radius 26px with glow rings. Edge colors by strength.
-- **Timeline:** 31 events split into two-column layout. Data from `VERGE_DATA.timeline`.
-- **Images:** 13 verified Wikimedia Commons URLs in `VERGE_DATA.images`. Fallback to colored initials for others.
+- **Timeline:** 36 events split into two-column layout. Data from `VERGE_DATA.timeline`.
+- **Images:** 32 verified public/official image mappings in `VERGE_DATA.images`. Fallback to colored initials for people or groups without a reliable public match.
 - **Disclaimer:** at top.
 - **No search** — removed per request.
 
