@@ -206,13 +206,13 @@ const VERGE_DATA = {
     },
     {
       "id": "red_devils",
-      "label": "Red Devils MC",
+      "label": "Red Devils MC \u2014 Port Pirie",
       "category": "mc",
       "desc": "Port Pirie chapter. Affiliated with Hells Angels Adelaide. Named in stalking and death threat records."
     },
     {
       "id": "hells_angels",
-      "label": "Hells Angels",
+      "label": "Hells Angels MC \u2014 Adelaide",
       "category": "mc",
       "desc": "Adelaide chapter. Parent org to Red Devils MC Port Pirie."
     },
@@ -799,10 +799,10 @@ const VERGE_DATA = {
     "political": "#e55",
     "co-conspirator": "#f80",
     "academic": "#58f",
-    "mc": "#b75",
+    "mc": "#d44",
     "gov": "#aaa",
     "legal": "#b6b",
-    "police": "#58b",
+    "police": "#48a",
     "family": "#999",
     "core": "#f66",
     "health": "#6b6"
