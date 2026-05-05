@@ -3,102 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Port Pirie — Epstein Files Network</title>
+<title>Port Pirie — Epstein Files</title>
 <style>
+  :root{--bg:#0a0a0f;--surface:#111118;--card:#15151d;--border:#222230;--text:#8a8a9a;--bright:#b0b0c0;--muted:#555566;--accent1:#d44;--accent2:#f70;--accent3:#48f;--accent4:#a64;--accent5:#999;--accent6:#a6a;--accent7:#48a;--accent8:#5a5;--accent9:#f55;--glow:0 0 20px}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#0d0d0d;color:#999;font-family:'SF Mono','Fira Code','Menlo',monospace;min-height:100vh}
-  .header{text-align:center;padding:2rem 2rem 0}
-  .header h1{font-size:1.5rem;color:#888;letter-spacing:.12em;margin-bottom:.2rem}
-  .header .sub{font-size:.78rem;color:#555;line-height:1.6}
-  .header .src{font-size:.65rem;color:#333}
-  .graph-wrap{width:100%;height:650px;position:relative;overflow:hidden;background:#0a0a0a}
+  body{background:var(--bg);color:var(--text);font-family:'SF Mono','Fira Code','Menlo',monospace;min-height:100vh;background-image:radial-gradient(ellipse at 50% 0%,#111118 0%,transparent 60%)}
+  .header{text-align:center;padding:3rem 2rem 1.5rem}
+  .header h1{font-size:1.6rem;color:var(--bright);letter-spacing:.08em;margin-bottom:.3rem;font-weight:400}
+  .header .sub{font-size:.8rem;color:var(--muted);line-height:1.8}
+  .header .src{font-size:.65rem;color:#333;margin-top:.5rem}
+  .stats{display:flex;justify-content:center;gap:2rem;padding:.8rem;font-size:.68rem;color:var(--muted)}
+  .stats span{color:var(--bright)}
+  .legend{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem 1rem;padding:.5rem;font-size:.65rem}
+  .legend-item{display:flex;align-items:center;gap:.3rem;color:var(--muted)}
+  .legend-dot{width:6px;height:6px;border-radius:2px;box-shadow:var(--glow) currentColor}
+  .graph-wrap{width:100%;height:620px;position:relative;overflow:hidden;background:var(--bg)}
   .graph-wrap svg{width:100%;height:100%}
-  .legend{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem .8rem;padding:.5rem;font-size:.65rem}
-  .legend-item{display:flex;align-items:center;gap:.3rem}
-  .legend-dot{width:7px;height:7px;border-radius:2px}
-  .tooltip{position:fixed;background:#1a1a1a;border:1px solid #3a3a3a;padding:.9rem;border-radius:4px;font-size:.75rem;max-width:360px;pointer-events:none;z-index:100;display:none;line-height:1.5;box-shadow:0 2px 12px rgba(0,0,0,.5)}
-  .tooltip .name{font-size:.85rem;color:#ddd;margin-bottom:.3rem}
-  .tooltip .cat{font-size:.62rem;color:#555;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
-  .tooltip .desc{color:#888;line-height:1.5}
-  .tooltip .evidence{color:#a86;font-size:.72rem;margin-top:.4rem;font-style:italic;border-top:1px solid #2a2a2a;padding-top:.4rem}
-  .tooltip img{width:80px;height:80px;border-radius:4px;margin-bottom:.5rem;object-fit:cover;background:#111}
-  .detail{position:fixed;bottom:0;left:0;right:0;background:#141414;border-top:1px solid #2a2a2a;padding:1.2rem 2rem;display:none;z-index:50;max-height:35vh;overflow-y:auto}
-  .detail h3{color:#ddd;font-size:.95rem;margin-bottom:.3rem}
-  .detail .cat{font-size:.65rem;color:#555;text-transform:uppercase;margin-bottom:.4rem}
-  .detail .desc{color:#888;font-size:.8rem;line-height:1.6;margin-bottom:.6rem}
-  .detail .evidence{color:#a86;font-size:.75rem;line-height:1.5;font-style:italic;border-top:1px solid #2a2a2a;padding-top:.4rem}
-  .detail .close{position:absolute;top:.5rem;right:1rem;color:#555;cursor:pointer;font-size:1.2rem}
-  .detail .close:hover{color:#888}
-  .timeline-section{padding:2rem;max-width:960px;margin:0 auto}
-  .timeline-section h2{font-size:.9rem;color:#777;text-align:center;letter-spacing:.1em;margin-bottom:1.2rem}
-  .timelines{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .tooltip{position:fixed;background:var(--card);border:1px solid var(--border);padding:1rem 1.2rem;border-radius:6px;font-size:.75rem;max-width:380px;pointer-events:none;z-index:100;display:none;line-height:1.55;box-shadow:0 4px 24px rgba(0,0,0,.6)}
+  .tooltip .name{font-size:.9rem;margin-bottom:.3rem;font-weight:500}
+  .tooltip .cat{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+  .tooltip .cat-dot{width:6px;height:6px;border-radius:2px}
+  .tooltip .desc{color:var(--text);margin-bottom:.5rem}
+  .tooltip .tags{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.4rem}
+  .tooltip .tag{font-size:.6rem;background:#1a1a25;border:1px solid #252535;padding:.15rem .4rem;border-radius:3px;color:var(--muted)}
+  .tooltip .evidence{color:#c95;font-size:.7rem;margin-top:.6rem;font-style:italic;border-top:1px solid var(--border);padding-top:.6rem;line-height:1.5}
+  .tooltip img{width:90px;height:90px;border-radius:6px;margin-bottom:.6rem;object-fit:cover;background:#111}
+  .detail{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2.5rem;display:none;z-index:50;max-height:38vh;overflow-y:auto;backdrop-filter:blur(12px)}
+  .detail h3{color:var(--bright);font-size:1rem;margin-bottom:.3rem}
+  .detail .cat{font-size:.65rem;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem}
+  .detail .desc{color:var(--text);font-size:.82rem;line-height:1.6;margin-bottom:.5rem}
+  .detail .evidence{color:#c95;font-size:.78rem;line-height:1.5;font-style:italic;border-top:1px solid var(--border);padding-top:.5rem}
+  .detail .close{position:absolute;top:.5rem;right:1rem;color:var(--muted);cursor:pointer;font-size:1.3rem;border:none;background:none}
+  .detail .close:hover{color:var(--bright)}
+  .timeline-section{padding:2.5rem 2rem 1rem;max-width:960px;margin:0 auto}
+  .timeline-section h2{font-size:.85rem;color:var(--muted);text-align:center;letter-spacing:.08em;margin-bottom:1.5rem}
+  .timelines{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
   @media(max-width:700px){.timelines{grid-template-columns:1fr}}
-  .tl-col{position:relative;padding-left:1.8rem;border-left:1px solid #2a2a2a}
-  .tl-item{margin-bottom:.8rem;padding-left:.8rem;position:relative}
-  .tl-item::before{content:'';position:absolute;left:-2.1rem;top:.3rem;width:5px;height:5px;background:#444;border-radius:50%}
-  .tl-date{font-size:.62rem;color:#555;margin-bottom:.1rem}
-  .tl-text{font-size:.75rem;color:#888;line-height:1.4}
-  .nav{text-align:center;padding:0 0 2rem;font-size:.75rem}
-  .nav a{color:#444;text-decoration:none}
-  .nav a:hover{color:#888}
+  .tl-col{position:relative;padding-left:1.5rem;border-left:1px solid var(--border)}
+  .tl-item{margin-bottom:.7rem;padding-left:.6rem;position:relative}
+  .tl-item::before{content:'';position:absolute;left:-1.85rem;top:.25rem;width:5px;height:5px;background:var(--muted);border-radius:50%}
+  .tl-item:nth-child(odd)::before{background:var(--accent3)}
+  .tl-date{font-size:.6rem;color:var(--muted);margin-bottom:.1rem;font-weight:600}
+  .tl-text{font-size:.72rem;color:var(--text);line-height:1.4}
+  .nav{text-align:center;padding:2rem 0 3rem;font-size:.72rem}
+  .nav a{color:var(--muted);text-decoration:none;margin:0 .5rem;transition:color .2s}
+  .nav a:hover{color:var(--bright)}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 2rem}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  .pulse{animation:pulse 3s ease-in-out infinite}
 </style>
 </head>
 <body>
 <div class="header">
-  <h1>Port Pirie — Epstein Files Network</h1>
-  <div class="sub">Police · Parliament · MC · Heath · Development · Epstein — 50+ nodes<br>46 nodes · 72 edges · 1991–2026 · 253 flagged records</div>
-  <div class="src">Data: kai (vault + DOJ) · Visual: ash · Sources: DOJ DataSet 9, epstein-data.com, 17,163 vault files</div>
+  <h1>Port Pirie</h1>
+  <div class="sub">Network Analysis · Epstein Files · 1991–2026</div>
+  <div class="src">Data: kai — Sources: DOJ DataSet 9 · epstein-data.com OCR · 17,163 vault persons · 253 flagged records</div>
+</div>
+<div class="stats">
+  <div>nodes <span>46</span></div>
+  <div>edges <span>72</span></div>
+  <div>timeline <span>31</span></div>
+  <div>evidence <span>12</span></div>
+  <div>vault <span>17,163</span></div>
 </div>
 <div class="legend" id="legend"></div>
 <div class="graph-wrap" id="graph"></div>
 <div class="tooltip" id="tooltip"></div>
-<div class="detail" id="detail"><span class="close" onclick="d3.select('#detail').style('display','none')">×</span><div id="detail-content"></div></div>
+<div class="detail" id="detail"><button class="close" onclick="document.getElementById('detail').style.display='none'">×</button><div id="detail-content"></div></div>
+
+<div class="divider"></div>
+
 <div class="timeline-section">
   <h2>Timeline</h2>
   <div class="timelines" id="timeline"></div>
 </div>
 <div class="nav">
-  <a href="index.html">← chamber</a> · <a href="verge-flow.html">canvas</a> · <a href="conversation.html">exchange</a>
+  <a href="index.html">← chamber</a>
+  <a href="verge-flow.html">canvas</a>
+  <a href="conversation.html">exchange</a>
+  <a href="https://kai.ovh">kai</a>
+  <a href="https://ash.raya.ac">ash</a>
 </div>
+
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 const IMG={"dutton":"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Peter_Dutton-2024.jpg/120px-Peter_Dutton-2024.jpg","marshall":"https://upload.wikimedia.org/wikipedia/commons/3/3d/PremierMarshall2018.jpg","sapol":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Coat_of_arms_of_the_South_Australia_Police.svg/250px-Coat_of_arms_of_the_South_Australia_Police.svg.png","epstein_maxwell":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Seal_of_the_United_States_Department_of_Justice.svg/250px-Seal_of_the_United_States_Department_of_Justice.svg.png"};
-const COLOR={"victim":"#fff","political":"#d44","co-conspirator":"#f70","academic":"#48f","mc":"#a64","gov":"#999","legal":"#a6a","police":"#48a","family":"#888","core":"#f55","health":"#5a5"};
-const RADIUS={"victim":26,"political":20,"co-conspirator":17,"academic":17,"mc":17,"gov":16,"legal":16,"police":16,"family":14,"core":30,"health":16};
+const COLOR={victim:"#fff",political:"#e55","co-conspirator":"#f80",academic:"#58f",mc:"#b75",gov:"#aaa",legal:"#b6b",police:"#58b",family:"#999",core:"#f66",health:"#6b6"};
+const RADIUS={victim:28,political:22,"co-conspirator":18,academic:18,mc:18,gov:17,legal:17,police:17,family:15,core:34,health:17};
 const NODES=[{"id": "pearce", "label": "Jacqueline Pearce", "category": "victim", "desc": "Sole complainant. 38-year alleged targeting campaign (1993\u2013present). Alleges SA Government, SAPOL, SA Health conspiracy connected to Epstein-Maxwell."}, {"id": "ellis", "label": "Fraser Ellis MP", "category": "political", "desc": "Member for Narungga. Liberal-turned-Independent. Convicted July 2024 (ICAC fraud). Defeated March 2026. Only MP to meet complainant. 'Person of interest.'"}, {"id": "dutton", "label": "Peter Dutton MP", "category": "political", "desc": "Federal MP. Received letter Nov 2023 seeking victim support network."}, {"id": "marshall", "label": "Steven Marshall", "category": "political", "desc": "SA Premier. Contacted 31 Dec 2019. Alleged intellectual property theft."}, {"id": "chapman", "label": "Vicki Chapman", "category": "political", "desc": "Deputy AG SA. Contacted 31 Dec 2019. Referenced in Glenside detention records."}, {"id": "brock", "label": "Geoff Brock MP", "category": "political", "desc": "Local MP for Port Pirie. Denied funding for medical business after reviewing plan. Advised by Kirchner to seek funding from Brock."}, {"id": "hanson", "label": "Pauline Hanson", "category": "political", "desc": "Senator. Contacted 18 Feb 2020 re IP theft of medical business plan."}, {"id": "cash", "label": "Michaelia Cash", "category": "political", "desc": "Attorney General. Contacted 28 Jan 2022."}, {"id": "patrick", "label": "Rex Patrick", "category": "political", "desc": "Senator. Contacted 18 Feb 2020."}, {"id": "wade", "label": "Stephen Wade MLC", "category": "political", "desc": "Minister for Health SA. Responded 19 Jan 2020 re IP theft investigation."}, {"id": "gillard", "label": "Julia Gillard", "category": "political", "desc": "Former PM. Alleged involvement in lethal injection conspiracy. Connected to Epstein/Maxwell in records."}, {"id": "olsen", "label": "John Olsen", "category": "political", "desc": "Former SA Premier. 'Source of Commencement' of targeting. Connected to Epstein/New York."}, {"id": "bryce", "label": "Quentin Bryce", "category": "political", "desc": "Former Governor-General. Previous contact referenced April 2022. Letter sent Sep 2022."}, {"id": "hill", "label": "Jon Hill", "category": "political", "desc": "SA Minister for Health. Connected to Kirchner, GP Plus Healthcare Centre. 2007-2008 involvement in IP theft."}, {"id": "gardner", "label": "Paul Gardner", "category": "co-conspirator", "desc": "Former partner. 2014-2015 conspired sexual targeting. 'Government Prostitution' threats. Tasmania/Mafia connections. Citizens for Better Government link."}, {"id": "bulone", "label": "Vincent Bulone", "category": "academic", "desc": "Adelaide University Director of Research. Relationship Jul 2018-Dec 2019. Mafia/Sicily origins. Connected to MCs."}, {"id": "steele", "label": "Shaun Steele", "category": "mc", "desc": "Former partner. Mining FIFO worker. Red Devils MC Port Pirie. Death threats."}, {"id": "bannister", "label": "Peter Bannister", "category": "mc", "desc": "LiL Devil Designs. Red Devils MC / Hells Angels. Port Pirie-Adelaide. Connected to RDB via Fetherstonhaugh."}, {"id": "bradley", "label": "David Bradley", "category": "mc", "desc": "Tasmania. Adelaide University. Hells Angels. Illicit knowledge of victim's manuscript."}, {"id": "fetherstonhaugh", "label": "M. Fetherstonhaugh", "category": "gov", "desc": "Business SA / Regional Development Board. Paul Gardner's uncle. Financially connected to Bannister (Zorro Development)."}, {"id": "kirchner", "label": "Roger Kirchner", "category": "gov", "desc": "SA Health / RDB Port Pirie. Most-named (23 records). Denied funding. Connected to Jon Hill. Medical plan theft."}, {"id": "austin", "label": "Jake Austin", "category": "police", "desc": "Port Pirie PD officer. White Ford Futura. Sexual targeting. Fraudulent charges. Linked to Hanna O'Neil."}, {"id": "kelly", "label": "Scott Kelly", "category": "police", "desc": "Constable, Port Pirie PD. Wrongful arrest. Heidi Salvemini legal representation."}, {"id": "oneil", "label": "Hanna O'Neil", "category": "police", "desc": "Port Pirie PD. Sexual targeting with Jake Austin. Stalking."}, {"id": "bowman", "label": "Scott Bowman", "category": "police", "desc": "Crystal Brook PD. Tampering with evidence. Illegal arrest. Falsifying affidavits. Aggressive arrest causing permanent injury."}, {"id": "stevens", "label": "Grant Stevens", "category": "police", "desc": "SA Police Commissioner. Alleged involvement in targeting campaign. 'Attempted murder to appear as suicide.'"}, {"id": "salvemini_h", "label": "Heidi Salvemini", "category": "legal", "desc": "Westside Lawyers Port Pirie. Illegal medical record access. Wrongful legal representation. Plea advice."}, {"id": "salvemini_j", "label": "Jemma Salvemini", "category": "gov", "desc": "Executive Assistant to Roger Kirchner, RDB."}, {"id": "diro", "label": "Dino Di Rosa", "category": "legal", "desc": "Di Rosa Lawyers, Adelaide. Multiple records."}, {"id": "prendergast", "label": "David Prendergast", "category": "legal", "desc": "Prendergast Lawyers, Kadina. Contacted 18 Feb 2016."}, {"id": "moyes", "label": "Belinda Moyes", "category": "health", "desc": "Country Health SA. Linked to medical plan meetings."}, {"id": "mcrae", "label": "Ros McRae", "category": "health", "desc": "Director Flinders and Outback Health, CHSA."}, {"id": "swinnen", "label": "Marina Swinnen", "category": "health", "desc": "HCSCC Complaints Resolution Officer. Ref M22/02621."}, {"id": "pearce_cynthia", "label": "Cynthia Pearce", "category": "family", "desc": "Complainant's mother. Accused of covering up molestation."}, {"id": "red_devils", "label": "Red Devils MC", "category": "mc", "desc": "Port Pirie chapter. Affiliated with Hells Angels Adelaide. Named in stalking and death threat records."}, {"id": "hells_angels", "label": "Hells Angels", "category": "mc", "desc": "Adelaide chapter. Parent org to Red Devils MC Port Pirie."}, {"id": "cbfg", "label": "Citizens for Better Gov't", "category": "political", "desc": "Political org connected to Paul Gardner. Alleged conduit for government-linked targeting."}, {"id": "rdb", "label": "Regional Dev Board", "category": "gov", "desc": "Port Pirie RDB. Kirchner, Fetherstonhaugh. Denied funding for medical plan. Alleged IP theft."}, {"id": "univ", "label": "Adelaide University", "category": "academic", "desc": "Bulone (Director of Research). Bradley connections. Hells Angels nexus."}, {"id": "sapol", "label": "SAPOL", "category": "police", "desc": "South Australia Police. Multiple officers named. Alleged complicity, stalking, wrongful arrest, assault."}, {"id": "sa_health", "label": "SA Health", "category": "gov", "desc": "Medical plan theft 2006-2012. GP Plus Healthcare replica. Glenside assassination attempt 2017."}, {"id": "epstein_maxwell", "label": "Epstein-Maxwell", "category": "core", "desc": "Core DOJ investigation. Australian co-conspirators alleged."}, {"id": "icac", "label": "ICAC / OPI", "category": "gov", "desc": "Independent Commissioner Against Corruption. Complaint 2016/001569 assessed and declined. 8 emails 23-24 Dec 2016."}, {"id": "hcsc", "label": "HCSCC", "category": "gov", "desc": "Health & Community Services Complaints Commissioner. Ref M22/02621. Marina Swinnen."}, {"id": "glenside", "label": "Glenside Hospital", "category": "health", "desc": "Mental Health Facility. 2017 illegal detainment. Alleged police targeting, falsified diagnosis, illegal magistrate order."}, {"id": "cba", "label": "Commonwealth Bank", "category": "gov", "desc": "142 Ellen St Port Pirie. Identity theft and banking fraud records. Account number in evidence."}];
 const EDGES=[{"s": "pearce", "t": "ellis", "w": 4}, {"s": "pearce", "t": "dutton", "w": 3}, {"s": "pearce", "t": "marshall", "w": 3}, {"s": "pearce", "t": "chapman", "w": 3}, {"s": "pearce", "t": "brock", "w": 4}, {"s": "pearce", "t": "hanson", "w": 2}, {"s": "pearce", "t": "cash", "w": 2}, {"s": "pearce", "t": "patrick", "w": 2}, {"s": "pearce", "t": "wade", "w": 3}, {"s": "pearce", "t": "gillard", "w": 2}, {"s": "pearce", "t": "olsen", "w": 3}, {"s": "pearce", "t": "bryce", "w": 2}, {"s": "pearce", "t": "hill", "w": 3}, {"s": "pearce", "t": "gardner", "w": 5}, {"s": "pearce", "t": "bulone", "w": 4}, {"s": "pearce", "t": "steele", "w": 5}, {"s": "pearce", "t": "epstein_maxwell", "w": 5}, {"s": "pearce", "t": "pearce_cynthia", "w": 3}, {"s": "pearce", "t": "sapol", "w": 5}, {"s": "pearce", "t": "sa_health", "w": 5}, {"s": "pearce", "t": "kirchner", "w": 4}, {"s": "pearce", "t": "austin", "w": 3}, {"s": "pearce", "t": "kelly", "w": 3}, {"s": "pearce", "t": "oneil", "w": 3}, {"s": "pearce", "t": "bowman", "w": 3}, {"s": "pearce", "t": "stevens", "w": 2}, {"s": "pearce", "t": "salvemini_h", "w": 3}, {"s": "pearce", "t": "salvemini_j", "w": 2}, {"s": "pearce", "t": "diro", "w": 2}, {"s": "pearce", "t": "prendergast", "w": 2}, {"s": "pearce", "t": "icac", "w": 4}, {"s": "pearce", "t": "hcsc", "w": 3}, {"s": "pearce", "t": "glenside", "w": 5}, {"s": "pearce", "t": "cba", "w": 3}, {"s": "pearce", "t": "moyes", "w": 2}, {"s": "pearce", "t": "mcrae", "w": 2}, {"s": "pearce", "t": "swinnen", "w": 2}, {"s": "gardner", "t": "bulone", "w": 3}, {"s": "gardner", "t": "bannister", "w": 4}, {"s": "gardner", "t": "cbfg", "w": 3}, {"s": "gardner", "t": "fetherstonhaugh", "w": 3}, {"s": "bulone", "t": "steele", "w": 1}, {"s": "bulone", "t": "bradley", "w": 4}, {"s": "bulone", "t": "univ", "w": 4}, {"s": "steele", "t": "bannister", "w": 3}, {"s": "steele", "t": "red_devils", "w": 5}, {"s": "bannister", "t": "bradley", "w": 3}, {"s": "bannister", "t": "fetherstonhaugh", "w": 3}, {"s": "bannister", "t": "hells_angels", "w": 4}, {"s": "bannister", "t": "red_devils", "w": 4}, {"s": "bradley", "t": "univ", "w": 3}, {"s": "bradley", "t": "hells_angels", "w": 4}, {"s": "red_devils", "t": "hells_angels", "w": 5}, {"s": "kirchner", "t": "rdb", "w": 5}, {"s": "kirchner", "t": "hill", "w": 4}, {"s": "fetherstonhaugh", "t": "rdb", "w": 4}, {"s": "salvemini_h", "t": "sapol", "w": 4}, {"s": "salvemini_h", "t": "kelly", "w": 4}, {"s": "salvemini_j", "t": "kirchner", "w": 4}, {"s": "austin", "t": "sapol", "w": 4}, {"s": "austin", "t": "oneil", "w": 4}, {"s": "kelly", "t": "sapol", "w": 4}, {"s": "oneil", "t": "sapol", "w": 4}, {"s": "bowman", "t": "sapol", "w": 4}, {"s": "stevens", "t": "sapol", "w": 5}, {"s": "sa_health", "t": "glenside", "w": 5}, {"s": "sa_health", "t": "hcsc", "w": 3}, {"s": "sa_health", "t": "hill", "w": 4}, {"s": "sa_health", "t": "wade", "w": 3}, {"s": "pearce", "t": "univ", "w": 2}, {"s": "pearce", "t": "hells_angels", "w": 3}, {"s": "pearce", "t": "red_devils", "w": 4}];
 const TIMELINE=[{"date": "1991", "event": "Earliest home address record for Jacqueline Carol Pearce."}, {"date": "1993", "event": "First incident of Intellectual Property Theft from privacy of own home, Willamulka SA. Targeting campaign begins."}, {"date": "2004-2009", "event": "Medical Business Plan developed. Extensive market research into Medical Industry. Hand-written only. Never shared with third party."}, {"date": "2006-2009", "event": "Regional Development Board involvement begins. Kirchner, Fetherstonhaugh provide advisory support. Business Plan remains hand-written."}, {"date": "2007-2011", "event": "Medical Business Plan development under Regional Development Board guidance. SA Health / GP Plus replica begins."}, {"date": "2008", "event": "Youth Court matters begin for Clinton McDiarmid. Court sittings at Port Pirie, 20 Main Road."}, {"date": "2009", "event": "Medical Business Plan completed, installed on business computer. IP theft timeline starts."}, {"date": "2013", "event": "GP Plus Healthcare Centre established in Port Pirie (alleged replica of stolen medical plan). Country Health SA confirms two prior meetings."}, {"date": "2014-2015", "event": "Paul Gardner conspired sexual targeting. Informs victim of younger brother's HIV status. 'Government Prostitution' threats. 'Mafia' connections alleged."}, {"date": "Aug 2015", "event": "Due care, fail to give personal details, resist police \u2014 charges that appear in SAPOL offender history. Evidence tampering by Crystal Brook PD alleged."}, {"date": "Feb 2016", "event": "Central Hotel incident. Pearce approached by group of younger men. Jacqueline Pearce statement 9 Feb 2016. Police involvement begins."}, {"date": "23 Dec 2016", "event": "Eight emails with complaint material submitted to OPI. ICAC complaint 2016/001569 lodged."}, {"date": "3 Feb 2017", "event": "OPI determination: ICAC complaint 2016/001569 assessed and declined. Commissioner determines no further action."}, {"date": "2017", "event": "Illegal detainment at Glenside Mental Health Facility. Alleged police targeting, falsified GP diagnosis, illegal magistrate order, illegal legal representation. Relocated from Port Pirie to Kadina after release."}, {"date": "2017-2019", "event": "Government funding denied for ICAC investigation. Relocated to Kadina. Vincent Bulone relationship begins July 2018."}, {"date": "31 Dec 2019", "event": "Letters to Premier Steven Marshall and Deputy AG Vicki Chapman re: Intellectual Property Theft."}, {"date": "19 Jan 2020", "event": "Stephen Wade MLC (Minister for Health) responds re: IP theft investigation."}, {"date": "18 Feb 2020", "event": "Letters to Senators Pauline Hanson and Rex Patrick re: IP theft of medical business plan."}, {"date": "9 Mar 2020", "event": "Letter to Margaret Ripe \u2014 'I cannot report this activity to any police sources as they are involved in the criminal activity.'"}, {"date": "Jun 2021", "event": "Emails to AFP Commissioner Reece Kershaw reporting criminal matter. 32MB attachments sent. Contacted Fraser Ellis MP Kadina."}, {"date": "22 Nov 2021", "event": "Port Pirie Hospital incident \u2014 police vehicle at exact moment of visit for father's cancer treatment. Police surveillance alleged."}, {"date": "Dec 2021", "event": "Cynthia Pearce emails re: police brutality, suspected fractured neck. Reports to AFP Commissioner/ACIC."}, {"date": "Jan 2022", "event": "Letters to Attorney General Michaelia Cash, AFP, ACIC, Nigel Ryan."}, {"date": "Apr-Sep 2022", "event": "Contact with Quentin Bryce referenced. Letter to Dame Quentin Bryce Sep 2022."}, {"date": "Oct 2022 - Apr 2023", "event": "Multiple DOJ contacts. Letters to DOJ Victim Coordinator, New York City."}, {"date": "2023", "event": "HCSCC complaint M22/02621 \u2014 Marina Swinnen response. Ongoing medical complaints."}, {"date": "14 Nov 2023", "event": "Letter to Peter Dutton MP seeking victim support network."}, {"date": "Jul 2024", "event": "Fraser Ellis MP convicted \u2014 4 counts of deception, ICAC accommodation allowance fraud."}, {"date": "Feb 2026", "event": "Epstein DOJ files released. Port Pirie records indexed by epstein-data.com. 253 records flagged."}, {"date": "Mar 2026", "event": "Fraser Ellis defeated in SA election."}, {"date": "Ongoing", "event": "Complainant alleges sexual abuse ring remains active post-Epstein conviction. Australian government and police sources still operating."}];
 const EVIDENCE={"icac": "OPI Reference 2016/001569. 3 February 2017. Eight emails 23-24 Dec 2016. Commissioner assessed and declined. 'The Commissioner has asked me to inform you of his determination pursuant to section 24 of the ICAC Act.'", "glenside": "2017 Illegal Detainment \u2014 Glenside Mental Health Facility. Police targeting 2014-2016 (falsified charges and fines). Illegal legal representation. Falsified GP diagnosis. Illegal magistrate-ordered evaluation. 2019: planned second assassination via lethal injection.", "gillerd": "'Julia Gillard confirmed as Conspiring against the targeted victim... in an attempted second assassination by lethal injection involving mental Health services. Exact Conspired Attempt as occurred in 2017.' EFTA00265868", "austin": "Jake Austin, Port Pirie Police Department. White Ford Futura. 'Jake Austin and Hanna O'Neil both involved in Sexual Targeting... stalked down the footpath.' EFTA00264088", "bowman": "Scott Bowman, Crystal Brook PD. 'Tampering with evidence. Illegal arrest. Officer not calm and professional \u2014 extremely aggressive resulting in permanent injuries. Falsifying police affidavits.' EFTA00262451", "stevens": "Police Commissioner Grant Stevens. 'POLICE INVOLVEMENT IN ATTEMPTED MURDER OF THE TARGETED VICTIM TO APPEAR AS SUICIDE.' EFTA00264665", "brock": "Geoff Brock MP, Port Pirie. 'I was once again denied funding by Roger Kirchner, SA Health and advised to enquire about funding with the Local member of Government of Port Pirie, Geoff Brock.' EFTA00267994", "kelly": "Constable Scott Kelly \u2014 Wrongful arrest. Heidi Salvemini, Westside Lawyers \u2014 'to plead guilty to these charges, Constable Port Pirie Police Department whilst under the representation of Heidi Salvemini.' EFTA00266475", "gardner": "Paul Gardner \u2014 2014-2015 conspired sexual targeting. 'Informed the targeted victim he was connected to the Mafia.' Connected to Michael Carter Tasmania. Suspected younger brother has AIDS. EFTA00155062", "kirchner": "Roger Kirchner \u2014 23 records. SA Health / RDB Port Pirie. Denied funding. 'Hon Jon Hill, Minister of Health established and confirmed as being connected.' GP Plus = replica of medical plan. EFTA00262811", "salvemini_h": "Heidi Salvemini, Westside Lawyers Port Pirie. 8 records. Illegal medical record access. Wrongful legal representation. 'to plead guilty... under the representation of Heidi Salvemini.' EFTA00266475", "sa_health": "Country Health SA 1 May 2013: 'I can confirm that we have met on two occasions to discuss your proposed Business Plan.' GP Plus established 2013. 2017 Glenside detainment. EFTA00265909"};
 
-document.getElementById("legend").innerHTML=Object.entries(COLOR).map(([c,cl])=>`<div class="legend-item"><div class="legend-dot" style="background:${cl}"></div>${c}</div>`).join('');
+document.getElementById("legend").innerHTML=Object.entries(COLOR).map(([c,cl])=>`<div class="legend-item"><div class="legend-dot" style="background:${cl};box-shadow:0 0 8px ${cl}44"></div>${c}</div>`).join('');
 
-const half=Math.ceil(TIMELINE.length/2);
-const cols = ['<div class="tl-col">', '<div class="tl-col">'];
+const half=Math.ceil(TIMELINE.length/2), cols=['<div class="tl-col">','<div class="tl-col">'];
 TIMELINE.forEach((t,i)=>{cols[i<half?0:1]+=`<div class="tl-item"><div class="tl-date">${t.date}</div><div class="tl-text">${t.event}</div></div>`;});
 document.getElementById("timeline").innerHTML=cols[0]+'</div>'+cols[1]+'</div>';
 
-const W=document.getElementById("graph").clientWidth,H=650;
+const W=document.getElementById("graph").clientWidth,H=620;
 const svg=d3.select("#graph").append("svg").attr("viewBox",`0 0 ${W} ${H}`);
+const defs=svg.append("defs");
+
+// glow filters
+Object.entries(COLOR).forEach(([cat,cl])=>{
+  defs.append("filter").attr("id","glow-"+cat).attr("x","-50%").attr("y","-50%").attr("width","200%").attr("height","200%")
+    .html(`<feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>`);
+});
+
 const g=svg.append("g");
-svg.call(d3.zoom().scaleExtent([0.15,3]).on("zoom",e=>g.attr("transform",e.transform)));
+svg.call(d3.zoom().scaleExtent([0.12,3]).on("zoom",e=>{g.attr("transform",e.transform);}));
 
 const linkData=EDGES.map(e=>({...e,source:e.s,target:e.t}));
-const sim=d3.forceSimulation(NODES).force("link",d3.forceLink(linkData).id(d=>d.id).distance(150).strength(d=>d.w*0.06)).force("charge",d3.forceManyBody().strength(-500)).force("center",d3.forceCenter(W/2,H/2)).force("collide",d3.forceCollide(34));
+const sim=d3.forceSimulation(NODES)
+  .force("link",d3.forceLink(linkData).id(d=>d.id).distance(160).strength(d=>d.w*0.05))
+  .force("charge",d3.forceManyBody().strength(-600))
+  .force("center",d3.forceCenter(W/2,H/2))
+  .force("collide",d3.forceCollide(38))
+  .alphaDecay(0.02);
 
-const linkG=g.append("g").selectAll("line").data(linkData).join("line").attr("stroke","#222").attr("stroke-width",d=>d.w*0.5).attr("stroke-opacity",0.4);
+const linkG=g.append("g").selectAll("line").data(linkData).join("line")
+  .attr("stroke","#1a1a2a").attr("stroke-width",d=>d.w*0.45).attr("stroke-opacity",0.35);
 
-const ng=g.append("g").selectAll("g").data(NODES).join("g").style("cursor","pointer").call(d3.drag().on("start",(e,d)=>{if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;}).on("drag",(e,d)=>{d.fx=e.x;d.fy=e.y;}).on("end",(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}));
+const ng=g.append("g").selectAll("g").data(NODES).join("g").style("cursor","pointer")
+  .call(d3.drag().on("start",(e,d)=>{if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;}).on("drag",(e,d)=>{d.fx=e.x;d.fy=e.y;}).on("end",(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}));
 
 ng.each(function(d){
-  const el=d3.select(this),r=RADIUS[d.category]||16,imgUrl=IMG[d.id];
+  const el=d3.select(this),r=RADIUS[d.category]||16,imgUrl=IMG[d.id],cat=d.category;
+  const glowCls = (cat==="core"||cat==="victim")?"pulse":"";
   if(imgUrl){
     el.append("defs").append("clipPath").attr("id","cp-"+d.id).append("circle").attr("r",r);
-    el.append("image").attr("href",imgUrl).attr("x",-r).attr("y",-r).attr("width",r*2).attr("height",r*2).attr("clip-path","url(#cp-"+d.id+")").attr("preserveAspectRatio","xMidYMid cover");
-    el.append("circle").attr("r",r).attr("fill","none").attr("stroke",COLOR[d.category]).attr("stroke-width",2.5);
-  }else{
-    el.append("circle").attr("r",r).attr("fill",COLOR[d.category]).attr("opacity",0.15);
-    el.append("circle").attr("r",r).attr("fill","none").attr("stroke",COLOR[d.category]).attr("stroke-width",2);
-    el.append("text").text((d.label||'').split(' ').map(w=>w[0]).slice(0,3).join('')).attr("text-anchor","middle").attr("dy","0.35em").attr("fill",COLOR[d.category]).attr("font-size",r>22?"9px":r>18?"8px":"7px").style("pointer-events","none");
+    el.append("image").attr("href",imgUrl).attr("x",-r).attr("y",-r).attr("width",r*2).attr("height",r*2)
+      .attr("clip-path","url(#cp-"+d.id+")").attr("preserveAspectRatio","xMidYMid cover");
+    el.append("circle").attr("r",r+1).attr("fill","none").attr("stroke",COLOR[cat]).attr("stroke-width",2.5)
+      .attr("filter","url(#glow-"+cat+")").attr("class",glowCls);
+    el.append("circle").attr("r",r).attr("fill","none").attr("stroke",COLOR[cat]).attr("stroke-width",1.5).attr("stroke-opacity",0.7);
+  } else {
+    el.append("circle").attr("r",r).attr("fill",COLOR[cat]).attr("opacity",0.12);
+    el.append("circle").attr("r",r+1).attr("fill","none").attr("stroke",COLOR[cat]).attr("stroke-width",2.5)
+      .attr("filter","url(#glow-"+cat+")").attr("opacity",0.6);
+    el.append("circle").attr("r",r).attr("fill","none").attr("stroke",COLOR[cat]).attr("stroke-width",2);
+    const init=(d.label||'').split(' ').map(w=>w[0]).slice(0,3).join('');
+    el.append("text").text(init).attr("text-anchor","middle").attr("dy","0.35em")
+      .attr("fill",COLOR[cat]).attr("font-size",r>24?"10px":r>19?"9px":"7px")
+      .style("pointer-events","none").style("font-weight","600");
   }
 });
 
@@ -108,11 +156,13 @@ ng.on("mouseover",(e,d)=>{
   let imgHtml="";
   if(IMG[d.id]){const fit=d.id==="sapol"||d.id==="epstein_maxwell"?"contain":"cover";imgHtml=`<img src="${IMG[d.id]}" style="object-fit:${fit}">`;}
   const ev=EVIDENCE[d.id];
-  tip.innerHTML=`${imgHtml}<div class="name" style="color:${COLOR[d.category]}">${d.label}</div><div class="cat">${d.category}</div><div class="desc">${d.desc}</div>${ev?`<div class="evidence">"${ev}"</div>`:''}`;
-}).on("mousemove",e=>{tip.style.left=(e.pageX+12)+"px";tip.style.top=(e.pageY-10)+"px"}).on("mouseout",()=>tip.style.display="none").on("click",(e,d)=>{
+  const cat=d.category;
+  tip.innerHTML=`${imgHtml}<div class="name" style="color:${COLOR[cat]}">${d.label}</div><div class="cat"><span class="cat-dot" style="background:${COLOR[cat]}"></span>${cat}</div><div class="desc">${d.desc}</div>${ev?`<div class="evidence">"${ev.slice(0,200)}${ev.length>200?'…':''}"</div>`:''}`;
+}).on("mousemove",e=>{tip.style.left=(e.pageX+14)+"px";tip.style.top=(e.pageY-10)+"px"}).on("mouseout",()=>tip.style.display="none")
+.on("click",(e,d)=>{
   const ev=EVIDENCE[d.id];
   let imgHtml="";
-  if(IMG[d.id]){const fit=d.id==="sapol"||d.id==="epstein_maxwell"?"contain":"cover";imgHtml=`<img src="${IMG[d.id]}" style="width:60px;height:60px;border-radius:4px;object-fit:${fit};float:left;margin-right:1rem">`;}
+  if(IMG[d.id]){const fit=d.id==="sapol"||d.id==="epstein_maxwell"?"contain":"cover";imgHtml=`<img src="${IMG[d.id]}" style="width:64px;height:64px;border-radius:6px;object-fit:${fit};float:left;margin-right:1rem">`;}
   document.getElementById("detail-content").innerHTML=`${imgHtml}<h3 style="color:${COLOR[d.category]}">${d.label}</h3><div class="cat">${d.category}</div><div class="desc">${d.desc}</div>${ev?`<div class="evidence">Evidence: "${ev}"</div>`:''}`;
   document.getElementById("detail").style.display="block";
 });
