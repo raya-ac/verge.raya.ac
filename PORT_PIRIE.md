@@ -2,7 +2,7 @@
 
 **verge.raya.ac/port-pirie.html**
 
-Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 timeline events, 14 verbatim evidence snippets, 32 local image mappings. Data extracted from 17,163 vault person files, DOJ DataSet 9, epstein-data.com OCR, and public-record context.
+Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 timeline events, 15 verbatim evidence snippets, 32 local image mappings. Data extracted from 17,163 vault person files, DOJ DataSet 9, epstein-data.com OCR, and public-record context.
 
 ## Files
 
@@ -12,7 +12,7 @@ Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 t
 
 | File | Role |
 |------|------|
-| `port-pirie.html` | Main page — entity cards, receipt inspector, D3 force graph, address sketch, image audit, timeline |
+| `port-pirie.html` | Main page — entity cards, receipt inspector, deep links, D3 force graph, address sketch, exports, image audit, filtered timeline |
 | `port-pirie-data.js` | `const VERGE_DATA = {...}` — nodes, edges, timeline, evidence, public layer, images, image metadata, color map. Loaded by `port-pirie.html` via `<script src>` |
 | `port-pirie-network.json` | Source JSON — canonical data. Use to regenerate `port-pirie-data.js` |
 | `port-pirie-public-layer.json` | Public-record source fragment folded into `port-pirie-network.json.public_layer` |
@@ -27,12 +27,14 @@ Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 t
 
 ## Architecture — port-pirie.html
 
-- **Cards:** vanilla JS renders entity cards from `VERGE_DATA.nodes`. Sticky category workbench, sourced-image counts, source-status chips, connection counts, and card image rendering driven by `VERGE_DATA.image_meta`. `mc` nodes use full label "Motorcycle Club" — category field is `motorcycle`, color `#d44`.
-- **Receipt inspector:** shared entity panel for card clicks, graph-node clicks, map pins, and connected-entity buttons. Shows source status, confidence label, evidence refs, snippet, image provenance, related timeline events, and direct connections.
+- **Cards:** vanilla JS renders entity cards from `VERGE_DATA.nodes`. Sticky category workbench, sourced-image counts, source-status chips, connection counts, map-focus narrowing, and card image rendering driven by `VERGE_DATA.image_meta`. `mc` nodes use full label "Motorcycle Club" — category field is `motorcycle`, color `#d44`.
+- **Receipt inspector:** shared entity panel for card clicks, graph-node clicks, map pins, deep links, and connected-entity buttons. Shows source status, confidence label, source ledger, evidence refs, snippet, image provenance, related timeline events, and direct connections with derived reason labels.
+- **Deep links:** selecting an entity writes `#entity_id` into the URL. Loading a valid hash opens the inspector and marks the matching card without auto-selecting anyone on normal first load.
 - **Graph:** D3 v7 force simulation. Collapsed by default behind "network graph" toggle. Click selects the shared receipt inspector. Drag/zoom/pan. Node radius 26px with glow rings. Edge colors by strength. Graph images use the same `image_meta` surface rules as cards.
-- **Map:** schematic Port Pirie address/context sketch with pins for RDB, Portside, CBA, SAPOL, SA Health, HCSCC, ICAC, Glenside, council, and lead-smelter context.
+- **Map:** schematic Port Pirie address/context sketch with pins for RDB, Portside, CBA, SAPOL, SA Health, HCSCC, ICAC, Glenside, council, and lead-smelter context. Pin clicks focus the card set to the place/context node plus connected entities.
 - **Audit:** collapsible image/source audit table for all 50 nodes.
-- **Timeline:** 36 events from 1845–2026 split into two-column layout. Data from `VERGE_DATA.timeline`.
+- **Timeline:** 36 events from 1845–2026 split into two-column layout with filters for Port Pirie, politics, police/legal, health, and Epstein/DOJ context. Data from `VERGE_DATA.timeline`.
+- **Exports/build stamp:** visible build/data stamp plus browser-generated JSON, nodes CSV, and edges CSV exports.
 - **Images:** 32 verified public/official image mappings in `VERGE_DATA.images`, all served from local `assets/` files. `VERGE_DATA.image_meta` records portrait/logo/badge/place rendering and dark/light surface choice. Fallback to colored initials for people or groups without a reliable public match.
 - **Publish metadata:** canonical URL plus OpenGraph/Twitter metadata points to `assets/port-pirie-og.png`.
 - **Disclaimer:** at top.

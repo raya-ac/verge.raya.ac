@@ -96,6 +96,13 @@ body::before{
 .controls button.graph-btn.active{border-color:#5575b8;background:rgba(85,117,184,.12);color:#b2bee4}
 .view-state{display:flex;gap:.72rem;flex-wrap:wrap;margin-top:.62rem;font-size:.58rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .view-state span{color:var(--ink)}
+.view-state button,.export-links button,.copy-link,.timeline-tools button{background:#10120f;border:1px solid var(--line);color:var(--muted);border-radius:4px;font-family:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.08em;transition:color .2s,border-color .2s,background .2s}
+.view-state button:hover,.export-links button:hover,.copy-link:hover,.timeline-tools button:hover{color:var(--ink);border-color:#3b4237;background:#151912}
+.view-state button{font-size:.52rem;padding:.18rem .38rem;margin-top:-.15rem}
+.build-stamp{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:-.72rem 0 1.35rem;padding:.55rem .72rem;border:1px solid rgba(255,255,255,.055);border-radius:5px;background:rgba(17,19,16,.48);font-size:.56rem;color:var(--quiet);letter-spacing:.08em;text-transform:uppercase}
+.build-stamp span{color:var(--muted)}
+.export-links{display:flex;gap:.36rem;flex-wrap:wrap}
+.export-links button,.copy-link{font-size:.52rem;padding:.3rem .46rem}
 .section-heading{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin:2rem 0 .8rem}
 .section-title{font-size:.72rem;color:var(--ink);letter-spacing:.13em;text-transform:uppercase}
 .section-note{max-width:480px;text-align:right;font-size:.64rem;color:var(--muted);line-height:1.55}
@@ -161,6 +168,10 @@ body::before{
 .receipt-item strong{font-size:.66rem;color:var(--text);font-weight:500;line-height:1.45}
 .source-refs{display:flex;gap:.34rem;flex-wrap:wrap;margin:.48rem 0 .68rem}
 .source-ref{font-size:.52rem;color:var(--evidence);border:1px solid rgba(184,154,98,.34);border-radius:3px;padding:.12rem .34rem;background:rgba(184,154,98,.05)}
+.ledger-list{display:grid;gap:.42rem;margin-bottom:.75rem}
+.ledger-row{display:grid;grid-template-columns:7rem 1fr;gap:.65rem;align-items:start;border:1px solid rgba(255,255,255,.055);border-radius:5px;padding:.48rem .56rem;background:rgba(255,255,255,.018)}
+.ledger-row span{font-size:.5rem;color:var(--quiet);letter-spacing:.1em;text-transform:uppercase}
+.ledger-row strong{font-size:.64rem;color:var(--text);font-weight:500;line-height:1.45}
 .quote-block{font-size:.68rem;color:var(--evidence);line-height:1.6;font-style:italic;border-left:1px solid rgba(184,154,98,.38);padding-left:.7rem}
 .empty-note{font-size:.62rem;color:var(--quiet);line-height:1.55}
 .connection-list,.timeline-mini{display:grid;gap:.42rem}
@@ -168,6 +179,7 @@ body::before{
 .connection-btn:hover{border-color:#3b4237;background:rgba(255,255,255,.035)}
 .connection-btn strong{display:block;color:var(--ink);font-size:.66rem;font-weight:500;margin-bottom:.12rem}
 .connection-btn span{display:block;color:var(--muted);font-size:.52rem;text-transform:uppercase;letter-spacing:.08em}
+.connection-btn em{display:block;color:var(--text);font-size:.6rem;font-style:normal;line-height:1.45;margin-top:.22rem}
 .timeline-mini-item{font-size:.64rem;line-height:1.52;border-left:1px solid rgba(85,117,184,.35);padding-left:.52rem;color:var(--text)}
 .timeline-mini-item strong{display:block;color:var(--evidence);font-size:.54rem;margin-bottom:.08rem}
 .map-section,.audit-section{margin:1rem 0}
@@ -182,6 +194,7 @@ body::before{
 .map-pin .label{display:block;max-width:8rem;padding:.18rem .34rem;border-radius:3px;background:rgba(13,13,13,.76);border:1px solid rgba(255,255,255,.055);font-size:.54rem;color:var(--text);line-height:1.35}
 .map-pin:hover .label,.map-pin.active .label{color:var(--ink);border-color:rgba(184,154,98,.38)}
 .map-pin.active .dot{box-shadow:0 0 0 5px rgba(184,154,98,.16),0 0 28px rgba(184,154,98,.45)}
+.map-pin.focus .label{border-color:rgba(85,117,184,.5);color:#b2bee4}
 .audit-box{border:1px solid var(--line);border-radius:6px;background:rgba(17,19,16,.72);overflow:hidden}
 .audit-box summary{cursor:pointer;list-style:none;padding:.85rem 1rem;color:var(--ink);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.055)}
 .audit-box summary::-webkit-details-marker{display:none}
@@ -192,7 +205,10 @@ body::before{
 .audit-path{color:var(--muted);word-break:break-all}
 .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:2rem 0}
 .timeline-section{padding:0 0 3rem}
-.timeline-section h2{font-size:.74rem;color:var(--ink);letter-spacing:.13em;margin-bottom:1.2rem;text-transform:uppercase}
+.timeline-section h2{font-size:.74rem;color:var(--ink);letter-spacing:.13em;margin-bottom:.8rem;text-transform:uppercase}
+.timeline-tools{display:flex;gap:.38rem;flex-wrap:wrap;margin:0 0 1.1rem}
+.timeline-tools button{font-size:.55rem;padding:.36rem .52rem}
+.timeline-tools button.active{color:var(--ink);border-color:#51614f;background:rgba(91,159,101,.1)}
 .timelines{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
 .tl-col{position:relative;padding-left:1.35rem}
 .tl-col::before{content:'';position:absolute;left:0;top:.2rem;bottom:.2rem;width:1px;background:linear-gradient(180deg,rgba(91,159,101,.45),var(--line),rgba(85,117,184,.45))}
@@ -254,7 +270,7 @@ body::before{
       <div class="hero-card-title"><span>current build</span><span class="pulse"></span></div>
       <div class="source-grid">
         <div class="source-row"><span>corpus</span><p>Vault records, DOJ DataSet 9, OCR indices, and public-record context folded into one canonical JSON file.</p></div>
-        <div class="source-row"><span>model</span><p>50 entities, 86 connections, 36 timeline events, 14 evidence snippets, 32 local images.</p></div>
+        <div class="source-row"><span>model</span><p>50 entities, 86 connections, 36 timeline events, 15 evidence snippets, 32 local images.</p></div>
         <div class="source-row"><span>mode</span><p>Cards, graph nodes, map pins, and connection rows all open the same receipt inspector.</p></div>
       </div>
     </aside>
@@ -269,6 +285,7 @@ body::before{
   <div class="stats" id="stats"></div>
   <div class="method"><span>reading protocol</span><p>Filter the card set, select any card/pin/node for receipts, use the graph and map for structure, then check sequence in the timeline.</p></div>
 </div>
+<div class="build-stamp" id="build-stamp"></div>
 <div class="section-heading">
   <div class="section-title">Evidence Index</div>
   <div class="section-note">Each card shows source status and direct-link count, then opens the shared receipt inspector.</div>
@@ -282,7 +299,7 @@ body::before{
 <section class="map-section">
   <div class="section-heading">
     <div class="section-title">Port Pirie Context Map</div>
-    <div class="section-note">Schematic address cluster, not a GIS layer; pins open the same receipt inspector.</div>
+    <div class="section-note">Schematic address cluster, not a GIS layer; pins focus the card set and open the same receipt inspector.</div>
   </div>
   <div class="map-panel" id="place-map"></div>
 </section>
@@ -297,6 +314,7 @@ body::before{
 <div class="divider"></div>
 <div class="timeline-section">
   <h2>Timeline · 1845–2026</h2>
+  <div class="timeline-tools" id="timeline-tools"></div>
   <div class="timelines" id="timeline"></div>
 </div>
 <div class="nav">
@@ -312,6 +330,8 @@ body::before{
 <script>
 (function(){
   var IMG=VERGE_DATA.images||{},META=VERGE_DATA.image_meta||{},COLOR=VERGE_DATA.color||{},NODES=VERGE_DATA.nodes||[],EDGES=VERGE_DATA.edges||[],T=VERGE_DATA.timeline||[],EV=VERGE_DATA.evidence||{},PUB=VERGE_DATA.public_layer||{};
+  var DATA_VERSION='20260505-50';
+  var BUILD_LABEL='2026-05-05 feature pass';
   var CAT_LABEL={
     victim:'victim',
     political:'political',
@@ -366,7 +386,7 @@ body::before{
     {id:'icac',label:'ICAC / OPI',x:76,y:23},
     {id:'glenside',label:'Glenside',x:86,y:82}
   ];
-  var NODE_BY_ID={},ADJ={},selectedId=null,graphState=null;
+  var NODE_BY_ID={},ADJ={},selectedId=null,mapFocus=null,timelineFilter='all',graphState=null;
   NODES.forEach(function(n){NODE_BY_ID[n.id]=n;ADJ[n.id]=[]});
   EDGES.forEach(function(e){if(ADJ[e.s])ADJ[e.s].push({id:e.t,w:e.w});if(ADJ[e.t])ADJ[e.t].push({id:e.s,w:e.w})});
   function catLabel(c){return CAT_LABEL[c]||c}
@@ -380,6 +400,20 @@ body::before{
   function uniq(a){var seen={};return a.filter(function(x){if(!x||seen[x])return false;seen[x]=1;return true})}
   function connectedSet(id){var set={};(ADJ[id]||[]).forEach(function(c){set[c.id]=1});return set}
   function connectionsFor(id){return(ADJ[id]||[]).map(function(c){return{node:NODE_BY_ID[c.id],w:c.w}}).filter(function(c){return !!c.node}).sort(function(a,b){return(b.w||0)-(a.w||0)||a.node.label.localeCompare(b.node.label)})}
+  function focusSetFor(id){var set=connectedSet(id);if(NODE_BY_ID[id])set[id]=1;return set}
+  function edgeReason(a,b,w){
+    if(!a||!b)return 'derived network edge from the canonical connection file.';
+    var pair=[a.category,b.category].sort().join('/');
+    var strength=w>=5?'strong':w>=4?'medium':'supporting';
+    if(a.id==='pearce'||b.id==='pearce')return strength+' complainant-centered link in the current source network.';
+    if(EV[a.id]&&EV[b.id])return strength+' vault/OCR overlap: both entities have assigned evidence snippets.';
+    if(PUBLIC_CONTEXT[a.id]&&PUBLIC_CONTEXT[b.id])return strength+' public-record context link across institutions, places, or offices.';
+    if(pair.indexOf('police')>=0&&pair.indexOf('health')>=0)return strength+' institutional-response link between health and policing context.';
+    if(pair.indexOf('gov')>=0&&pair.indexOf('political')>=0)return strength+' public-office link between government context and political actor.';
+    if(a.category===b.category)return strength+' same-category cluster link: '+catLabel(a.category)+'.';
+    if(EV[a.id]||EV[b.id])return strength+' mixed link: one side has a source-bound evidence snippet.';
+    return strength+' derived network edge from the canonical connection file.';
+  }
   function refsFor(n){
     var ev=EV[n.id]||'', refs=ev.match(/\bEFTA\d+\b|\bM\d{2}\/\d+\b|\b\d{4}\/\d{6}\b|\bDataSet\s*\d+\b|\bDOJ DataSet\s*\d+\b|\bICAC\b|\bOPI\b/g)||[];
     if(PUB.verifiedAddresses){
@@ -405,6 +439,56 @@ body::before{
     aliases=aliases.map(function(a){return a.toLowerCase()}).filter(function(a){return a.length>2});
     return T.filter(function(t){var hay=(t.date+' '+t.event).toLowerCase();return aliases.some(function(a){return hay.indexOf(a)>=0})}).slice(0,7);
   }
+  function ledgerFor(n,receipt,refs,img,meta){
+    return [
+      ['entity id',n.id],
+      ['canonical file','port-pirie-network.json / port-pirie-data.js'],
+      ['category',catLabel(n.category)],
+      ['source tier',receipt.confidence],
+      ['evidence refs',refs.join(', ')],
+      ['image source',meta.source||'not assigned'],
+      ['local asset',img||'initials fallback']
+    ];
+  }
+  function timelineTags(t){
+    var hay=(t.date+' '+t.event).toLowerCase(),tags=['all'];
+    if(/port pirie|ellen|nyrstar|lead|frome|kadina|central hotel|regional development board|rdb|smelter|hospital/.test(hay))tags.push('local');
+    if(/mp|minister|premier|senator|marshall|chapman|hanson|patrick|dutton|ellis|brock|election|liberal|attorney general|bryce|wade/.test(hay))tags.push('politics');
+    if(/sapol|police|icac|opi|court|magistrate|legal|afp|acic|charges|convicted|complaint/.test(hay))tags.push('legal');
+    if(/health|medical|doctor|gp plus|glenside|hcscc|hospital|blood lead|cancer|hiv/.test(hay))tags.push('health');
+    if(/epstein|maxwell|doj|victim coordinator|dataset|ocr|files|efta/.test(hay))tags.push('epstein');
+    return tags;
+  }
+  var TIMELINE_FILTERS=[
+    ['all','all'],
+    ['local','Port Pirie'],
+    ['politics','politics'],
+    ['legal','police/legal'],
+    ['health','health'],
+    ['epstein','Epstein/DOJ']
+  ];
+  function timelineMatches(t){return timelineFilter==='all'||timelineTags(t).indexOf(timelineFilter)>=0}
+  function renderTimeline(){
+    var items=T.filter(timelineMatches),h=Math.ceil(items.length/2),th='<div class="tl-col">';
+    if(!items.length){document.getElementById('timeline').innerHTML='<div class="empty-note">No events match this timeline filter.</div>';return}
+    for(var i=0;i<items.length;i++){
+      if(i===h)th+='</div><div class="tl-col">';
+      th+='<div class="tl-item"><div class="tl-date">'+esc(items[i].date)+'</div><div class="tl-text">'+esc(items[i].event)+'</div></div>';
+    }
+    th+='</div>';
+    document.getElementById('timeline').innerHTML=th;
+  }
+  function renderTimelineTools(){
+    var tools=document.getElementById('timeline-tools');
+    tools.innerHTML=TIMELINE_FILTERS.map(function(f){return '<button type="button" data-timeline="'+esc(f[0])+'" class="'+(timelineFilter===f[0]?'active':'')+'">'+esc(f[1])+'</button>'}).join('');
+    Array.prototype.forEach.call(tools.querySelectorAll('button'),function(btn){
+      btn.addEventListener('click',function(){
+        timelineFilter=btn.dataset.timeline;
+        renderTimelineTools();
+        renderTimeline();
+      });
+    });
+  }
   function photoHtml(n,kind){
     var img=IMG[n.id],cl=COLOR[n.category]||'#888',base=kind==='inspector'?'inspector-media':'photo',klass=imageClass(n.id);
     return img?'<div class="'+base+' '+klass+'" data-label="'+esc(n.label)+'" data-color="'+esc(cl)+'"><img src="'+esc(img)+'" alt="'+esc(n.label)+'" loading="lazy"></div>':'<div class="'+base+'"><div class="initials" style="color:'+esc(cl)+'">'+esc(init(n.label))+'</div></div>';
@@ -417,10 +501,7 @@ body::before{
     '<div class="stat"><div class="num">'+T.length+'</div><div class="lbl">events</div></div>'+
     '<div class="stat"><div class="num">17k</div><div class="lbl">vault</div></div>';
 
-  // Timeline
-  var h=Math.ceil(T.length/2),th='<div class="tl-col">';
-  for(var i=0;i<T.length;i++){if(i===h)th+='</div><div class="tl-col">';th+='<div class="tl-item"><div class="tl-date">'+esc(T[i].date)+'</div><div class="tl-text">'+esc(T[i].event)+'</div></div>'}
-  th+='</div>';document.getElementById('timeline').innerHTML=th;
+  document.getElementById('build-stamp').innerHTML='<span>build '+esc(BUILD_LABEL)+' · data v'+esc(DATA_VERSION)+' · '+esc(Object.keys(EV).length)+' evidence snippets · generated from port-pirie-network.json</span><div class="export-links"><button type="button" data-export="json">json</button><button type="button" data-export="nodes">nodes csv</button><button type="button" data-export="edges">edges csv</button></div>';
 
   // Controls
   var cats=[];NODES.forEach(function(n){if(cats.indexOf(n.category)<0)cats.push(n.category)});
@@ -431,7 +512,9 @@ body::before{
   document.getElementById('controls').innerHTML=ch;
 
   var current='all';
-  window.filterCat=function(c){current=c;var btns=document.querySelectorAll('.controls button[data-cat]');for(var i=0;i<btns.length;i++){btns[i].classList.toggle('active',btns[i].dataset.cat===c)}renderCards()};
+  function setCategory(c){current=c;var btns=document.querySelectorAll('.controls button[data-cat]');for(var i=0;i<btns.length;i++){btns[i].classList.toggle('active',btns[i].dataset.cat===c)}}
+  window.filterCat=function(c){setCategory(c);renderCards()};
+  window.clearMapFocus=function(){mapFocus=null;renderCards();updateSelections()};
 
   function init(l){return(l||'').split(' ').map(function(w){return w[0]}).slice(0,3).join('').toUpperCase()}
   function fallbackPhoto(photo,label,cl){photo.innerHTML='<div class="initials" style="color:'+cl+'">'+init(label)+'</div>'}
@@ -439,11 +522,14 @@ body::before{
     var sourced=f.filter(function(n){return !!IMG[n.id]}).length;
     var evidence=f.filter(function(n){return !!EV[n.id]}).length;
     var label=current==='all'?'all categories':catLabel(current);
-    document.getElementById('view-state').innerHTML='<span>'+esc(f.length)+'</span> shown · <span>'+esc(sourced)+'</span> sourced images · <span>'+esc(evidence)+'</span> evidence snippets · '+esc(label);
+    var focus=mapFocus&&NODE_BY_ID[mapFocus]?' · map focus <span>'+esc(NODE_BY_ID[mapFocus].label)+'</span> <button type="button" onclick="clearMapFocus()">clear</button>':'';
+    document.getElementById('view-state').innerHTML='<span>'+esc(f.length)+'</span> shown · <span>'+esc(sourced)+'</span> sourced images · <span>'+esc(evidence)+'</span> evidence-linked cards · '+esc(label)+focus;
   }
 
   function renderCards(){
+    var focus=mapFocus?focusSetFor(mapFocus):null;
     var f=current==='all'?NODES.slice():NODES.filter(function(n){return n.category===current});
+    if(focus)f=f.filter(function(n){return !!focus[n.id]});
     f.sort(sortNode);
     updateViewState(f);
     var cards=document.getElementById('cards');
@@ -473,8 +559,9 @@ body::before{
     var n=NODE_BY_ID[id],panel=document.getElementById('entity-inspector');
     if(!n||!panel)return;
     var cl=COLOR[n.category]||'#888',receipt=receiptFor(n),refs=refsFor(n),conns=connectionsFor(n.id),hits=timelineFor(n),ev=EV[n.id],img=IMG[n.id],meta=metaFor(n.id);
+    var ledger=ledgerFor(n,receipt,refs,img,meta).map(function(row){return '<div class="ledger-row"><span>'+esc(row[0])+'</span><strong>'+esc(row[1])+'</strong></div>'}).join('');
     var connHtml=conns.length?conns.slice(0,10).map(function(c){
-      return '<button type="button" class="connection-btn" data-id="'+esc(c.node.id)+'"><strong>'+esc(c.node.label)+'</strong><span>'+esc(catLabel(c.node.category))+' · strength '+esc(c.w||0)+'</span></button>';
+      return '<button type="button" class="connection-btn" data-id="'+esc(c.node.id)+'"><strong>'+esc(c.node.label)+'</strong><span>'+esc(catLabel(c.node.category))+' · strength '+esc(c.w||0)+'</span><em>'+esc(edgeReason(n,c.node,c.w||0))+'</em></button>';
     }).join(''):'<div class="empty-note">No direct edges in the current network slice.</div>';
     var timeHtml=hits.length?hits.map(function(t){return '<div class="timeline-mini-item"><strong>'+esc(t.date)+'</strong>'+esc(t.event)+'</div>'}).join(''):'<div class="empty-note">No direct timeline event is assigned by the current matching rules.</div>';
     var refHtml=refs.map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('');
@@ -483,7 +570,7 @@ body::before{
     panel.classList.add('open');
     panel.innerHTML='<div class="inspector-head">'+photoHtml(n,'inspector')+
       '<div class="inspector-title"><div class="inspector-tags"><span class="badge" style="color:'+esc(cl)+'">'+esc(catLabel(n.category))+'</span><span class="source-chip '+esc(receipt.key)+'">'+esc(receipt.label)+'</span><span class="link-chip">'+esc(conns.length)+' links</span></div>'+
-      '<h3>'+esc(n.label)+'</h3><p>'+esc(n.desc)+'</p></div></div>'+
+      '<h3>'+esc(n.label)+'</h3><p>'+esc(n.desc)+'</p><button type="button" class="copy-link" data-copy-link="'+esc(n.id)+'">copy entity link</button></div></div>'+
       '<div class="inspector-grid"><div>'+
       '<div class="inspector-block"><h4>Receipt</h4><div class="receipt-grid">'+
       '<div class="receipt-item"><span>source status</span><strong>'+esc(receipt.label)+'</strong></div>'+
@@ -491,12 +578,14 @@ body::before{
       '<div class="receipt-item"><span>image type</span><strong>'+esc(imageKind(n.id))+' · '+esc(imageSurface(n.id))+' surface</strong></div>'+
       '<div class="receipt-item"><span>image path</span><strong>'+imageLine+'</strong></div>'+
       '</div><div class="source-refs">'+refHtml+'</div><div class="empty-note">'+esc(receipt.basis)+'</div>'+quote+'</div>'+
+      '<div class="inspector-block"><h4>Source Ledger</h4><div class="ledger-list">'+ledger+'</div></div>'+
       '<div class="inspector-block"><h4>Timeline Matches</h4><div class="timeline-mini">'+timeHtml+'</div></div>'+
       '</div><div>'+
       '<div class="inspector-block"><h4>Connected Entities</h4><div class="connection-list">'+connHtml+'</div></div>'+
       '<div class="inspector-block"><h4>Image Source</h4><div class="receipt-grid"><div class="receipt-item"><span>source note</span><strong>'+esc(meta.source||'not assigned')+'</strong></div><div class="receipt-item"><span>rendering</span><strong>'+esc(imageClass(n.id))+'</strong></div></div></div>'+
       '</div></div>';
     Array.prototype.forEach.call(panel.querySelectorAll('.connection-btn'),function(btn){btn.addEventListener('click',function(){selectEntity(btn.dataset.id,{scroll:true})})});
+    Array.prototype.forEach.call(panel.querySelectorAll('[data-copy-link]'),function(btn){btn.addEventListener('click',function(){copyEntityLink(btn.dataset.copyLink,btn)})});
     Array.prototype.forEach.call(panel.querySelectorAll('img'),function(im){im.addEventListener('error',function(){var ph=im.parentElement;fallbackPhoto(ph,ph.dataset.label,ph.dataset.color||'#888')})});
   }
 
@@ -508,7 +597,7 @@ body::before{
         var node=NODE_BY_ID[p.id],cl=COLOR[node.category]||'#888';
         return '<button type="button" class="map-pin" data-id="'+esc(p.id)+'" style="left:'+esc(p.x)+'%;top:'+esc(p.y)+'%;--pin-color:'+esc(cl)+'"><span class="dot"></span><span class="label">'+esc(p.label)+'</span></button>';
       }).join('');
-    Array.prototype.forEach.call(map.querySelectorAll('.map-pin'),function(pin){pin.addEventListener('click',function(){selectEntity(pin.dataset.id,{scroll:true})})});
+    Array.prototype.forEach.call(map.querySelectorAll('.map-pin'),function(pin){pin.addEventListener('click',function(){focusMap(pin.dataset.id)})});
   }
 
   function renderAudit(){
@@ -527,7 +616,7 @@ body::before{
       card.classList.toggle('selected',card.dataset.id===selectedId);
       card.classList.toggle('related',!!linked[card.dataset.id]&&card.dataset.id!==selectedId);
     });
-    Array.prototype.forEach.call(document.querySelectorAll('.map-pin'),function(pin){pin.classList.toggle('active',pin.dataset.id===selectedId)});
+    Array.prototype.forEach.call(document.querySelectorAll('.map-pin'),function(pin){pin.classList.toggle('active',pin.dataset.id===selectedId);pin.classList.toggle('focus',pin.dataset.id===mapFocus)});
     applyGraphSelection();
   }
 
@@ -536,10 +625,35 @@ body::before{
     selectedId=id;
     renderInspector(id);
     updateSelections();
+    if(!opts||opts.hash!==false)setEntityHash(id);
     if(opts&&opts.scroll){
       var panel=document.getElementById('entity-inspector');
       if(panel)panel.scrollIntoView({behavior:'smooth',block:'nearest'});
     }
+  }
+  function setEntityHash(id){
+    if(!history.replaceState)return;
+    history.replaceState(null,'',location.pathname+location.search+'#'+encodeURIComponent(id));
+  }
+  function entityUrl(id){return location.origin+location.pathname+'#'+encodeURIComponent(id)}
+  function copyEntityLink(id,btn){
+    var url=entityUrl(id);
+    function done(){btn.textContent='copied';setTimeout(function(){btn.textContent='copy entity link'},1200)}
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(done,done);
+    else done();
+  }
+  function focusMap(id){
+    if(!NODE_BY_ID[id])return;
+    mapFocus=id;
+    setCategory('all');
+    renderCards();
+    selectEntity(id,{scroll:true});
+  }
+  function revealEntity(id,opts){
+    mapFocus=null;
+    setCategory('all');
+    renderCards();
+    selectEntity(id,opts);
   }
 
   function applyGraphSelection(){
@@ -604,7 +718,23 @@ body::before{
 
   renderMap();
   renderAudit();
+  renderTimelineTools();
+  renderTimeline();
   renderCards();
+  Array.prototype.forEach.call(document.querySelectorAll('[data-export]'),function(btn){btn.addEventListener('click',function(){exportData(btn.dataset.export)})});
+  function csvEscape(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+  function downloadFile(name,type,text){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},0)}
+  function exportData(kind){
+    if(kind==='json'){downloadFile('port-pirie-network.json','application/json',JSON.stringify(VERGE_DATA,null,2));return}
+    if(kind==='nodes'){
+      var nodeRows=[['id','label','category','source_tier','links','image','description']].concat(NODES.slice().sort(sortNode).map(function(n){return[n.id,n.label,catLabel(n.category),receiptFor(n).label,connectionsFor(n.id).length,IMG[n.id]||'',n.desc]}));
+      downloadFile('port-pirie-nodes.csv','text/csv',nodeRows.map(function(r){return r.map(csvEscape).join(',')}).join('\n'));return;
+    }
+    var edgeRows=[['source','target','strength','reason']].concat(EDGES.map(function(e){var a=NODE_BY_ID[e.s],b=NODE_BY_ID[e.t];return[e.s,e.t,e.w,edgeReason(a,b,e.w)]}));
+    downloadFile('port-pirie-edges.csv','text/csv',edgeRows.map(function(r){return r.map(csvEscape).join(',')}).join('\n'));
+  }
+  window.addEventListener('hashchange',function(){var id=decodeURIComponent(location.hash.replace(/^#/,''));if(NODE_BY_ID[id])revealEntity(id,{scroll:true,hash:false})});
+  var initialId=decodeURIComponent(location.hash.replace(/^#/,''));if(NODE_BY_ID[initialId])revealEntity(initialId,{scroll:false,hash:false});
 })();
 </script>
 </body>
