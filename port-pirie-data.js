@@ -786,6 +786,9 @@ const VERGE_DATA = {
     "hanson": "https://upload.wikimedia.org/wikipedia/commons/3/36/Pauline_Hanson_2017_01_(cropped).jpg",
     "cash": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Michaelia_Cash_2018_(cropped).jpg",
     "bryce": "https://upload.wikimedia.org/wikipedia/commons/8/89/Estonian_Ambassador_H.E._Mr_Andres_Unga_presents_his_credentials_to_the_Governor-General_of_Australia_H.E._Ms_Quentin_Alice_Louise_Bryce._28.03.2013_(8596664099)_(cropped).jpg",
+    "patrick": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Rex_Lyall_Patrick_at_the_PIRA_Federal_Election_Forum_01.jpg",
+    "brock": "https://upload.wikimedia.org/wikipedia/commons/1/10/Geoff_Brock_MP.png",
+    "olsen": "https://upload.wikimedia.org/wikipedia/commons/5/5d/John_Olsen_(1).jpg",
     "sapol": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Coat_of_arms_of_the_South_Australia_Police.svg.png",
     "epstein_maxwell": "https://upload.wikimedia.org/wikipedia/commons/5/54/Seal_of_the_United_States_Department_of_Justice.svg.png"
   },
