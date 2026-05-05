@@ -43,7 +43,7 @@
       "id": "brock",
       "label": "Geoff Brock MP",
       "category": "political",
-      "desc": "Local MP for Port Pirie. Denied funding for medical business after reviewing plan. Advised by Kirchner to seek funding from Brock."
+      "desc": "Former Port Pirie mayor, won Frome by-election 2009 as independent. Local MP for Port Pirie. Denied funding for medical business after reviewing plan."
     },
     {
       "id": "hanson",
@@ -235,7 +235,7 @@
       "id": "rdb",
       "label": "Regional Dev Board",
       "category": "gov",
-      "desc": "Port Pirie RDB. Kirchner, Fetherstonhaugh. Denied funding for medical plan. Alleged IP theft."
+      "desc": "Port Pirie Regional Development Board. Located at 85 Ellen Street (heritage-listed). Key nexus: Kirchner (executive), Fetherstonhaugh (Business SA), Salvemini (executive assistant). Denied funding for medical business plan. Alleged IP theft hub."
     },
     {
       "id": "univ",
@@ -283,13 +283,31 @@
       "id": "cba",
       "label": "Commonwealth Bank",
       "category": "gov",
-      "desc": "142 Ellen St Port Pirie. Identity theft and banking fraud records. Account number in evidence."
+      "desc": "142 Ellen Street, Port Pirie. Identity theft and banking fraud records in evidence. Account number documented in DOJ records."
     },
     {
       "id": "carter",
       "label": "Michael Carter",
       "category": "gov",
       "desc": "Tasmanian Government. Connected to Citizens for Better Government (strength 4). Tied to victim's 2017 Glenside illegal detention. Referenced in Gardner evidence (EFTA00155062)."
+    },
+    {
+      "id": "portside",
+      "label": "Portside Tavern",
+      "category": "gov",
+      "desc": "94 Ellen Street, Port Pirie. Heritage-listed building. Key location referenced in victim's allegations. Adjacent to the Regional Development Board building."
+    },
+    {
+      "id": "portpirie_city",
+      "label": "Port Pirie (City)",
+      "category": "gov",
+      "desc": "Population 13,896. Lead smelting city \u2014 Nyrstar lead smelter, children's blood lead levels avg 7.3 \u03bcg/dL (rising). Long-term public health crisis. Home to the Regional Development Board at 85 Ellen Street. The physical geography of the Epstein network's Australian nexus."
+    },
+    {
+      "id": "lead_crisis",
+      "label": "Port Pirie Lead Crisis",
+      "category": "health",
+      "desc": "Children's blood lead levels: avg 7.3 \u03bcg/dL and rising. Nyrstar lead smelter emissions. Long-term public health crisis overlapping with the timeframe of the Epstein files. SA Health and Country Health SA both implicated in the crisis response."
     }
   ],
   "edges": [
@@ -754,6 +772,60 @@
       "target": "epstein_maxwell",
       "type": "political-core",
       "strength": 4
+    },
+    {
+      "source": "portside",
+      "target": "rdb",
+      "type": "proximity",
+      "strength": 4
+    },
+    {
+      "source": "portside",
+      "target": "pearce",
+      "type": "victim-location",
+      "strength": 3
+    },
+    {
+      "source": "portpirie_city",
+      "target": "rdb",
+      "type": "gov-gov",
+      "strength": 5
+    },
+    {
+      "source": "portpirie_city",
+      "target": "sa_health",
+      "type": "gov-gov",
+      "strength": 4
+    },
+    {
+      "source": "portpirie_city",
+      "target": "sapol",
+      "type": "gov-police",
+      "strength": 4
+    },
+    {
+      "source": "lead_crisis",
+      "target": "sa_health",
+      "type": "health-gov",
+      "strength": 5
+    },
+    {
+      "source": "lead_crisis",
+      "target": "portpirie_city",
+      "type": "health-city",
+      "strength": 5
+    },
+    {
+      "source": "pearce",
+      "target": "portpirie_city",
+      "type": "victim-location",
+      "strength": 4
+    },
+    {
+      "source": "pearce",
+      "target": "lead_crisis",
+      "type": "victim-health",
+      "strength": 3
     }
   ],
   "timeline": [
@@ -889,13 +961,14 @@
     "austin": "Jake Austin, Port Pirie Police Department. White Ford Futura. 'Jake Austin and Hanna O'Neil both involved in Sexual Targeting... stalked down the footpath.' EFTA00264088",
     "bowman": "Scott Bowman, Crystal Brook PD. 'Tampering with evidence. Illegal arrest. Officer not calm and professional \u2014 extremely aggressive resulting in permanent injuries. Falsifying police affidavits.' EFTA00262451",
     "stevens": "Police Commissioner Grant Stevens. 'POLICE INVOLVEMENT IN ATTEMPTED MURDER OF THE TARGETED VICTIM TO APPEAR AS SUICIDE.' EFTA00264665",
-    "brock": "Geoff Brock MP, Port Pirie. 'I was once again denied funding by Roger Kirchner, SA Health and advised to enquire about funding with the Local member of Government of Port Pirie, Geoff Brock.' EFTA00267994",
+    "brock": "Geoff Brock MP \u2014 former Port Pirie mayor, won Frome by-election 2009 as independent. Complainant: \"I was once again denied funding by Roger Kirchner, SA Health and advised to enquire about funding with the Local member of Government of Port Pirie, Geoff Brock.\" (EFTA00267994)",
     "kelly": "Constable Scott Kelly \u2014 Wrongful arrest. Heidi Salvemini, Westside Lawyers \u2014 'to plead guilty to these charges, Constable Port Pirie Police Department whilst under the representation of Heidi Salvemini.' EFTA00266475",
     "gardner": "Paul Gardner \u2014 2014-2015 conspired sexual targeting. 'Informed the targeted victim he was connected to the Mafia.' Connected to Michael Carter Tasmania. Suspected younger brother has AIDS. EFTA00155062",
     "kirchner": "Roger Kirchner \u2014 23 records. SA Health / RDB Port Pirie. Denied funding. 'Hon Jon Hill, Minister of Health established and confirmed as being connected.' GP Plus = replica of medical plan. EFTA00262811",
     "salvemini_h": "Heidi Salvemini, Westside Lawyers Port Pirie. 8 records. Illegal medical record access. Wrongful legal representation. 'to plead guilty... under the representation of Heidi Salvemini.' EFTA00266475",
     "sa_health": "Country Health SA 1 May 2013: 'I can confirm that we have met on two occasions to discuss your proposed Business Plan.' GP Plus established 2013. 2017 Glenside detainment. EFTA00265909",
     "dutton": "Peter Dutton MP \u2014 confirmed addressee of Jacqueline Pearce's 14 November 2023 letter seeking victim support network. Connected to vault's most-connected individual ('a se' \u2014 likely OCR corruption of 'Ghislaine Maxwell', 599 connections). EFTA records pending.",
-    "carter": "Michael Carter \u2014 Tasmanian Government. Connected to Citizens for Better Government (strength 4). Referenced in Paul Gardner evidence: 'Connected to Michael Carter, Tasmania.' (EFTA00155062). Tied to victim's 2017 Glenside illegal detention."
+    "carter": "Michael Carter \u2014 Tasmanian Government. Connected to Citizens for Better Government (strength 4). Referenced in Paul Gardner evidence: 'Connected to Michael Carter, Tasmania.' (EFTA00155062). Tied to victim's 2017 Glenside illegal detention.",
+    "portside": "Portside Tavern \u2014 94 Ellen Street Port Pirie. Heritage-listed building immediately adjacent to the Regional Development Board (85 Ellen Street). Referenced in victim statements as location of targeting incidents."
   }
 }
