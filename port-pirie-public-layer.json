@@ -1,0 +1,73 @@
+{
+  "geography": {
+    "context": "Port Pirie census 2021: population 13,896. Dominant employer: Nyrstar lead smelter (world's largest). Lead poisoning crisis: 7.3 μg/dL avg in children (rising from 5.3 in 2014). SA Government underwrote $291M of $650M smelter upgrade. Regional city 223km north of Adelaide. Port Pirie Regional Council LGA. State electorate: Stuart (prev. Frome). Federal: Grey.",
+    "ntote": "The geography confirms the incentive structure: a one-company town dependent on the smelter, whose $650M upgrade was co-funded by the state government. Every institution named in the Epstein files — the RDB, the Portside Tavern, the hospital, the police station — sits within a 2km radius in a city of 14,000 people."
+  },
+
+  "verifiedAddresses": {
+    "rdb": {"building": "Development Board Building", "address": "85 Ellen Street, Port Pirie SA 5540", "source": "SA Heritage Register, Wikipedia"},
+    "portside_tavern": {"building": "Portside Tavern (Sample Rooms)", "address": "94 Ellen Street, Port Pirie SA 5540", "source": "SA Heritage Register, Wikipedia", "ntote": "Central Hotel/Portside Tavern — location of 4 Feb 2016 incident in Jacqueline Pearce statement (EFTA00266639)"},
+    "cba": {"building": "Commonwealth Bank", "address": "142 Ellen Street, Port Pirie SA 5540", "source": "Port Pirie evidence records (EFTA00263968)"},
+    "courthouse": {"building": "Port Pirie Courthouse", "address": "20 Main Road, Port Pirie SA 5540", "source": "Youth Court records (EFTA00266717)"},
+    "pp_hospital": {"building": "Port Pirie Regional Health Service", "address": "Port Pirie Hospital campus", "source": "Country Health SA correspondence (EFTA00265909, EFTA00261688)"},
+    "pp_police": {"building": "Port Pirie Police Station", "ntote": "Exact address not confirmed. Referenced as 'Port Pirie Police Department' in multiple EFTA records."},
+    "pp_medical": {"building": "Port Pirie Medical Centre", "ntote": "Dr. Kajani — referenced in EFTA00262811"},
+    "glenside": {"building": "Glenside Mental Health Facility", "address": "226 Fullarton Road, Glenside SA 5065, Adelaide", "ntote": "2017 illegal detainment location. Relocated from Port Pirie to Kadina after release."},
+    "kadina": {"town": "Kadina SA 5554", "ntote": "Complainant relocated here after 2017 Glenside release. Fraser Ellis MP electoral office: 37 Graves St / 65 Stirling Tce, Kadina SA 5554."}
+  },
+
+  "publicRecordConfirmed": {
+    "ellis": {
+      "dob": "1992-08-17",
+      "age_when_met_pearce": 29,
+      "party_history": "Liberal 2018-2021, Independent 2021-2026",
+      "icac_charges": "23 counts of deception (Feb 2021), 78 fraudulent claims totaling $18,000+",
+      "icac_commissioner": "Ann Vanstone QC",
+      "repaid": "$42,130 for staying at colleague Terry Stephens' Adelaide residence",
+      "guilty_counts": "4 counts (~$2,800). Two involved being on Yorke Peninsula while claiming Adelaide stay. One involved a wedding night claim.",
+      "acquitted": "19 counts",
+      "magistrate": "Simon Smart, Adelaide Magistrates Court",
+      "defence_lawyer": "Scott Henchcliffe",
+      "sentencing": "September 2024",
+      "defeated": "March 2026 state election",
+      "alma_mater": "University of South Australia",
+      "prior_career": "Lawyer and journalist",
+      "electorate": "Narungga — covers Yorke Peninsula, incl. Kadina, Moonta, Wallaroo, Port Wakefield"
+    },
+    "brock": {
+      "title": "Geoff Brock MP",
+      "history": "Former Port Pirie mayor. Won 2009 Frome by-election as independent. Former Labor-turned-independent state MP.",
+      "electorate": "Stuart (prev. Frome)"
+    },
+    "port_pirie": {
+      "population": 13896,
+      "employer": "Nyrstar — world's largest lead smelter",
+      "upgrade": "$650M smelter upgrade (2014), $291M SA Government underwrite",
+      "lead_crisis": "Blood lead 7.3 μg/dL avg in children (2021), up from 5.3 in 2014. Rising airborne lead levels.",
+      "port": "Second busiest port in SA, ships 100+ vessels/year",
+      "council": "Port Pirie Regional Council",
+      "histtory": "Established 1845. Named after ship 'John Pirie.' Major Broken Hill silver-lead-zinc ore processing from 1889."
+    }
+  },
+
+  "sealedGap": {
+    "ntote": "The following connections exist ONLY in the sealed DOJ Epstein DataSet 9 documents — no public record confirms them. The vault person files (extracted from these documents) name these individuals as connected to the Epstein-Maxwell investigation through Jacqueline Pearce's complaint.",
+    "only_in_vault": [
+      "Fraser Ellis — 'person of interest,' unusual comment to victim 2022, only MP to meet Pearce",
+      "Peter Dutton — addressee of victim support letter 14 Nov 2023",
+      "Paul Gardner — 2014-2015 conspired sexual targeting, 'Government Prostitution' threats, Mafia/Tasmania connections",
+      "Vincent Bulone — Adelaide University Director of Research, Mafia/Sicily origins, relationship with complainant 2018-2019",
+      "Shaun Steele — Red Devils MC Port Pirie, death threats, FIFO mining worker",
+      "Peter Bannister — LiL Devil Designs, Red Devils/Hells Angels, connected to RDB",
+      "David Bradley — Tasmania, Hells Angels, Adelaide University, illicit manuscript knowledge",
+      "Michael Carter — Tasmanian Government, Citizens for Better Government, 2017 Glenside detention",
+      "Michael Fetherstonhaugh — RDB/Business SA, Paul Gardner's uncle",
+      "Roger Kirchner — 23 records, SA Health/RDB, denied medical funding",
+      "Heidi Salvemini — Westside Lawyers, illegal medical record access",
+      "Jake Austin, Hanna O'Neil — Port Pirie PD, sexual targeting",
+      "Scott Bowman — Crystal Brook PD, evidence tampering, illegal arrest",
+      "Grant Stevens — SA Police Commissioner, 'attempted murder to appear as suicide'"
+    ],
+    "disclaimer": "The vault contents are derived from sealed DOJ Epstein files (DataSets 1, 9, 10). These documents contain unproven allegations. Publicly confirmed facts (Ellis conviction, smelter operations, lead crisis, heritage buildings) are verifiable through government records. Individual allegations remain unproven and are noted as such throughout."
+  }
+}

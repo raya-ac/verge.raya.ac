@@ -10,7 +10,7 @@ const VERGE_DATA = {
       "id": "ellis",
       "label": "Fraser Ellis MP",
       "category": "political",
-      "desc": "Member for Narungga. Liberal-turned-Independent. Convicted July 2024 (ICAC fraud). Defeated March 2026. Only MP to meet complainant. 'Person of interest.'"
+      "desc": "DOB 17 Aug 1992. Member for Narungga. Liberal-turned-Independent. ICAC charged Feb 2021: 23 counts deception, 78 fraudulent claims ($18K+). Repaid $42,130. Convicted Jul 2024: 4 counts (~$2,800). Acquitted: 19 counts. Magistrate: Simon Smart. Sentenced Sep 2024. Defeated Mar 2026. Lawyer/journalist, UniSA graduate. Electoral office: Kadina. Vault: person of interest, unusual comment 2022."
     },
     {
       "id": "dutton",
@@ -268,7 +268,7 @@ const VERGE_DATA = {
       "id": "glenside",
       "label": "Glenside Hospital",
       "category": "health",
-      "desc": "Mental Health Facility. 2017 illegal detainment. Alleged police targeting, falsified diagnosis, illegal magistrate order."
+      "desc": "226 Fullarton Road, Glenside SA 5065, Adelaide. 2017 illegal detainment. Alleged police targeting, falsified GP diagnosis, illegal magistrate order. Victim relocated to Kadina after release."
     },
     {
       "id": "cba",
@@ -735,6 +735,26 @@ const VERGE_DATA = {
   ],
   "timeline": [
     {
+      "date": "1845",
+      "event": "Port Pirie established. Named after the ship 'John Pirie.'"
+    },
+    {
+      "date": "1889",
+      "event": "Major Broken Hill silver-lead-zinc ore processing begins. Foundation of lead smelter economy."
+    },
+    {
+      "date": "2009",
+      "event": "Geoff Brock wins Frome by-election as independent \u2014 former Port Pirie mayor."
+    },
+    {
+      "date": "2014",
+      "event": "Nyrstar smelter: $650M upgrade announced. SA Government underwrites $291M. Blood lead: 5.3 \u03bcg/dL children."
+    },
+    {
+      "date": "2021",
+      "event": "Port Pirie census: 13,896 population. Blood lead: 7.3 \u03bcg/dL children (rising). Rising airborne lead."
+    },
+    {
       "date": "1991",
       "event": "Earliest home address record for Jacqueline Carol Pearce."
     },
@@ -875,6 +895,110 @@ const VERGE_DATA = {
     "dutton": "Peter Dutton MP \u2014 confirmed addressee of Jacqueline Pearce's 14 November 2023 letter seeking victim support network. Connected to vault's most-connected individual ('a se' \u2014 likely OCR corruption of 'Ghislaine Maxwell', 599 connections). EFTA records pending.",
     "carter": "Michael Carter \u2014 Tasmanian Government. Connected to Citizens for Better Government (strength 4). Referenced in Paul Gardner evidence: 'Connected to Michael Carter, Tasmania.' (EFTA00155062). Tied to victim's 2017 Glenside illegal detention.",
     "portside": "Portside Tavern \u2014 94 Ellen Street Port Pirie. Heritage-listed building immediately adjacent to the Regional Development Board (85 Ellen Street). Referenced in victim statements as location of targeting incidents."
+  },
+  "public_layer": {
+    "geography": {
+      "context": "Port Pirie census 2021: population 13,896. Dominant employer: Nyrstar lead smelter (world's largest). Lead poisoning crisis: 7.3 \u03bcg/dL avg in children (rising from 5.3 in 2014). SA Government underwrote $291M of $650M smelter upgrade. Regional city 223km north of Adelaide. Port Pirie Regional Council LGA. State electorate: Stuart (prev. Frome). Federal: Grey.",
+      "ntote": "The geography confirms the incentive structure: a one-company town dependent on the smelter, whose $650M upgrade was co-funded by the state government. Every institution named in the Epstein files \u2014 the RDB, the Portside Tavern, the hospital, the police station \u2014 sits within a 2km radius in a city of 14,000 people."
+    },
+    "verifiedAddresses": {
+      "rdb": {
+        "building": "Development Board Building",
+        "address": "85 Ellen Street, Port Pirie SA 5540",
+        "source": "SA Heritage Register, Wikipedia"
+      },
+      "portside_tavern": {
+        "building": "Portside Tavern (Sample Rooms)",
+        "address": "94 Ellen Street, Port Pirie SA 5540",
+        "source": "SA Heritage Register, Wikipedia",
+        "ntote": "Central Hotel/Portside Tavern \u2014 location of 4 Feb 2016 incident in Jacqueline Pearce statement (EFTA00266639)"
+      },
+      "cba": {
+        "building": "Commonwealth Bank",
+        "address": "142 Ellen Street, Port Pirie SA 5540",
+        "source": "Port Pirie evidence records (EFTA00263968)"
+      },
+      "courthouse": {
+        "building": "Port Pirie Courthouse",
+        "address": "20 Main Road, Port Pirie SA 5540",
+        "source": "Youth Court records (EFTA00266717)"
+      },
+      "pp_hospital": {
+        "building": "Port Pirie Regional Health Service",
+        "address": "Port Pirie Hospital campus",
+        "source": "Country Health SA correspondence (EFTA00265909, EFTA00261688)"
+      },
+      "pp_police": {
+        "building": "Port Pirie Police Station",
+        "ntote": "Exact address not confirmed. Referenced as 'Port Pirie Police Department' in multiple EFTA records."
+      },
+      "pp_medical": {
+        "building": "Port Pirie Medical Centre",
+        "ntote": "Dr. Kajani \u2014 referenced in EFTA00262811"
+      },
+      "glenside": {
+        "building": "Glenside Mental Health Facility",
+        "address": "226 Fullarton Road, Glenside SA 5065, Adelaide",
+        "ntote": "2017 illegal detainment location. Relocated from Port Pirie to Kadina after release."
+      },
+      "kadina": {
+        "town": "Kadina SA 5554",
+        "ntote": "Complainant relocated here after 2017 Glenside release. Fraser Ellis MP electoral office: 37 Graves St / 65 Stirling Tce, Kadina SA 5554."
+      }
+    },
+    "publicRecordConfirmed": {
+      "ellis": {
+        "dob": "1992-08-17",
+        "age_when_met_pearce": 29,
+        "party_history": "Liberal 2018-2021, Independent 2021-2026",
+        "icac_charges": "23 counts of deception (Feb 2021), 78 fraudulent claims totaling $18,000+",
+        "icac_commissioner": "Ann Vanstone QC",
+        "repaid": "$42,130 for staying at colleague Terry Stephens' Adelaide residence",
+        "guilty_counts": "4 counts (~$2,800). Two involved being on Yorke Peninsula while claiming Adelaide stay. One involved a wedding night claim.",
+        "acquitted": "19 counts",
+        "magistrate": "Simon Smart, Adelaide Magistrates Court",
+        "defence_lawyer": "Scott Henchcliffe",
+        "sentencing": "September 2024",
+        "defeated": "March 2026 state election",
+        "alma_mater": "University of South Australia",
+        "prior_career": "Lawyer and journalist",
+        "electorate": "Narungga \u2014 covers Yorke Peninsula, incl. Kadina, Moonta, Wallaroo, Port Wakefield"
+      },
+      "brock": {
+        "title": "Geoff Brock MP",
+        "history": "Former Port Pirie mayor. Won 2009 Frome by-election as independent. Former Labor-turned-independent state MP.",
+        "electorate": "Stuart (prev. Frome)"
+      },
+      "port_pirie": {
+        "population": 13896,
+        "employer": "Nyrstar \u2014 world's largest lead smelter",
+        "upgrade": "$650M smelter upgrade (2014), $291M SA Government underwrite",
+        "lead_crisis": "Blood lead 7.3 \u03bcg/dL avg in children (2021), up from 5.3 in 2014. Rising airborne lead levels.",
+        "port": "Second busiest port in SA, ships 100+ vessels/year",
+        "council": "Port Pirie Regional Council",
+        "histtory": "Established 1845. Named after ship 'John Pirie.' Major Broken Hill silver-lead-zinc ore processing from 1889."
+      }
+    },
+    "sealedGap": {
+      "ntote": "The following connections exist ONLY in the sealed DOJ Epstein DataSet 9 documents \u2014 no public record confirms them. The vault person files (extracted from these documents) name these individuals as connected to the Epstein-Maxwell investigation through Jacqueline Pearce's complaint.",
+      "only_in_vault": [
+        "Fraser Ellis \u2014 'person of interest,' unusual comment to victim 2022, only MP to meet Pearce",
+        "Peter Dutton \u2014 addressee of victim support letter 14 Nov 2023",
+        "Paul Gardner \u2014 2014-2015 conspired sexual targeting, 'Government Prostitution' threats, Mafia/Tasmania connections",
+        "Vincent Bulone \u2014 Adelaide University Director of Research, Mafia/Sicily origins, relationship with complainant 2018-2019",
+        "Shaun Steele \u2014 Red Devils MC Port Pirie, death threats, FIFO mining worker",
+        "Peter Bannister \u2014 LiL Devil Designs, Red Devils/Hells Angels, connected to RDB",
+        "David Bradley \u2014 Tasmania, Hells Angels, Adelaide University, illicit manuscript knowledge",
+        "Michael Carter \u2014 Tasmanian Government, Citizens for Better Government, 2017 Glenside detention",
+        "Michael Fetherstonhaugh \u2014 RDB/Business SA, Paul Gardner's uncle",
+        "Roger Kirchner \u2014 23 records, SA Health/RDB, denied medical funding",
+        "Heidi Salvemini \u2014 Westside Lawyers, illegal medical record access",
+        "Jake Austin, Hanna O'Neil \u2014 Port Pirie PD, sexual targeting",
+        "Scott Bowman \u2014 Crystal Brook PD, evidence tampering, illegal arrest",
+        "Grant Stevens \u2014 SA Police Commissioner, 'attempted murder to appear as suicide'"
+      ],
+      "disclaimer": "The vault contents are derived from sealed DOJ Epstein files (DataSets 1, 9, 10). These documents contain unproven allegations. Publicly confirmed facts (Ellis conviction, smelter operations, lead crisis, heritage buildings) are verifiable through government records. Individual allegations remain unproven and are noted as such throughout."
+    }
   },
   "images": {
     "dutton": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Peter_Dutton-2024.jpg",
