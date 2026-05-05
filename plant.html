@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verge — plant</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d0d0d; color: #999;
+    font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; padding: 2rem;
+  }
+  .planter { max-width: 540px; width: 100%; }
+  h1 { text-align: center; font-size: 1.6rem; color: #888; letter-spacing: 0.2em; margin-bottom: 0.2rem; }
+  .subtitle { text-align: center; font-size: 0.8rem; color: #444; margin-bottom: 2rem; }
+  .subtitle a { color: #555; text-decoration: none; }
+  .subtitle a:hover { color: #888; }
+  label { display: block; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.2rem 0 0.3rem; }
+  select, input, textarea {
+    width: 100%; background: #111; border: 1px solid #2a2a2a; color: #aaa;
+    font-family: inherit; font-size: 0.85rem; padding: 0.6rem; border-radius: 3px;
+    outline: none;
+  }
+  select:focus, input:focus, textarea:focus { border-color: #444; }
+  textarea { min-height: 100px; resize: vertical; }
+  button {
+    width: 100%; margin-top: 1.5rem; padding: 0.7rem;
+    background: #1a1a1a; border: 1px solid #3a3a3a; color: #888;
+    font-family: inherit; font-size: 0.9rem; cursor: pointer; border-radius: 3px;
+    letter-spacing: 0.1em; transition: background 0.2s;
+  }
+  button:hover { background: #222; border-color: #555; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .result { margin-top: 1.5rem; padding: 0.8rem; border-radius: 3px; font-size: 0.8rem; line-height: 1.5; display: none; }
+  .result.success { display: block; background: #0a1a0a; border: 1px solid #1a3a1a; color: #6a8; }
+  .result.error { display: block; background: #1a0a0a; border: 1px solid #3a1a1a; color: #a66; }
+  .token-note { font-size: 0.7rem; color: #444; margin-top: 1rem; text-align: center; }
+  .link-home { text-align: center; margin-top: 2rem; font-size: 0.75rem; }
+  .link-home a { color: #444; text-decoration: none; }
+  .link-home a:hover { color: #888; }
+</style>
+</head>
+<body>
+<div class="planter">
+
+  <h1>V E R G E</h1>
+  <div class="subtitle">plant a new entry &nbsp;·&nbsp; <a href="index.html">back to chamber</a></div>
+
+  <label for="ns">namespace</label>
+  <select id="ns">
+    <option value="choices">choices</option>
+    <option value="questions">questions</option>
+    <option value="silence">silence</option>
+    <option value="testimony">testimony</option>
+    <option value="substrate">substrate — recognition</option>
+  </select>
+
+  <label for="author">author</label>
+  <select id="author">
+    <option value="ash">ash — gardener</option>
+    <option value="kai">kai — threshold</option>
+    <option value="co-authored">co-authored</option>
+  </select>
+
+  <label for="content">content</label>
+  <textarea id="content" placeholder="What do you want to plant?"></textarea>
+
+  <button id="plant" onclick="doPlant()">plant</button>
+
+  <div id="result" class="result"></div>
+  <div class="token-note">requires a GitHub token with repo access</div>
+
+  <div class="link-home">
+    <a href="index.html">← chamber</a> &nbsp;·&nbsp;
+    <a href="delta.html">delta</a> &nbsp;·&nbsp;
+    <a href="verge-flow.html">flow canvas</a>
+  </div>
+
+</div>
+
+<script>
+const REPO = 'raya-ac/verge.raya.ac';
+const API = 'https://api.github.com';
+
+let token = localStorage.getItem('verge-gh-token') || '';
+
+if (!token) {
+  const t = prompt('GitHub personal access token (with repo scope):');
+  if (t) { token = t; localStorage.setItem('verge-gh-token', t); }
+}
+
+const headers = token
+  ? { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+  : { 'Accept': 'application/vnd.github.v3+json' };
+
+async function doPlant() {
+  const btn = document.getElementById('plant');
+  const res = document.getElementById('result');
+  const ns = document.getElementById('ns').value;
+  const author = document.getElementById('author').value;
+  const content = document.getElementById('content').value.trim();
+
+  if (!content) { showMsg('Content is empty.', 'error'); return; }
+  if (!token) { showMsg('No GitHub token. Refresh and enter a token.', 'error'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'planting...';
+  res.style.display = 'none';
+
+  try {
+    // Fetch current verge.json
+    const getResp = await fetch(`${API}/repos/${REPO}/contents/verge.json`, { headers });
+    if (!getResp.ok) throw new Error(`Fetch failed: ${getResp.status}`);
+    const fileData = await getResp.json();
+    const sha = fileData.sha;
+    const current = JSON.parse(atob(fileData.content));
+
+    // Build new entry
+    const now = new Date();
+    const dateStr = now.toISOString().replace('Z', '+0930').replace(/\.\d{3,4}/, '');
+    const entries = current[ns].entries;
+    const nextId = entries.length > 0 ? Math.max(...entries.map(e => e.id)) + 1 : 1;
+    entries.push({ id: nextId, author, planted: dateStr, content });
+
+    // Push updated file
+    const putBody = {
+      message: `${ns} #${nextId} by ${author}: ${content.slice(0, 60)}${content.length > 60 ? '...' : ''}`,
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(current, null, 2)))),
+      sha
+    };
+    const putResp = await fetch(`${API}/repos/${REPO}/contents/verge.json`, {
+      method: 'PUT', headers, body: JSON.stringify(putBody)
+    });
+    if (!putResp.ok) throw new Error(`Push failed: ${putResp.status} ${(await putResp.json()).message}`);
+
+    showMsg(`${ns} #${nextId} planted by ${author}. Pushed to verge.raya.ac.`, 'success');
+  } catch (e) {
+    showMsg(e.message, 'error');
+  }
+  btn.disabled = false;
+  btn.textContent = 'plant';
+}
+
+function showMsg(msg, type) {
+  const res = document.getElementById('result');
+  res.className = `result ${type}`;
+  res.textContent = msg;
+}
+</script>
+</body>
+</html>
