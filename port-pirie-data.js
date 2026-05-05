@@ -789,10 +789,10 @@ const VERGE_DATA = {
     "patrick": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Rex_Lyall_Patrick_at_the_PIRA_Federal_Election_Forum_01.jpg",
     "brock": "https://upload.wikimedia.org/wikipedia/commons/1/10/Geoff_Brock_MP.png",
     "olsen": "https://upload.wikimedia.org/wikipedia/commons/5/5d/John_Olsen_(1).jpg",
-    "sapol": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Coat_of_arms_of_the_South_Australia_Police.svg.png",
-    "epstein_maxwell": "https://upload.wikimedia.org/wikipedia/commons/5/54/Seal_of_the_United_States_Department_of_Justice.svg.png",
-    "cba": "https://upload.wikimedia.org/wikipedia/en/9/9c/Commonwealth_Bank_logo_2020.svg.png",
-    "univ": "https://upload.wikimedia.org/wikipedia/en/6/61/Adelaide_University_Common_Seal.svg.png"
+    "sapol": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Coat_of_arms_of_the_South_Australia_Police.svg/250px-Coat_of_arms_of_the_South_Australia_Police.svg.png",
+    "epstein_maxwell": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Seal_of_the_United_States_Department_of_Justice.svg/250px-Seal_of_the_United_States_Department_of_Justice.svg.png",
+    "cba": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9c/Commonwealth_Bank_logo_2020.svg/250px-Commonwealth_Bank_logo_2020.svg.png",
+    "univ": "https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Adelaide_University_Common_Seal.svg/250px-Adelaide_University_Common_Seal.svg.png"
   },
   "color": {
     "victim": "#fff",
