@@ -173,7 +173,7 @@ body{background:var(--bg);color:var(--text);font-family:'SF Mono','Fira Code','M
       if (this._dragMoved) return;
       var ev = EVIDENCE[d.id], cl = COLOR[d.category]||'#888';
       var img = IMG[d.id];
-      var imgHtml = img ? '<img src="' + img + '" style="width:64px;height:64px;border-radius:6px;object-fit:cover;float:left;margin-right:1rem;background:#111" onerror="this.style.display=\\'none\\'">' : '';
+      var imgHtml = img ? '<img src="' + img + '" style="width:64px;height:64px;border-radius:6px;object-fit:cover;float:left;margin-right:1rem;background:#111">' : '';
       var old = document.getElementById('graph-detail');
       if (old) old.remove();
       var div = document.createElement('div');
