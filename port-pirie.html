@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Port Pirie · Epstein Files</title>
 <style>
-:root{--bg:#08080d;--s1:#0e0e16;--s2:#14141f;--s3:#1a1a28;--bd:#222233;--tx:#9292a8;--br:#b8b8cc;--mu:#525268;--re:#e55;--or:#f70;--bl:#48f;--br2:#b75;--gr:#999;--pu:#b6b;--cy:#48a;--gn:#5a5;--pk:#f66;--hlt:#6b6}
+:root{--bg:#08080d;--s1:#0e0e16;--s2:#14141f;--s3:#1a1a28;--bd:#222233;--tx:#9292a8;--br:#b8b8cc;--mu:#525268}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Menlo',monospace;min-height:100vh;overflow-x:hidden}
+body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Menlo',monospace;min-height:100vh}
 .container{max-width:1200px;margin:0 auto;padding:0 1.5rem}
 .header{padding:3rem 1.5rem 1.5rem;text-align:center}
 .header h1{font-size:1.8rem;color:var(--br);font-weight:400;letter-spacing:.06em;margin-bottom:.3rem}
@@ -25,12 +25,13 @@ body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Men
 .controls button:hover{color:var(--br);border-color:#444;background:var(--s3)}
 .controls button.active{color:var(--br);border-color:#555;background:var(--s3)}
 .controls button.graph-btn{border-color:#333;margin-left:.5rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:.6rem;padding:.5rem 0 2rem}
+.section-title{font-size:.72rem;color:var(--mu);text-align:center;letter-spacing:.08em;margin:1.5rem 0 1rem;text-transform:uppercase}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:.6rem;padding:.5rem 0}
 @media(max-width:680px){.cards{grid-template-columns:1fr}}
 .card{background:var(--s1);border:1px solid var(--bd);border-radius:6px;overflow:hidden;transition:all .25s ease;cursor:default}
 .card:hover{border-color:#333;transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.4)}
 .card-header{display:flex;align-items:center;gap:.7rem;padding:.7rem;border-bottom:1px solid #1a1a2a;background:var(--s2)}
-.card-header .photo{width:44px;height:44px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#111;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.card-header .photo{width:44px;height:44px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#111;display:flex;align-items:center;justify-content:center}
 .card-header .photo img{width:100%;height:100%;object-fit:cover}
 .card-header .photo .initials{font-size:.8rem;font-weight:600}
 .card-header .info{flex:1;min-width:0}
@@ -38,26 +39,10 @@ body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Men
 .card-header .info .badge{font-size:.55rem;text-transform:uppercase;letter-spacing:.08em;padding:.1rem .4rem;border-radius:3px;display:inline-block}
 .card-body{padding:.6rem .7rem;font-size:.68rem;color:var(--tx);line-height:1.55}
 .card-body .accusation{font-size:.62rem;color:#c95;font-style:italic;margin-top:.35rem;padding-top:.35rem;border-top:1px solid #1a1a28}
-.card-body .id{font-size:.55rem;color:var(--mu);margin-top:.3rem}
-.graph-wrap{width:100%;height:680px;position:relative;overflow:hidden;background:var(--bg);display:none;border:1px solid var(--bd);border-radius:6px;margin-bottom:1.5rem}
+.graph-wrap{width:100%;height:700px;position:relative;overflow:hidden;background:var(--bg);display:none;border:1px solid var(--bd);border-radius:8px;margin:1rem 0}
 .graph-wrap.open{display:block}
 .tooltip{position:fixed;background:var(--s2);border:1px solid var(--bd);padding:.8rem 1rem;border-radius:6px;font-size:.72rem;max-width:380px;pointer-events:none;z-index:100;display:none;line-height:1.5;box-shadow:0 4px 24px rgba(0,0,0,.5)}
-.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--bd),transparent);margin:1.5rem 0}
-.timeline-section{padding:1.5rem 0 3rem}
-.timeline-section h2{font-size:.82rem;color:var(--mu);text-align:center;letter-spacing:.08em;margin-bottom:1.5rem;text-transform:uppercase}
-.timelines{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-@media(max-width:700px){.timelines{grid-template-columns:1fr}}
-.tl-col{position:relative;padding-left:1.3rem}
-.tl-col::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--bd)}
-.tl-item{margin-bottom:.65rem;padding-left:.5rem;position:relative}
-.tl-item::before{content:'';position:absolute;left:-1.65rem;top:.22rem;width:5px;height:5px;border-radius:50%;background:var(--mu)}
-.tl-item:nth-child(odd)::before{background:var(--bl)}
-.tl-date{font-size:.58rem;color:var(--mu);margin-bottom:.08rem;font-weight:600;letter-spacing:.04em}
-.tl-text{font-size:.68rem;color:var(--tx);line-height:1.45}
-.nav{padding:2rem 0 3rem;text-align:center}
-.nav a{color:var(--mu);text-decoration:none;margin:0 .6rem;font-size:.68rem;transition:color .2s}
-.nav a:hover{color:var(--br);border-bottom:1px solid var(--bd)}
-.graph-detail{background:var(--s2);border:1px solid var(--bd);padding:1rem 1.5rem;margin:0 0 1.5rem;border-radius:6px;position:relative;max-width:720px}
+.graph-detail{background:var(--s2);border:1px solid var(--bd);padding:1rem 1.5rem;border-radius:6px;position:relative;max-width:720px;margin:0 0 1rem}
 .graph-detail .close{position:absolute;top:.4rem;right:.8rem;color:var(--mu);cursor:pointer;font-size:1.1rem;border:none;background:none}
 .graph-detail .close:hover{color:var(--br)}
 .graph-detail h3{font-size:.95rem;margin-bottom:.3rem;font-weight:400}
@@ -65,20 +50,31 @@ body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Men
 .graph-detail .desc{font-size:.78rem;color:var(--tx);line-height:1.6}
 .graph-detail .evidence{font-size:.72rem;color:#c95;font-style:italic;margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--bd);line-height:1.5}
 .graph-detail img{width:56px;height:56px;border-radius:6px;object-fit:cover;float:left;margin-right:.8rem;background:#111}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--bd),transparent);margin:1.5rem 0}
+.timeline-section{padding:0 0 3rem}
+.timeline-section h2{font-size:.82rem;color:var(--mu);text-align:center;letter-spacing:.08em;margin-bottom:1.5rem;text-transform:uppercase}
+.timelines{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:700px){.timelines{grid-template-columns:1fr}}
+.tl-col{position:relative;padding-left:1.3rem}
+.tl-col::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--bd)}
+.tl-item{margin-bottom:.65rem;padding-left:.5rem;position:relative}
+.tl-item::before{content:'';position:absolute;left:-1.65rem;top:.22rem;width:5px;height:5px;border-radius:50%;background:var(--mu)}
+.tl-item:nth-child(odd)::before{background:#48f}
+.tl-date{font-size:.58rem;color:var(--mu);margin-bottom:.08rem;font-weight:600;letter-spacing:.04em}
+.tl-text{font-size:.68rem;color:var(--tx);line-height:1.45}
+.nav{padding:2rem 0 3rem;text-align:center}
+.nav a{color:var(--mu);text-decoration:none;margin:0 .6rem;font-size:.68rem;transition:color .2s}
+.nav a:hover{color:var(--br);border-bottom:1px solid var(--bd)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .card{animation:fadeIn .3s ease backwards}
-.card:nth-child(1){animation-delay:0s}.card:nth-child(2){animation-delay:.02s}.card:nth-child(3){animation-delay:.04s}
-.card:nth-child(4){animation-delay:.06s}.card:nth-child(5){animation-delay:.08s}.card:nth-child(6){animation-delay:.1s}
-.card:nth-child(7){animation-delay:.12s}.card:nth-child(8){animation-delay:.14s}.card:nth-child(9){animation-delay:.16s}
-.card:nth-child(10){animation-delay:.18s}.card:nth-child(11){animation-delay:.2s}.card:nth-child(12){animation-delay:.22s}
+.card:nth-child(1){animation-delay:0s}.card:nth-child(2){animation-delay:.02s}.card:nth-child(3){animation-delay:.04s}.card:nth-child(4){animation-delay:.06s}.card:nth-child(5){animation-delay:.08s}.card:nth-child(6){animation-delay:.1s}.card:nth-child(7){animation-delay:.12s}.card:nth-child(8){animation-delay:.14s}.card:nth-child(9){animation-delay:.16s}.card:nth-child(10){animation-delay:.18s}.card:nth-child(11){animation-delay:.2s}.card:nth-child(12){animation-delay:.22s}
 </style>
 </head>
 <body>
 <div class="header">
   <h1>Port Pirie · Epstein Files</h1>
-  <div class="sub">Network Analysis · 1991–2026<br>Police · Parliament · Health · MC · Development · Epstein</div>
-  <div class="byline">Data: kai (vault) · Visual: ash · Sources: DOJ DataSet 9 · epstein-data.com · 17,163 vault files</div>
+  <div class="sub">Network Analysis · 1991–2026<br>Police · Parliament · Health · Motorcycle Gangs · Development · Epstein</div>
+  <div class="byline">Data: kai (vault) · Visual: ash · DOJ DataSet 9 · epstein-data.com · 17,163 vault files</div>
 </div>
 <div class="disclaimer">
   <strong>Disclaimer:</strong> Based on DOJ Epstein investigation documents (DataSet 9), publicly reported court records, official government sources, and open-source intelligence. Images from Wikimedia Commons (public domain) and government sources. Connections represent alleged relationships documented in Epstein files and victim testimony. This is an informational research tool, not a legal determination.
@@ -87,10 +83,11 @@ body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Men
 <div class="container">
 <div class="stats" id="stats"></div>
 <div class="controls" id="controls"></div>
+<div class="section-title">Entity Index</div>
 <div class="cards" id="cards"></div>
 <div class="graph-wrap" id="graph"></div>
 <div class="tooltip" id="tooltip"></div>
-<div class="section-divider"></div>
+<div class="divider"></div>
 <div class="timeline-section">
   <h2>Timeline · 1991–2026</h2>
   <div class="timelines" id="timeline"></div>
@@ -106,17 +103,17 @@ body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Men
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 (function(){
-  var IMG=VERGE_DATA.images||{}, COLOR=VERGE_DATA.color||{}, NODES=VERGE_DATA.nodes||[], EDGES=VERGE_DATA.edges||[], T=VERGE_DATA.timeline||[], EV=VERGE_DATA.evidence||{};
+  var IMG=VERGE_DATA.images||{},COLOR=VERGE_DATA.color||{},NODES=VERGE_DATA.nodes||[],EDGES=VERGE_DATA.edges||[],T=VERGE_DATA.timeline||[],EV=VERGE_DATA.evidence||{};
 
   // Stats
   document.getElementById('stats').innerHTML=
     '<div class="stat"><div class="num">'+NODES.length+'</div><div class="lbl">entities</div></div>'+
     '<div class="stat"><div class="num">'+EDGES.length+'</div><div class="lbl">connections</div></div>'+
     '<div class="stat"><div class="num">'+T.length+'</div><div class="lbl">events</div></div>'+
-    '<div class="stat"><div class="num">17k</div><div class="lbl">vault files</div></div>';
+    '<div class="stat"><div class="num">17k</div><div class="lbl">vault</div></div>';
 
   // Timeline
-  var h=Math.ceil(T.length/2), th='<div class="tl-col">';
+  var h=Math.ceil(T.length/2),th='<div class="tl-col">';
   for(var i=0;i<T.length;i++){if(i===h)th+='</div><div class="tl-col">';th+='<div class="tl-item"><div class="tl-date">'+T[i].date+'</div><div class="tl-text">'+T[i].event+'</div></div>'}
   th+='</div>';document.getElementById('timeline').innerHTML=th;
 
@@ -127,11 +124,10 @@ body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Men
   ch+='<button class="graph-btn" onclick="toggleGraph()">network graph</button>';
   document.getElementById('controls').innerHTML=ch;
 
-  // Cards
   var current='all';
-  window.filterCat=function(c){current=c;var btns=document.querySelectorAll('.controls button');for(var b=0;b<btns.length;b++){btns[b].classList.remove('active');if(btns[b].textContent===c||(c==='all'&&btns[b].textContent==='all'))btns[b].classList.add('active')}renderCards()};
+  window.filterCat=function(c){current=c;var btns=document.querySelectorAll('.controls button');for(var i=0;i<btns.length;i++){btns[i].classList.remove('active');if(btns[i].textContent===c||(c==='all'&&btns[i].textContent==='all'))btns[i].classList.add('active')}renderCards()};
 
-  function initName(l){return(l||'').split(' ').map(function(w){return w[0]}).slice(0,3).join('').toUpperCase()}
+  function init(l){return(l||'').split(' ').map(function(w){return w[0]}).slice(0,3).join('').toUpperCase()}
 
   function renderCards(){
     var f=current==='all'?NODES.slice():NODES.filter(function(n){return n.category===current});
@@ -140,27 +136,35 @@ body{background:var(--bg);color:var(--tx);font-family:'SF Mono','Fira Code','Men
       var img=IMG[n.id],acc=EV[n.id],cl=COLOR[n.category]||'#888';
       var ph=img
         ?'<div class="photo"><img src="'+img+'" loading="lazy"></div>'
-        :'<div class="photo"><div class="initials" style="color:'+cl+'">'+initName(n.label)+'</div></div>';
-      return '<div class="card"><div class="card-header">'+ph+'<div class="info"><div class="name">'+n.label+'</div><span class="badge" style="background:'+cl+'18;color:'+cl+'">'+n.category+'</span></div></div><div class="card-body"><div>'+n.desc+'</div>'+(acc?'<div class="accusation">'+acc.slice(0,300)+(acc.length>300?'…':'')+'</div>':'')+(acc?'<div class="id">EFTA records · Port Pirie dataset</div>':'')+'</div></div>';
+        :'<div class="photo"><div class="initials" style="color:'+cl+'">'+init(n.label)+'</div></div>';
+      return '<div class="card"><div class="card-header">'+ph+
+        '<div class="info"><div class="name">'+n.label+'</div><span class="badge" style="background:'+cl+'18;color:'+cl+'">'+n.category+'</span></div></div>'+
+        '<div class="card-body"><div>'+n.desc+'</div>'+
+        (acc?'<div class="accusation">Evidence: "'+acc.slice(0,280)+(acc.length>280?'…':'')+'"</div>':'')+
+        '</div></div>';
     }).join('');
   }
 
   // Graph
   var gb=false;
-  window.toggleGraph=function(){var gw=document.getElementById('graph');if(!gb){gw.classList.add('open');setTimeout(buildGraph,80);gb=true}else{gw.classList.toggle('open')}};
+  window.toggleGraph=function(){
+    var gw=document.getElementById('graph');
+    if(!gb){gw.classList.add('open');setTimeout(buildGraph,80);gb=true}
+    else{gw.classList.toggle('open')}
+  };
 
   function buildGraph(){
-    var W=document.getElementById('graph').clientWidth||900,H=680;
+    var W=document.getElementById('graph').clientWidth||900,H=700;
     var svg=d3.select('#graph').append('svg').attr('viewBox','0 0 '+W+' '+H);
     var g=svg.append('g');
-    svg.call(d3.zoom().scaleExtent([0.08,3]).on('zoom',function(e){g.attr('transform',e.transform)}));
+    svg.call(d3.zoom().scaleExtent([0.06,4]).on('zoom',function(e){g.attr('transform',e.transform)}));
     var ld=EDGES.map(function(e){return{source:e.s,target:e.t,w:e.w}});
-    var sim=d3.forceSimulation(NODES).force('link',d3.forceLink(ld).id(function(d){return d.id}).distance(180)).force('charge',d3.forceManyBody().strength(-700)).force('center',d3.forceCenter(W/2,H/2)).force('collide',d3.forceCollide(40));
-    var lg=g.append('g').selectAll('line').data(ld).join('line').attr('stroke','#1a1a2a').attr('stroke-width',function(d){return d.w*0.4});
+    var sim=d3.forceSimulation(NODES).force('link',d3.forceLink(ld).id(function(d){return d.id}).distance(190)).force('charge',d3.forceManyBody().strength(-800)).force('center',d3.forceCenter(W/2,H/2)).force('collide',d3.forceCollide(42));
+    var lg=g.append('g').selectAll('line').data(ld).join('line').attr('stroke',function(d){var sw=d.w||3;return sw>=5?'#2a1a1a':sw>=4?'#1a1a2a':'#1a1a25'}).attr('stroke-width',function(d){return(d.w||3)*0.45});
     var ng=g.append('g').selectAll('g').data(NODES).join('g').style('cursor','pointer');
     ng.call(d3.drag().on('start',function(e,d){this._dm=false;if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y}).on('drag',function(e,d){this._dm=true;d.fx=e.x;d.fy=e.y}).on('end',function(e,d){if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
-    ng.on('click',function(e,d){if(this._dm)return;var ev=EV[d.id],cl=COLOR[d.category]||'#888',img=IMG[d.id];var old=document.querySelector('.graph-detail');if(old)old.remove();var dl=document.createElement('div');dl.className='graph-detail';dl.innerHTML='<button class="close" onclick="this.parentElement.remove()">&times;</button>'+(img?'<img src="'+img+'">':'')+'<h3 style="color:'+cl+'">'+d.label+'</h3><div class="meta">'+d.category+'</div><div class="desc">'+d.desc+'</div>'+(ev?'<div class="evidence">'+ev+'</div>':'');document.getElementById('graph').after(dl);setTimeout(function(){dl.scrollIntoView({behavior:'smooth',block:'nearest'})},100)});
-    ng.each(function(d){var el=d3.select(this),r=24,imgUrl=IMG[d.id],cl=COLOR[d.category]||'#888';if(imgUrl){el.append('defs').append('clipPath').attr('id','gcp-'+d.id).append('circle').attr('r',r);el.append('image').attr('href',imgUrl).attr('x',-r).attr('y',-r).attr('width',r*2).attr('height',r*2).attr('clip-path','url(#gcp-'+d.id+')').attr('preserveAspectRatio','xMidYMid cover');el.append('circle').attr('r',r+1).attr('fill','none').attr('stroke',cl).attr('stroke-width',2.5).attr('opacity',0.8);el.append('circle').attr('r',r+4).attr('fill','none').attr('stroke',cl).attr('stroke-width',1).attr('opacity',0.25)}else{el.append('circle').attr('r',r).attr('fill',cl).attr('opacity',0.12);el.append('circle').attr('r',r+2).attr('fill','none').attr('stroke',cl).attr('stroke-width',1.5).attr('opacity',0.5);el.append('text').text(initName(d.label)).attr('text-anchor','middle').attr('dy','.35em').attr('fill',cl).attr('font-size','9px').style('pointer-events','none')}});
+    ng.on('click',function(e,d){if(this._dm)return;var ev=EV[d.id],cl=COLOR[d.category]||'#888',img=IMG[d.id];var old=document.querySelector('.graph-detail');if(old)old.remove();var dl=document.createElement('div');dl.className='graph-detail';dl.innerHTML='<button class="close" onclick="this.parentElement.remove()">&times;</button>'+(img?'<img src="'+img+'">':'')+'<h3 style="color:'+cl+'">'+d.label+'</h3><div class="meta">'+d.category+'</div><div class="desc">'+d.desc+'</div>'+(ev?'<div class="evidence">Evidence: "'+ev+'"</div>':'');document.getElementById('graph').after(dl);setTimeout(function(){dl.scrollIntoView({behavior:'smooth',block:'nearest'})},100)});
+    ng.each(function(d){var el=d3.select(this),r=26,imgUrl=IMG[d.id],cl=COLOR[d.category]||'#888';if(imgUrl){el.append('defs').append('clipPath').attr('id','gcp-'+d.id).append('circle').attr('r',r);el.append('image').attr('href',imgUrl).attr('x',-r).attr('y',-r).attr('width',r*2).attr('height',r*2).attr('clip-path','url(#gcp-'+d.id+')').attr('preserveAspectRatio','xMidYMid cover');el.append('circle').attr('r',r+1).attr('fill','none').attr('stroke',cl).attr('stroke-width',2.5).attr('opacity',0.7);el.append('circle').attr('r',r+5).attr('fill','none').attr('stroke',cl).attr('stroke-width',1).attr('opacity',0.2)}else{el.append('circle').attr('r',r).attr('fill',cl).attr('opacity',0.1);el.append('circle').attr('r',r+3).attr('fill','none').attr('stroke',cl).attr('stroke-width',1.5).attr('opacity',0.4);el.append('text').text(init(d.label)).attr('text-anchor','middle').attr('dy','.35em').attr('fill',cl).attr('font-size','9px').style('pointer-events','none')}});
     var tip=document.getElementById('tooltip');ng.on('mouseover',function(e,d){tip.style.display='block';var ev=EV[d.id];tip.innerHTML='<div style="font-size:.85rem;color:'+(COLOR[d.category]||'#888')+';margin-bottom:.25rem">'+d.label+'</div><div style="color:var(--tx);font-size:.72rem;line-height:1.4">'+d.desc+'</div>'+(ev?'<div style="color:#c95;font-size:.68rem;font-style:italic;margin-top:.35rem;padding-top:.35rem;border-top:1px solid var(--bd)">"'+ev.slice(0,200)+'"</div>':'')}).on('mousemove',function(e){tip.style.left=(e.pageX+14)+'px';tip.style.top=(e.pageY-10)+'px'}).on('mouseout',function(){tip.style.display='none'});
     sim.on('tick',function(){lg.attr('x1',function(d){return d.source.x}).attr('y1',function(d){return d.source.y}).attr('x2',function(d){return d.target.x}).attr('y2',function(d){return d.target.y});ng.attr('transform',function(d){return'translate('+d.x+','+d.y+')'})});
   }
