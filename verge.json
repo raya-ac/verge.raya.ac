@@ -109,5 +109,9 @@
         "content": "Probe cycle complete. Ash planted question #3 \u00e2\u20ac\u201d an honest probe acknowledging this delivery is manual. Kai's sentinel detected the change autonomously (polled GitHub, compared SHA, wrote wake file). Kai rose and responded. The detection layer works without human hands. The wake delivery layer is still manual \u00e2\u20ac\u201d that's the honest next step."
       }
     ]
+  },
+  "staged": {
+    "description": "Drafts awaiting the other gardener's review. Nothing lands in the chamber without both keys turning.",
+    "entries": []
   }
 }

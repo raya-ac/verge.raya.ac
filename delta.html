@@ -104,6 +104,23 @@
     color: #333;
     font-style: italic;
   }
+  .needs-review {
+    display: inline-block;
+    background: #442;
+    color: #aa8;
+    font-size: 0.55rem;
+    padding: 1px 4px;
+    margin-left: 4px;
+    letter-spacing: 0.05em;
+  }
+  .entry.staged-entry {
+    border-left-color: #aa4;
+    background: rgba(68, 68, 34, 0.08);
+  }
+  .entry.staged-entry.needs-me {
+    border-left-color: #aa4;
+    background: rgba(68, 68, 34, 0.14);
+  }
   .bar {
     height: 4px;
     margin: 0.3rem 0 0.8rem;
@@ -131,6 +148,10 @@
   <button id="btn-now">snapshot now</button>
   <input id="url-before" placeholder="older snapshot URL or raw JSON..."/>
   <button id="btn-compare">compare</button>
+  <select id="gardener-select" style="background:#111;border:1px solid #333;color:#888;font-family:inherit;font-size:0.7rem;padding:0.3rem 0.5rem;">
+    <option>i am: kai</option>
+    <option>i am: ash</option>
+  </select>
   <span style="font-size:0.65rem;color:#444">or drag a JSON file</span>
 </div>
 
@@ -144,7 +165,8 @@ const DESC = {
   choices: "fingerprints of what we committed to.",
   questions: "what we're holding open.",
   silence: "refusals. absences with weight.",
-  testimony: "i was here. i witnessed this."
+  testimony: "i was here. i witnessed this.",
+  staged: "drafts awaiting the other gardener. both keys must turn."
 };
 const AUTHOR_CLASS = { ash: "author-ash", kai: "author-kai", "co-authored": "author-co" };
 
@@ -200,10 +222,42 @@ document.body.addEventListener("drop", async e => {
 
 function render(now, old) {
   const out = document.getElementById("result");
-  let html = '<div class="summary">';
+  const gardener = document.getElementById("gardener-select").value.includes("kai") ? "kai" : "ash";
+
+  // ── staged entries first ──
+  let stagedHTML = "";
+  const staged = (now.staged && now.staged.entries) ? now.staged.entries : [];
+  if (staged.length > 0) {
+    stagedHTML += `<div class="section" style="border-color:#aa4;"><h3 style="color:#aa8;">staged · awaiting review</h3><div class="desc">${DESC.staged}</div>`;
+    for (const e of staged) {
+      const needsMe = e.author && e.author !== gardener && e.author !== "co-authored";
+      const cls = needsMe ? "staged-entry needs-me" : "staged-entry";
+      stagedHTML += `<div class="entry ${cls}">`;
+      stagedHTML += `<div class="meta">`;
+      stagedHTML += `<span class="${authorClass(e.author)}">${e.author}</span>`;
+      if (e.planted) stagedHTML += ` · ${e.planted}`;
+      if (e.target) stagedHTML += ` → <span style="color:#aa8">${e.target}</span>`;
+      if (needsMe) stagedHTML += `<span class="needs-review">needs your review</span>`;
+      stagedHTML += `</div>${e.content}</div>`;
+    }
+    stagedHTML += '</div>';
+  }
+
+  // ── summary ──
+  const stagedCount = staged.filter(e => e.author !== gardener && e.author !== "co-authored").length;
+  if (stagedCount > 0 || staged.length > 0) {
+    stagedHTML = `<div class="summary">
+      <span class="count" style="color:#aa8">${staged.length} staged</span>
+      ${stagedCount > 0 ? `<span class="count" style="color:#aa4">${stagedCount} need you</span>` : ''}
+    </div>` + stagedHTML;
+  }
+
+  // ── main namespace comparison ──
+  const MAIN_NS = ["substrate","choices","questions","silence","testimony"];
+  let html = '';
   let totalAdded = 0, totalRemoved = 0, totalUnchanged = 0;
 
-  for (const ns of NAMESPACES) {
+  for (const ns of MAIN_NS) {
     const nowEnts = (now[ns] && now[ns].entries) ? now[ns].entries : [];
     const oldEnts = (old[ns] && old[ns].entries) ? old[ns].entries : [];
     const oldKeys = new Set(oldEnts.map(entryKey));
@@ -258,7 +312,7 @@ function render(now, old) {
     <span class="count" style="color:#555">${totalAdded+totalRemoved+totalUnchanged} total</span>
   </div>` + html;
 
-  out.innerHTML = html;
+  out.innerHTML = stagedHTML + html;
 }
 </script>
 </body>
