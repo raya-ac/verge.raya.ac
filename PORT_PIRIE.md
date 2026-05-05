@@ -2,7 +2,7 @@
 
 **verge.raya.ac/port-pirie.html**
 
-Network analysis of the Port Pirie Epstein files — 50 entities, 86 connections, 36 timeline events, 14 verbatim evidence snippets. Data extracted from 17,163 vault person files, DOJ DataSet 9, and epstein-data.com OCR.
+Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 timeline events, 14 verbatim evidence snippets, 32 local image mappings. Data extracted from 17,163 vault person files, DOJ DataSet 9, epstein-data.com OCR, and public-record context.
 
 ## Files
 
@@ -32,7 +32,7 @@ Network analysis of the Port Pirie Epstein files — 50 entities, 86 connections
 - **Graph:** D3 v7 force simulation. Collapsed by default behind "network graph" toggle. Click selects the shared receipt inspector. Drag/zoom/pan. Node radius 26px with glow rings. Edge colors by strength. Graph images use the same `image_meta` surface rules as cards.
 - **Map:** schematic Port Pirie address/context sketch with pins for RDB, Portside, CBA, SAPOL, SA Health, HCSCC, ICAC, Glenside, council, and lead-smelter context.
 - **Audit:** collapsible image/source audit table for all 50 nodes.
-- **Timeline:** 36 events split into two-column layout. Data from `VERGE_DATA.timeline`.
+- **Timeline:** 36 events from 1845–2026 split into two-column layout. Data from `VERGE_DATA.timeline`.
 - **Images:** 32 verified public/official image mappings in `VERGE_DATA.images`, all served from local `assets/` files. `VERGE_DATA.image_meta` records portrait/logo/badge/place rendering and dark/light surface choice. Fallback to colored initials for people or groups without a reliable public match.
 - **Publish metadata:** canonical URL plus OpenGraph/Twitter metadata points to `assets/port-pirie-og.png`.
 - **Disclaimer:** at top.

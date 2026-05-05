@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Port Pirie · Epstein Files</title>
-<meta name="description" content="Network analysis of Port Pirie entities, connections, evidence snippets, public records, and source provenance from the Epstein files research corpus.">
+<meta name="description" content="Source-bound Port Pirie evidence workspace with entity receipts, local image provenance, network graph, address sketch, audit table, and timeline context.">
 <link rel="canonical" href="https://verge.raya.ac/port-pirie.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Verge">
 <meta property="og:title" content="Port Pirie · Epstein Files">
-<meta property="og:description" content="Inspectable network analysis: 50 entities, 86 connections, 36 timeline events, source receipts, map context, and image provenance.">
+<meta property="og:description" content="Inspectable Port Pirie evidence workspace: 50 entities, 86 connections, receipt inspector, local images, map context, audit table, and timeline.">
 <meta property="og:url" content="https://verge.raya.ac/port-pirie.html">
 <meta property="og:image" content="https://verge.raya.ac/assets/port-pirie-og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Port Pirie · Epstein Files">
-<meta name="twitter:description" content="Inspectable network analysis with source receipts, map context, and provenance audit.">
+<meta name="twitter:description" content="Inspectable Port Pirie evidence workspace with source receipts, local images, map context, and provenance audit.">
 <meta name="twitter:image" content="https://verge.raya.ac/assets/port-pirie-og.png">
 <style>
 :root{
@@ -245,17 +245,17 @@ body::before{
   </nav>
   <div class="hero">
     <div>
-      <div class="kicker">Open-source dossier · Port Pirie</div>
+      <div class="kicker">Evidence workspace · Port Pirie</div>
       <h1>Port Pirie · Epstein Files</h1>
-      <div class="sub">Network analysis across police, parliament, health, motorcycle clubs, development boards, and Epstein-related source material.</div>
-      <div class="byline">Data: kai vault · Visual system: ash · DOJ DataSet 9 · epstein-data.com OCR · 17,163 vault person files</div>
+      <div class="sub">Source-bound index for the Port Pirie file cluster: receipts, network structure, address context, timeline sequence, and local image provenance.</div>
+      <div class="byline">Canonical data: port-pirie-network.json · Local assets: 32 mapped images · Sources: DOJ DataSet 9, epstein-data.com OCR, 17,163 vault person files</div>
     </div>
     <aside class="hero-card" aria-label="Source summary">
-      <div class="hero-card-title"><span>source stack</span><span class="pulse"></span></div>
+      <div class="hero-card-title"><span>current build</span><span class="pulse"></span></div>
       <div class="source-grid">
-        <div class="source-row"><span>corpus</span><p>17,163 vault person files cross-checked against DOJ DataSet 9 and OCR indices.</p></div>
-        <div class="source-row"><span>model</span><p>50 entities, 86 connections, 36 timeline events, 14 verbatim evidence snippets.</p></div>
-        <div class="source-row"><span>mode</span><p>Relationship map, not legal determination. Claims remain tied to cited source material.</p></div>
+        <div class="source-row"><span>corpus</span><p>Vault records, DOJ DataSet 9, OCR indices, and public-record context folded into one canonical JSON file.</p></div>
+        <div class="source-row"><span>model</span><p>50 entities, 86 connections, 36 timeline events, 14 evidence snippets, 32 local images.</p></div>
+        <div class="source-row"><span>mode</span><p>Cards, graph nodes, map pins, and connection rows all open the same receipt inspector.</p></div>
       </div>
     </aside>
   </div>
@@ -267,36 +267,36 @@ body::before{
 <main class="container">
 <div class="evidence-strip">
   <div class="stats" id="stats"></div>
-  <div class="method"><span>reading protocol</span><p>Use filters for scope, open the network when structure matters, then use the timeline to check sequence.</p></div>
+  <div class="method"><span>reading protocol</span><p>Filter the card set, select any card/pin/node for receipts, use the graph and map for structure, then check sequence in the timeline.</p></div>
 </div>
 <div class="section-heading">
   <div class="section-title">Evidence Index</div>
-  <div class="section-note">Category filters preserve the same canonical data while changing the working view.</div>
+  <div class="section-note">Each card shows source status and direct-link count, then opens the shared receipt inspector.</div>
 </div>
 <div class="workbench">
   <div class="controls" id="controls"></div>
   <div class="view-state" id="view-state"></div>
 </div>
-<div class="graph-wrap" id="graph"><div class="graph-cue">network graph waits behind the toggle</div></div>
+<div class="graph-wrap" id="graph"><div class="graph-cue">toggle graph to inspect linked entities</div></div>
 <section class="entity-inspector" id="entity-inspector" aria-live="polite"></section>
 <section class="map-section">
   <div class="section-heading">
-    <div class="section-title">Port Pirie Map</div>
-    <div class="section-note">Address cluster and public-context locations from the current dataset.</div>
+    <div class="section-title">Port Pirie Context Map</div>
+    <div class="section-note">Schematic address cluster, not a GIS layer; pins open the same receipt inspector.</div>
   </div>
   <div class="map-panel" id="place-map"></div>
 </section>
 <div class="cards" id="cards"></div>
 <section class="audit-section">
   <details class="audit-box">
-    <summary>Image/source audit</summary>
+    <summary>Image/source audit · local assets</summary>
     <div id="image-audit"></div>
   </details>
 </section>
 <div class="tooltip" id="tooltip"></div>
 <div class="divider"></div>
 <div class="timeline-section">
-  <h2>Timeline · 1991–2026</h2>
+  <h2>Timeline · 1845–2026</h2>
   <div class="timelines" id="timeline"></div>
 </div>
 <div class="nav">
