@@ -114,6 +114,19 @@ body::before{
 .quality-tile span{display:block;font-size:.5rem;color:var(--quiet);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.28rem}
 .quality-tile strong{display:block;color:var(--ink);font-size:1rem;font-weight:400;margin-bottom:.2rem}
 .quality-tile p{font-size:.58rem;color:var(--muted);line-height:1.45}
+.source-register-section{margin:1rem 0 1.2rem}
+.source-register-wrap{padding:.85rem}
+.source-boundary{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.46fr);gap:.72rem;margin-bottom:.78rem}
+.source-boundary-panel{border:1px solid rgba(255,255,255,.055);border-radius:5px;background:rgba(255,255,255,.018);padding:.7rem .76rem}
+.source-boundary-panel span,.source-register-card span{display:block;font-size:.5rem;color:var(--quiet);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.24rem}
+.source-boundary-panel p,.source-boundary-panel li{font-size:.62rem;color:var(--text);line-height:1.55}
+.source-boundary-panel ul{padding-left:.9rem}
+.source-register-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.55rem}
+.source-register-card{display:block;text-decoration:none;border:1px solid rgba(184,154,98,.18);border-radius:5px;background:rgba(184,154,98,.038);padding:.62rem .68rem;min-width:0;transition:border-color .2s,background .2s,transform .2s}
+.source-register-card:hover{border-color:rgba(184,154,98,.42);background:rgba(184,154,98,.07);transform:translateY(-1px)}
+.source-register-card strong{display:block;color:var(--ink);font-size:.66rem;font-weight:500;line-height:1.36;margin-bottom:.28rem}
+.source-register-card p{font-size:.58rem;color:var(--text);line-height:1.45;margin-top:.22rem}
+.source-register-card em{display:block;font-style:normal;font-size:.52rem;color:var(--muted);line-height:1.42;margin-top:.35rem;word-break:break-word}
 .claim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.72rem;margin:.2rem 0 1rem}
 .claim-card{border:1px solid var(--line);border-radius:6px;background:rgba(17,19,16,.84);padding:.78rem;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
 .claim-card:hover{border-color:#3b4237;background:rgba(21,24,17,.9);transform:translateY(-1px)}
@@ -194,7 +207,7 @@ body::before{
 .ledger-row span{font-size:.5rem;color:var(--quiet);letter-spacing:.1em;text-transform:uppercase}
 .ledger-row strong{font-size:.64rem;color:var(--text);font-weight:500;line-height:1.45}
 .source-list{display:grid;gap:.42rem}
-.source-button{width:100%;text-align:left;border:1px solid rgba(184,154,98,.2);background:rgba(184,154,98,.045);border-radius:5px;padding:.5rem .56rem;color:var(--text);font-family:inherit;cursor:pointer}
+.source-button{display:block;width:100%;text-align:left;text-decoration:none;border:1px solid rgba(184,154,98,.2);background:rgba(184,154,98,.045);border-radius:5px;padding:.5rem .56rem;color:var(--text);font-family:inherit;cursor:pointer}
 .source-button strong{display:block;color:var(--ink);font-size:.64rem;font-weight:500;margin-bottom:.12rem}
 .source-button span{display:block;color:var(--muted);font-size:.52rem;text-transform:uppercase;letter-spacing:.08em}
 .source-button em{display:block;color:var(--text);font-style:normal;font-size:.6rem;line-height:1.45;margin-top:.22rem}
@@ -271,6 +284,7 @@ body::before{
 @media(max-width:860px){
   .hero,.evidence-strip,.timelines{grid-template-columns:1fr}
   .inspector-grid,.compare-grid{grid-template-columns:1fr}
+  .source-boundary{grid-template-columns:1fr}
   .quality-grid{grid-template-columns:1fr 1fr}
   .section-heading{display:block}
   .section-note{text-align:left;margin-top:.45rem}
@@ -333,6 +347,7 @@ body::before{
 </div>
 <div class="build-stamp" id="build-stamp"></div>
 <section class="quality-section" id="quality-summary"></section>
+<section class="source-register-section" id="source-register-section"></section>
 <section class="claims-section">
   <div class="section-heading">
     <div class="section-title">Claim Threads</div>
@@ -403,7 +418,7 @@ body::before{
 </div>
 </div>
 
-<script src="port-pirie-data.js?v=20260506-claims"></script>
+<script src="port-pirie-data.js?v=20260506-research"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 (function(){
@@ -423,6 +438,8 @@ body::before{
   };
   var CAT_ORDER={victim:0,core:1,political:2,gov:3,police:4,health:5,academic:6,legal:7,motorcycle:8,'co-conspirator':9,family:10};
   var PUBLIC_CONTEXT={ellis:1,brock:1,portpirie_city:1,lead_crisis:1,glenside:1,cba:1,portside:1,univ:1,sapol:1,sa_health:1,hcsc:1,icac:1,epstein_maxwell:1};
+  var SOURCE_REGISTER=PUB.sourceRegister||{},PUBLIC_RECORDS=PUB.publicRecordConfirmed||{},VERIFIED_ADDRESSES=PUB.verifiedAddresses||{},RESEARCH_GAPS=PUB.researchGaps||{},SOURCE_BOUNDARY=PUB.sourceBoundary||{};
+  var ADDRESS_ALIASES={rdb:'rdb',portside:'portside_tavern',cba:'cba',sapol:'pp_police',sa_health:'pp_hospital',glenside:'glenside'};
   var TIMELINE_ALIASES={
     ellis:['Fraser Ellis','Ellis'],
     brock:['Geoff Brock','Brock','Frome'],
@@ -500,6 +517,7 @@ body::before{
   function claimEntitySet(claim){var set={};(claim&&claim.entity_ids||[]).forEach(function(id){set[id]=1});return set}
   function claimEdgeSet(claim){var set={};(claim&&claim.edge_indices||[]).forEach(function(i){var e=EDGES[i];if(e){set[e.s+'>'+e.t]=1;set[e.t+'>'+e.s]=1}});return set}
   function claimTimelineSet(claim){var set={};(claim&&claim.timeline_indices||[]).forEach(function(i){set[i]=1});return set}
+  function publicRecordForNode(id){return PUBLIC_RECORDS[id]||(id==='portpirie_city'?PUBLIC_RECORDS.port_pirie:null)||PUBLIC_RECORDS[id.replace(/_city$/,'')]}
   function claimSearchText(claim){return [claim.id,claim.title,claim.kind,claim.status,claim.summary,claim.confidence,claim.review_status,(claim.keywords||[]).join(' '),(claim.source_refs||[]).join(' '),(claim.entity_ids||[]).map(function(id){return NODE_BY_ID[id]&&NODE_BY_ID[id].label||id}).join(' ')].join(' ').toLowerCase()}
   function matchesClaimSearch(claim){return !searchTerm||claimSearchText(claim).indexOf(searchTerm)>=0}
   function edgeMatchesFilter(e){
@@ -519,7 +537,9 @@ body::before{
   function refsFor(n){
     var ev=EV[n.id]||'', refs=ev.match(/\bEFTA\d+\b|\bM\d{2}\/\d+\b|\b\d{4}\/\d{6}\b|\bDataSet\s*\d+\b|\bDOJ DataSet\s*\d+\b|\bICAC\b|\bOPI\b/g)||[];
     (n.sources||[]).forEach(function(s){refs=refs.concat(s.refs||[])});
-    if(PUB.verifiedAddresses){
+    if(VERIFIED_ADDRESSES){
+      var addressKey=ADDRESS_ALIASES[n.id],address=addressKey&&VERIFIED_ADDRESSES[addressKey];
+      if(address)refs.push(address.source||addressKey);
       if(n.id==='rdb')refs.push('85 Ellen Street');
       if(n.id==='portside')refs.push('SA Heritage Register');
       if(n.id==='cba')refs.push('142 Ellen Road');
@@ -530,7 +550,7 @@ body::before{
     return uniq(refs);
   }
   function receiptFor(n){
-    var ev=!!EV[n.id], publicish=!!PUBLIC_CONTEXT[n.id], kind=imageKind(n.id);
+    var ev=!!EV[n.id], publicRecord=publicRecordForNode(n.id), addressKey=ADDRESS_ALIASES[n.id], verifiedAddress=addressKey&&VERIFIED_ADDRESSES[addressKey], publicish=!!PUBLIC_CONTEXT[n.id]||!!publicRecord||!!verifiedAddress, kind=imageKind(n.id);
     if(ev&&publicish)return{key:'mixed',label:'mixed source',confidence:'public context + vault receipt',basis:'Public identity/context is separable from source-bound allegations.'};
     if(ev)return{key:'vault',label:'vault receipt',confidence:'sealed/OCR source-bound',basis:'Shown only as an allegation tied to the cited evidence string.'};
     if(publicish)return{key:'public',label:'public context',confidence:'public record/context',basis:'Used as public context around the relationship map.'};
@@ -652,8 +672,8 @@ body::before{
   }
 
   var sourceList=(VMETA.sources||[]).filter(function(s){return String(s).indexOf('epstein-vault')<0});
-  document.getElementById('hero-byline').textContent='Canonical data: '+(BUILD.generated_from||'port-pirie-network.json')+' · Local assets: '+fmtNumber(stat('local_images',Object.keys(IMG).length))+' mapped images · Sources: '+sourceList.join(', ')+' · '+fmtNumber(stat('vault_files',17163))+' vault person files';
-  document.getElementById('model-summary').textContent=fmtNumber(stat('entities',NODES.length))+' entities, '+fmtNumber(stat('connections',EDGES.length))+' connections, '+fmtNumber(stat('timeline_events',T.length))+' timeline events, '+fmtNumber(stat('evidence_snippets',Object.keys(EV).length))+' evidence snippets, '+fmtNumber(CLAIMS.length)+' claim threads, '+fmtNumber(stat('local_images',Object.keys(IMG).length))+' local images.';
+  document.getElementById('hero-byline').textContent='Canonical data: '+(BUILD.generated_from||'port-pirie-network.json')+' · Local assets: '+fmtNumber(stat('local_images',Object.keys(IMG).length))+' mapped images · Source register: '+fmtNumber(Object.keys(SOURCE_REGISTER).length)+' records · Sources: '+sourceList.join(', ')+' · '+fmtNumber(stat('vault_files',17163))+' vault person files';
+  document.getElementById('model-summary').textContent=fmtNumber(stat('entities',NODES.length))+' entities, '+fmtNumber(stat('connections',EDGES.length))+' connections, '+fmtNumber(stat('timeline_events',T.length))+' timeline events, '+fmtNumber(stat('evidence_snippets',Object.keys(EV).length))+' evidence snippets, '+fmtNumber(CLAIMS.length)+' claim threads, '+fmtNumber(Object.keys(SOURCE_REGISTER).length)+' registered sources, '+fmtNumber(stat('local_images',Object.keys(IMG).length))+' local images.';
 
   // Stats
   document.getElementById('stats').innerHTML=
@@ -662,7 +682,7 @@ body::before{
     '<div class="stat"><div class="num">'+fmtNumber(stat('timeline_events',T.length))+'</div><div class="lbl">events</div></div>'+
     '<div class="stat"><div class="num">'+Math.round(stat('vault_files',17163)/1000)+'k</div><div class="lbl">vault</div></div>';
 
-  document.getElementById('build-stamp').innerHTML='<span>build '+esc(BUILD.generated_at||VMETA.generated||'current')+' · data v'+esc(BUILD.version||'local')+' · '+fmtNumber(stat('evidence_snippets',Object.keys(EV).length))+' evidence snippets · '+fmtNumber(CLAIMS.length)+' claims · validation '+esc((VMETA.validation&&VMETA.validation.errors)||0)+' errors</span><div class="export-links"><button type="button" data-action="compare">compare</button><button type="button" data-export="json">json</button><button type="button" data-export="claims">claims csv</button><button type="button" data-export="nodes">nodes csv</button><button type="button" data-export="edges">edges csv</button><button type="button" data-export="evidence">evidence csv</button><button type="button" data-export="review">review csv</button></div>';
+  document.getElementById('build-stamp').innerHTML='<span>build '+esc(BUILD.generated_at||VMETA.generated||'current')+' · data v'+esc(BUILD.version||'local')+' · '+fmtNumber(stat('evidence_snippets',Object.keys(EV).length))+' evidence snippets · '+fmtNumber(CLAIMS.length)+' claims · '+fmtNumber(Object.keys(SOURCE_REGISTER).length)+' sources · validation '+esc((VMETA.validation&&VMETA.validation.errors)||0)+' errors</span><div class="export-links"><button type="button" data-action="compare">compare</button><button type="button" data-export="json">json</button><button type="button" data-export="sources">sources csv</button><button type="button" data-export="claims">claims csv</button><button type="button" data-export="nodes">nodes csv</button><button type="button" data-export="edges">edges csv</button><button type="button" data-export="evidence">evidence csv</button><button type="button" data-export="review">review csv</button></div>';
 
   function renderQualitySummary(){
     var direct=NODES.filter(function(n){return !!EV[n.id]}).length;
@@ -675,6 +695,23 @@ body::before{
       '<div class="quality-tile"><span>review surface</span><strong>'+fmtNumber(withReview)+' entities</strong><p>'+fmtNumber(REVIEW.length)+' generated review items.</p></div>'+
       '<div class="quality-tile"><span>claim threads</span><strong>'+fmtNumber(CLAIMS.length)+'</strong><p>Claim-first paths through entities, edges, and timeline.</p></div>'+
       '</div>';
+  }
+  function renderSourceRegister(){
+    var el=document.getElementById('source-register-section');
+    if(!el)return;
+    var ids=Object.keys(SOURCE_REGISTER).sort(function(a,b){
+      var at=SOURCE_REGISTER[a].type||'',bt=SOURCE_REGISTER[b].type||'';
+      return at===bt?(SOURCE_REGISTER[a].title||a).localeCompare(SOURCE_REGISTER[b].title||b):at.localeCompare(bt);
+    });
+    var boundary=SOURCE_BOUNDARY.rule||'Public records and source-bound allegations are tracked separately.';
+    var gaps=(RESEARCH_GAPS.high_priority||[]).slice(0,5);
+    var boundaryHtml='<div class="source-boundary"><div class="source-boundary-panel"><span>boundary rule</span><p>'+esc(boundary)+'</p></div>'+
+      '<div class="source-boundary-panel"><span>open research gaps</span>'+(gaps.length?'<ul>'+gaps.map(function(g){return '<li>'+esc(g)+'</li>'}).join('')+'</ul>':'<p>No high-priority gaps are listed in the current payload.</p>')+'</div></div>';
+    var cards=ids.map(function(id){
+      var s=SOURCE_REGISTER[id]||{},facts=(s.facts||[]).slice(0,2).map(function(f){return '<p>'+esc(f)+'</p>'}).join('');
+      return '<a class="source-register-card" href="'+esc(s.url||'#')+'" target="_blank" rel="noreferrer"><span>'+esc(s.type||'source')+'</span><strong>'+esc(s.title||id)+'</strong><em>'+esc(id)+' · '+esc((s.applies_to||[]).slice(0,4).join(', ')||'general')+'</em>'+facts+(s.caveat?'<p>'+esc(s.caveat)+'</p>':'')+'</a>';
+    }).join('');
+    el.innerHTML='<details class="audit-box" open><summary>Source register · '+fmtNumber(ids.length)+' records · public/source-bound boundary</summary><div class="source-register-wrap">'+boundaryHtml+'<div class="source-register-grid">'+cards+'</div></div></details>';
   }
 
   // Controls
@@ -909,7 +946,9 @@ body::before{
   function openSource(id,index){
     var n=NODE_BY_ID[id],source=n&&n.sources&&n.sources[index];
     if(!n||!source)return;
-    showSourceModal(n.label+' · '+(source.label||source.type),'<div class="source-refs">'+(source.refs||[]).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('')+'</div><pre>'+esc(source.note||'No note assigned.')+'</pre>');
+    var registered=(source.refs||[]).map(function(r){return SOURCE_REGISTER[r]&&{id:r,source:SOURCE_REGISTER[r]}}).filter(Boolean);
+    var registeredHtml=registered.length?'<div class="source-list">'+registered.map(function(item){return '<a class="source-button" href="'+esc(item.source.url||'#')+'" target="_blank" rel="noreferrer"><strong>'+esc(item.source.title||item.id)+'</strong><span>'+esc(item.id)+' · '+esc(item.source.type||'source')+'</span><em>'+esc((item.source.facts||[])[0]||item.source.url||'registered source')+'</em></a>'}).join('')+'</div>':'';
+    showSourceModal(n.label+' · '+(source.label||source.type),'<div class="source-refs">'+(source.refs||[]).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('')+'</div>'+registeredHtml+'<pre>'+esc(source.note||'No note assigned.')+'</pre>');
   }
   function focusMap(id){
     if(!NODE_BY_ID[id])return;
@@ -1006,6 +1045,7 @@ body::before{
   renderMap();
   renderAudit();
   renderQualitySummary();
+  renderSourceRegister();
   renderClaims();
   renderReviewQueue();
   renderEdgeTools();
@@ -1024,6 +1064,10 @@ body::before{
   function downloadFile(name,type,text){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},0)}
   function exportData(kind){
     if(kind==='json'){downloadFile('port-pirie-network.json','application/json',JSON.stringify(VERGE_DATA,null,2));return}
+    if(kind==='sources'){
+      var sourceRows=[['id','title','type','url','applies_to','facts','caveat']].concat(Object.keys(SOURCE_REGISTER).sort().map(function(id){var s=SOURCE_REGISTER[id]||{};return[id,s.title||'',s.type||'',s.url||'',(s.applies_to||[]).join('; '),(s.facts||[]).join(' | '),s.caveat||'']}));
+      downloadFile('port-pirie-sources.csv','text/csv',sourceRows.map(function(r){return r.map(csvEscape).join(',')}).join('\n'));return;
+    }
     if(kind==='claims'){
       var claimRows=[['id','title','kind','status','confidence','review_status','entities','timeline_events','edges','source_refs','summary']].concat(CLAIMS.map(function(c){return[c.id,c.title,c.kind||'',c.status||'',c.confidence||'',c.review_status||'',(c.entity_ids||[]).join('; '),(c.timeline_indices||[]).length,(c.edge_indices||[]).length,(c.source_refs||[]).join('; '),c.summary||'']}));
       downloadFile('port-pirie-claims.csv','text/csv',claimRows.map(function(r){return r.map(csvEscape).join(',')}).join('\n'));return;

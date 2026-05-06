@@ -8,7 +8,7 @@ const dataPath = path.join(root, 'port-pirie-data.js');
 const htmlPath = path.join(root, 'port-pirie.html');
 const checkOnly = process.argv.includes('--check');
 
-const DATA_VERSION = '20260506-claims';
+const DATA_VERSION = '20260506-research';
 const VAULT_FILES = 17163;
 const REF_RE = /\bEFTA\d+\b|\bM\d{2}\/\d+\b|\b\d{4}\/\d{6}\b|\bDataSet\s*\d+\b|\bDOJ DataSet\s*\d+\b|\bICAC\b|\bOPI\b/g;
 const publicContextIds = new Set(['ellis', 'brock', 'portpirie_city', 'lead_crisis', 'glenside', 'cba', 'portside', 'univ', 'sapol', 'sa_health', 'hcsc', 'icac', 'epstein_maxwell']);
@@ -34,13 +34,24 @@ function evidenceRefs(text = '') {
   return Array.from(new Set(text.match(REF_RE) || []));
 }
 
-function receiptTier(node, evidence, imageMeta) {
+function publicRecordForNode(id, data) {
+  const records = data.public_layer?.publicRecordConfirmed || {};
+  if (records[id]) return records[id];
+  if (id === 'portpirie_city') return records.port_pirie;
+  return records[id.replace(/_city$/, '')];
+}
+
+function receiptTier(node, data) {
+  const evidence = data.evidence || {};
+  const imageMeta = data.image_meta || {};
   const hasEvidence = Boolean(evidence[node.id]);
   const publicish = publicContextIds.has(node.id);
+  const hasPublicRecord = Boolean(publicRecordForNode(node.id, data));
+  const hasVerifiedAddress = Boolean(addressAliases[node.id] && data.public_layer?.verifiedAddresses?.[addressAliases[node.id]]);
   const imageKind = imageMeta[node.id]?.kind || 'portrait';
-  if (hasEvidence && publicish) return { key: 'mixed', label: 'mixed source', confidence: 'public context + vault receipt' };
+  if (hasEvidence && (publicish || hasPublicRecord || hasVerifiedAddress)) return { key: 'mixed', label: 'mixed source', confidence: 'public context + vault receipt' };
   if (hasEvidence) return { key: 'vault', label: 'vault receipt', confidence: 'sealed/OCR source-bound' };
-  if (publicish) return { key: 'public', label: 'public context', confidence: 'public record/context' };
+  if (publicish || hasPublicRecord || hasVerifiedAddress) return { key: 'public', label: 'public context', confidence: 'public record/context' };
   if (imageKind === 'fallback') return { key: 'pending', label: 'source pending', confidence: 'needs verification' };
   return { key: 'context', label: 'context node', confidence: 'supporting context' };
 }
@@ -57,13 +68,13 @@ function sourcesForNode(node, data) {
       note: ev.slice(0, 220),
     });
   }
-  const publicRecord = data.public_layer?.publicRecordConfirmed?.[node.id] || data.public_layer?.publicRecordConfirmed?.[node.id.replace(/_city$/, '')];
+  const publicRecord = publicRecordForNode(node.id, data);
   if (publicRecord) {
     sources.push({
       type: 'public_record',
       label: 'Public-record context',
-      refs: ['public_layer.publicRecordConfirmed.' + node.id],
-      note: Object.keys(publicRecord).slice(0, 5).join(', '),
+      refs: publicRecord.sources || ['public_layer.publicRecordConfirmed.' + node.id],
+      note: publicRecord.summary || Object.keys(publicRecord).filter((key) => key !== 'sources').slice(0, 5).join(', '),
     });
   }
   const addressKey = addressAliases[node.id];
@@ -216,6 +227,8 @@ function enrich(data) {
     timeline_events: data.timeline.length,
     evidence_snippets: Object.keys(data.evidence || {}).length,
     local_images: Object.keys(data.images || {}).length,
+    source_register: Object.keys(data.public_layer?.sourceRegister || {}).length,
+    public_records: Object.keys(data.public_layer?.publicRecordConfirmed || {}).length,
     vault_files: VAULT_FILES,
   };
   data.build = {
@@ -233,14 +246,15 @@ function buildReviewQueue(data) {
   const queue = [];
   const nodeIds = new Set(data.nodes.map((node) => node.id));
   for (const node of data.nodes) {
-    const tier = receiptTier(node, data.evidence || {}, data.image_meta || {});
+    const tier = receiptTier(node, data);
     if (!data.images?.[node.id]) {
       queue.push({ id: `${node.id}:missing-image`, entity: node.id, label: node.label, severity: 'medium', type: 'missing image', note: 'No local image is assigned; card falls back to initials.' });
     }
     if (tier.key === 'pending') {
       queue.push({ id: `${node.id}:source-pending`, entity: node.id, label: node.label, severity: 'high', type: 'source pending', note: 'No direct evidence snippet, public context, address, or image source is assigned.' });
     }
-    if (!(node.sources || []).some((source) => source.type === 'vault_evidence') && !publicContextIds.has(node.id)) {
+    const hasDirectReceipt = (node.sources || []).some((source) => source.type === 'vault_evidence' || source.type === 'public_record' || source.type === 'verified_address');
+    if (!hasDirectReceipt && !publicContextIds.has(node.id)) {
       queue.push({ id: `${node.id}:no-direct-receipt`, entity: node.id, label: node.label, severity: 'low', type: 'no direct receipt', note: 'Entity is included by network structure but has no direct evidence snippet in the current payload.' });
     }
   }

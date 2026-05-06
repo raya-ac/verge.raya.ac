@@ -1,231 +1,7 @@
 {
-  "geography": {
-    "context": "Port Pirie 2021 Significant Urban Area population: 13,896. SA Health describes Port Pirie as 230 km north of Adelaide and the location of one of the world's largest lead and multi-metal smelters. EPA says the smelter has operated continuously since 1889, monitors lead and SO2, and identifies the 2014 Targeted Lead Abatement Program as a joint Nyrstar/SA Government initiative. SA Health 2024 testing reported 392 of 573 tested children under five above 5 ug/dL.",
-    "note": "This geography/economy layer explains institutional proximity and incentives. It does not verify the individual source-packet allegations."
-  },
-  "verifiedAddresses": {
-    "rdb": {
-      "building": "Development Board Building",
-      "address": "85 Ellen Street, Port Pirie SA 5540",
-      "source": "SA Heritage Register, Wikipedia"
-    },
-    "portside_tavern": {
-      "building": "Portside Tavern (Sample Rooms)",
-      "address": "94 Ellen Street, Port Pirie SA 5540",
-      "source": "SA Heritage Register, Wikipedia",
-      "note": "Central Hotel/Portside Tavern — location of 4 Feb 2016 incident in Jacqueline Pearce statement (EFTA00266639)"
-    },
-    "cba": {
-      "building": "Commonwealth Bank",
-      "address": "142 Ellen Street, Port Pirie SA 5540",
-      "source": "Port Pirie evidence records (EFTA00263968)"
-    },
-    "courthouse": {
-      "building": "Port Pirie Courthouse",
-      "address": "20 Main Road, Port Pirie SA 5540",
-      "source": "Youth Court records (EFTA00266717)"
-    },
-    "pp_hospital": {
-      "building": "Port Pirie Regional Health Service",
-      "address": "Cnr The Terrace & Alexander Street, Port Pirie SA 5540",
-      "source": "sahealth_port_pirie_service_plan",
-      "source_url": "https://www.sahealth.sa.gov.au/wps/wcm/connect/6e91154e-a780-4395-bbd4-4362531b39b2/YNLHN%2BPort%2BPirie%2BRegional%2BHealth%2BService%2BPlan.pdf?MOD=AJPERES",
-      "note": "Official SA Health service plan address and health-service context."
-    },
-    "pp_police": {
-      "building": "Port Pirie Police Complex",
-      "address": "18 Main Road, Port Pirie SA 5540",
-      "source": "courts_sapol_port_pirie",
-      "source_url": "https://www.courts.sa.gov.au/2020/03/18/arrangements-for-the-magistrates-court-of-south-australia-criminal-proceedings-during-the-covid-19-pandemic-18-march-2020/",
-      "note": "Official court/SAPOL prosecution contact list context; separate from source-bound police misconduct allegations."
-    },
-    "pp_medical": {
-      "building": "Port Pirie Medical Centre",
-      "note": "Dr. Kajani — referenced in EFTA00262811"
-    },
-    "glenside": {
-      "building": "Glenside Health Services / former Glenside Hospital campus",
-      "address": "226 Fullarton Road, Glenside SA 5065",
-      "source": "dassa_glenside_withdrawal_2024; saheritage_glenside",
-      "source_url": "https://www.sahealth.sa.gov.au/wps/wcm/connect/a90b7080418b02debb91ff67a94f09f9/Inpatient_Withdrawal_Brochure_2024.pdf?CACHEID=ROOTWORKSPACE-a90b7080418b02debb91ff67a94f09f9-pt-j1Re&MOD=AJPERES",
-      "note": "Public address/facility context only; not corroboration of the 2017 detainment allegation."
-    },
-    "kadina": {
-      "town": "Kadina SA 5554",
-      "note": "Complainant relocated here after 2017 Glenside release. Fraser Ellis MP electoral office: 37 Graves St / 65 Stirling Tce, Kadina SA 5554."
-    },
-    "gp_plus": {
-      "building": "Port Pirie GP Plus Health Care Centre",
-      "address": "50 Gertrude Street, Port Pirie SA 5540",
-      "source": "sahealth_gpplus; sacommunity_gp_plus_port_pirie",
-      "source_url": "https://sacommunity.org/org/223697-Port_Pirie_GP_Plus_Health_Centre",
-      "note": "SA Health confirms Port Pirie as a country GP Plus centre. SAcommunity supplies the 50 Gertrude Street address and links back to SA Health; replace with a current direct SA Health detail page if recovered."
-    }
-  },
-  "publicRecordConfirmed": {
-    "ellis": {
-      "dob": "1992-08-17",
-      "age_when_met_pearce": 29,
-      "party_history": "Liberal 2018-2021, Independent 2021-2026",
-      "icac_charges": "23 counts of deception (Feb 2021), 78 fraudulent claims totaling $18,000+",
-      "icac_commissioner": "Ann Vanstone QC",
-      "repaid": "$42,130 for staying at colleague Terry Stephens' Adelaide residence",
-      "guilty_counts": "4 counts (~$2,800). Two involved being on Yorke Peninsula while claiming Adelaide stay. One involved a wedding night claim.",
-      "acquitted": "19 counts",
-      "magistrate": "Simon Smart, Adelaide Magistrates Court",
-      "defence_lawyer": "Scott Henchcliffe",
-      "sentencing": "September 2024",
-      "defeated": "March 2026 state election",
-      "alma_mater": "University of South Australia",
-      "prior_career": "Lawyer and journalist",
-      "electorate": "Narungga — covers Yorke Peninsula, incl. Kadina, Moonta, Wallaroo, Port Wakefield",
-      "summary": "Public record confirms Ellis as former Narungga MP, party history, 2024 four-count deception conviction, and 2026 election defeat. Source-packet claims about meetings/interest remain source-bound.",
-      "sources": [
-        "parliament_ellis",
-        "abc_ellis_conviction",
-        "abc_narungga_2026"
-      ],
-      "status_current": "Former Member from 20 March 2026",
-      "conviction_public_record": "ABC reported four deception convictions and acquittal on the remaining 19 counts on 1 July 2024.",
-      "election_2026": "ABC reported One Nation won Narungga and Ellis received about 17% of the primary vote."
-    },
-    "brock": {
-      "title": "Geoff Brock MP",
-      "history": "Former Port Pirie mayor. Won 2009 Frome by-election as independent. Former Labor-turned-independent state MP.",
-      "electorate": "Stuart (prev. Frome)",
-      "summary": "Parliament SA confirms Geoff Brock as Independent Member for Stuart, former Frome member, former Port Pirie Regional Council mayor, and former Nyrstar smelter worker.",
-      "sources": [
-        "parliament_brock"
-      ]
-    },
-    "port_pirie": {
-      "population": 13896,
-      "employer": "Nyrstar — world's largest lead smelter",
-      "upgrade": "$650M smelter upgrade (2014), $291M SA Government underwrite",
-      "lead_crisis": "Blood lead 7.3 μg/dL avg in children (2021), up from 5.3 in 2014. Rising airborne lead levels.",
-      "port": "Second busiest port in SA, ships 100+ vessels/year",
-      "council": "Port Pirie Regional Council",
-      "history": "Established 1845. Named after ship 'John Pirie.' Major Broken Hill silver-lead-zinc ore processing from 1889.",
-      "summary": "Public geography/economy layer: 2021 population 13,896; lead and multi-metal smelter context; EPA/SA Health lead exposure context.",
-      "sources": [
-        "abs_quickstats_2021_4006",
-        "sahealth_blood_lead_2024",
-        "epa_port_pirie_industry",
-        "nyrstar_port_pirie"
-      ],
-      "population_source": "ABS 2021 Census QuickStats, Significant Urban Area 4006",
-      "lead_context_2024": "SA Health 2024 report and EPA industry page replace the older lead-stat summary."
-    },
-    "sa_health": {
-      "summary": "Public layer confirms SA Health GP Plus context, Port Pirie Regional Health Service context, and Port Pirie blood-lead monitoring. It does not independently verify the source-packet IP-theft or detainment allegations.",
-      "sources": [
-        "sahealth_gpplus",
-        "sahealth_port_pirie_service_plan",
-        "sahealth_blood_lead_2024",
-        "sacommunity_gp_plus_port_pirie"
-      ],
-      "gp_plus_country_listing": "SA Health lists Port Pirie under country GP Plus Health Care Centres.",
-      "port_pirie_regional_health_service": "SA Health service plan places Port Pirie Regional Health Service in Yorke and Northern LHN and lists the campus at Cnr The Terrace & Alexander Street.",
-      "caveat": "Public health-service existence and source-bound allegations are separated."
-    },
-    "lead_crisis": {
-      "summary": "SA Health and EPA records now anchor the lead-smelter/lead-exposure context with 2024 data.",
-      "sources": [
-        "sahealth_blood_lead_2024",
-        "epa_port_pirie_industry",
-        "nyrstar_port_pirie"
-      ],
-      "blood_lead_2024": "573 children under five tested; 392 above 5 ug/dL; 68.4% of tested children above 5 ug/dL.",
-      "epa_context": "EPA says the smelter has operated continuously since 1889 and monitors airborne lead and SO2."
-    },
-    "kirchner": {
-      "summary": "Public SA Health service planning records confirm Roger Kirchner as Yorke and Northern LHN Chief Executive Officer and chair of the Port Pirie service planning steering group. That public role is separate from the source-bound funding/review allegations.",
-      "sources": [
-        "sahealth_port_pirie_service_plan"
-      ]
-    },
-    "fetherstonhaugh": {
-      "summary": "Australian Parliament committee appendix confirms Michael Fetherstonhaugh as Business Adviser, Port Pirie Regional Development Board, in 2003. Source-packet claims about 2007-2010 business-plan advice remain source-bound.",
-      "sources": [
-        "aph_fetherstonhaugh_2003"
-      ]
-    },
-    "bulone": {
-      "summary": "Public academic profiles/news confirm Vincent Bulone as a professor/research leader with former University of Adelaide Adelaide Glycomics context. Source-packet allegations about relationships/connections remain source-bound.",
-      "sources": [
-        "flinders_bulone_profile"
-      ]
-    },
-    "moyes": {
-      "summary": "Source-packet records place Belinda Moyes in Country Health SA/GP Plus allegation context; public role confirmation should be strengthened with direct SA Health archive material.",
-      "sources": [
-        "doj_efta00267994",
-        "doj_efta00262811"
-      ]
-    },
-    "mcrae": {
-      "summary": "Public records confirm Ros McRae as an SA regional health executive/board chair. No direct DOJ OCR hit was found in the downloaded packet during this pass.",
-      "sources": [
-        "premier_ros_mcrae_2026"
-      ]
-    },
-    "swinnen": {
-      "summary": "Public web result confirms a Marina Swinnen association with Dept. Health & Wellbeing in a 2023 leadership program. No direct DOJ OCR hit was found in the downloaded packet during this pass.",
-      "sources": [
-        "leaders_institute_swinnen_2023"
-      ]
-    },
-    "sapol": {
-      "summary": "Public address source confirms Port Pirie Police Complex at 18 Main Road. Source-packet misconduct allegations and the OPI response remain a separate source-bound/counter-context layer.",
-      "sources": [
-        "courts_sapol_port_pirie",
-        "doj_efta00266475"
-      ]
-    },
-    "hcsc": {
-      "summary": "HCSCC public pages confirm South Australian health/community-services complaint jurisdiction and exclusions. Individual complaint file M22/02621 remains source-bound until a direct public record is located.",
-      "sources": [
-        "hcscc_home",
-        "hcscc_complaints"
-      ]
-    },
-    "glenside": {
-      "summary": "Public sources confirm the Glenside health/facility address. They do not independently confirm the 2017 detainment allegation.",
-      "sources": [
-        "dassa_glenside_withdrawal_2024",
-        "saheritage_glenside",
-        "doj_efta00261688"
-      ]
-    },
-    "icac": {
-      "summary": "Public-record layer uses ABC reporting and the ICAC/OPI source-packet references. ICAC site was Cloudflare-blocked during live curl, so the direct ICAC media release remains URL-held rather than text-verified in this pass.",
-      "sources": [
-        "abc_ellis_conviction",
-        "doj_efta00266475"
-      ]
-    }
-  },
-  "sealedGap": {
-    "note": "The following connections exist ONLY in the sealed DOJ Epstein DataSet 9 documents — no public record confirms them. The vault person files (extracted from these documents) name these individuals as connected to the Epstein-Maxwell investigation through Jacqueline Pearce's complaint.",
-    "only_in_vault": [
-      "Fraser Ellis — 'person of interest,' unusual comment to victim 2022, only MP to meet Pearce",
-      "Peter Dutton — addressee of victim support letter 14 Nov 2023",
-      "Paul Gardner — 2014-2015 conspired sexual targeting, 'Government Prostitution' threats, Mafia/Tasmania connections",
-      "Vincent Bulone — Adelaide University Director of Research, Mafia/Sicily origins, relationship with complainant 2018-2019",
-      "Shaun Steele — Red Devils MC Port Pirie, death threats, FIFO mining worker",
-      "Peter Bannister — LiL Devil Designs, Red Devils/Hells Angels, connected to RDB",
-      "David Bradley — Tasmania, Hells Angels, Adelaide University, illicit manuscript knowledge",
-      "Michael Carter — Tasmanian Government, Citizens for Better Government, 2017 Glenside detention",
-      "Michael Fetherstonhaugh — RDB/Business SA, Paul Gardner's uncle",
-      "Roger Kirchner — 23 records, SA Health/RDB, denied medical funding",
-      "Heidi Salvemini — Westside Lawyers, illegal medical record access",
-      "Jake Austin, Hanna O'Neil — Port Pirie PD, sexual targeting",
-      "Scott Bowman — Crystal Brook PD, evidence tampering, illegal arrest",
-      "Grant Stevens — SA Police Commissioner, 'attempted murder to appear as suicide'"
-    ],
-    "disclaimer": "The vault contents are derived from sealed DOJ Epstein files (DataSets 1, 9, 10). These documents contain unproven allegations. Publicly confirmed facts (Ellis conviction, smelter operations, lead crisis, heritage buildings) are verifiable through government records. Individual allegations remain unproven and are noted as such throughout."
-  },
-  "sourceBoundary": {
+  "generated_at": "2026-05-06T06:19:04.749Z",
+  "data_version": "20260506-research",
+  "source_boundary": {
     "rule": "Public records confirm offices, addresses, institutions, timelines, and environmental context. DOJ/EFTA OCR confirms that a name or allegation appears in the packet. Neither layer alone proves the underlying allegations.",
     "applied": "2026-05-06",
     "public_record_fields": [
@@ -239,7 +15,25 @@
       "edge.source_refs"
     ]
   },
-  "sourceRegister": {
+  "research_gaps": {
+    "updated": "2026-05-06",
+    "high_priority": [
+      "Recover direct public records for HCSCC matter identifiers before presenting them as anything beyond source-packet references.",
+      "Find original SA Health / Country Health SA archive pages for Belinda Moyes, Ros McRae, and Marina Swinnen roles if those roles are to be shown as public-record confirmed beyond current limited sources.",
+      "Citizens for Better Government / Michael Carter was not confirmed in the downloaded DOJ OCR files or public web search in this pass.",
+      "Do not assign portraits/headshots for private or ambiguous individuals unless the source is reliable and identity match is strong."
+    ],
+    "no_public_confirmation_found_this_pass": [
+      "cbfg",
+      "carter-cbfg association",
+      "prendergast lawyer identity match",
+      "oneil public role",
+      "steele public identity",
+      "bannister public identity",
+      "bradley public identity"
+    ]
+  },
+  "source_register": {
     "sahealth_gpplus": {
       "title": "SA Health - GP Plus Health Care services and centres",
       "type": "official public health page",
@@ -613,23 +407,5 @@
       ],
       "caveat": "Directory source, not the primary SA Health service-detail page. Replace if a current official detail page is recovered."
     }
-  },
-  "researchGaps": {
-    "updated": "2026-05-06",
-    "high_priority": [
-      "Recover direct public records for HCSCC matter identifiers before presenting them as anything beyond source-packet references.",
-      "Find original SA Health / Country Health SA archive pages for Belinda Moyes, Ros McRae, and Marina Swinnen roles if those roles are to be shown as public-record confirmed beyond current limited sources.",
-      "Citizens for Better Government / Michael Carter was not confirmed in the downloaded DOJ OCR files or public web search in this pass.",
-      "Do not assign portraits/headshots for private or ambiguous individuals unless the source is reliable and identity match is strong."
-    ],
-    "no_public_confirmation_found_this_pass": [
-      "cbfg",
-      "carter-cbfg association",
-      "prendergast lawyer identity match",
-      "oneil public role",
-      "steele public identity",
-      "bannister public identity",
-      "bradley public identity"
-    ]
   }
 }
