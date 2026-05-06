@@ -8,7 +8,7 @@ const dataPath = path.join(root, 'port-pirie-data.js');
 const htmlPath = path.join(root, 'port-pirie.html');
 const checkOnly = process.argv.includes('--check');
 
-const DATA_VERSION = '20260505-tools';
+const DATA_VERSION = '20260506-claims';
 const VAULT_FILES = 17163;
 const REF_RE = /\bEFTA\d+\b|\bM\d{2}\/\d+\b|\b\d{4}\/\d{6}\b|\bDataSet\s*\d+\b|\bDOJ DataSet\s*\d+\b|\bICAC\b|\bOPI\b/g;
 const publicContextIds = new Set(['ellis', 'brock', 'portpirie_city', 'lead_crisis', 'glenside', 'cba', 'portside', 'univ', 'sapol', 'sa_health', 'hcsc', 'icac', 'epstein_maxwell']);
@@ -135,6 +135,63 @@ function confidenceForEdge(a, b, data) {
   return 'derived network structure';
 }
 
+function claimTimelineMatches(claim, data) {
+  const keywords = (claim.keywords || []).map((keyword) => String(keyword).toLowerCase()).filter(Boolean);
+  const labels = (claim.entity_ids || [])
+    .map((id) => data.nodes.find((node) => node.id === id)?.label || '')
+    .filter(Boolean)
+    .map((label) => label.toLowerCase());
+  const terms = [...keywords, ...labels].filter((term) => term.length > 2);
+  return data.timeline
+    .map((item, index) => ({ ...item, index }))
+    .filter((item) => {
+      const hay = `${item.date} ${item.event}`.toLowerCase();
+      return terms.some((term) => hay.includes(term));
+    })
+    .map((item) => item.index);
+}
+
+function claimEdgeIds(claim, data) {
+  const ids = new Set(claim.entity_ids || []);
+  return data.edges
+    .map((edge, index) => ({ edge, index }))
+    .filter(({ edge }) => ids.has(edge.source) && ids.has(edge.target))
+    .map(({ index }) => index);
+}
+
+function claimSourceRefs(claim, data) {
+  const refs = [...(claim.source_refs || [])];
+  for (const id of claim.entity_ids || []) {
+    refs.push(...evidenceRefs(data.evidence?.[id] || ''));
+    const node = data.nodes.find((candidate) => candidate.id === id);
+    for (const source of node?.sources || []) refs.push(...(source.refs || []));
+  }
+  return Array.from(new Set(refs)).slice(0, 24);
+}
+
+function enrichClaims(data) {
+  const nodeIds = new Set(data.nodes.map((node) => node.id));
+  data.claims = (data.claims || []).map((claim) => {
+    const entityIds = (claim.entity_ids || []).filter((id) => nodeIds.has(id));
+    const timeline_indices = claim.timeline_indices || claimTimelineMatches({ ...claim, entity_ids: entityIds }, data);
+    const edge_indices = claim.edge_indices || claimEdgeIds({ ...claim, entity_ids: entityIds }, data);
+    const source_refs = claimSourceRefs({ ...claim, entity_ids: entityIds }, data);
+    return {
+      ...claim,
+      entity_ids: entityIds,
+      timeline_indices,
+      edge_indices,
+      source_refs,
+      stats: {
+        entities: entityIds.length,
+        timeline_events: timeline_indices.length,
+        edges: edge_indices.length,
+        source_refs: source_refs.length,
+      },
+    };
+  });
+}
+
 function enrich(data) {
   data.nodes = data.nodes.map((node) => ({
     ...node,
@@ -164,9 +221,11 @@ function enrich(data) {
   data.build = {
     version: DATA_VERSION,
     generated_from: 'port-pirie-network.json',
-    generated_at: data.generated || new Date().toISOString(),
+    generated_at: new Date().toISOString(),
   };
   data.review_queue = buildReviewQueue(data);
+  enrichClaims(data);
+  data.stats.claims = data.claims.length;
   return data;
 }
 
@@ -224,6 +283,14 @@ function validate(data) {
   for (const node of data.nodes) {
     if (!Array.isArray(node.sources) || !node.sources.length) add('error', `node missing sources: ${node.id}`);
   }
+  for (const claim of data.claims || []) {
+    if (!claim.id) add('error', 'claim missing id');
+    if (!claim.title) add('error', `claim ${claim.id || '<unknown>'} missing title`);
+    for (const id of claim.entity_ids || []) {
+      if (!nodeIds.has(id)) add('error', `claim ${claim.id} references missing entity: ${id}`);
+    }
+    if (!claim.source_refs || !claim.source_refs.length) add('warn', `claim ${claim.id} has no source refs`);
+  }
   if (fs.existsSync(htmlPath)) {
     const html = fs.readFileSync(htmlPath, 'utf8');
     for (const stale of ['50 entities', '86 connections', '36 timeline events', '15 evidence snippets', '32 local images']) {
@@ -258,6 +325,7 @@ function browserPayload(data, issues) {
       source_ref: edge.source_ref,
       source_refs: edge.source_refs,
     })),
+    claims: data.claims || [],
     timeline: data.timeline,
     evidence: data.evidence || {},
     public_layer: data.public_layer || {},
@@ -284,6 +352,7 @@ console.log(JSON.stringify({
   timeline_events: data.stats.timeline_events,
   evidence_snippets: data.stats.evidence_snippets,
   local_images: data.stats.local_images,
+  claims: data.stats.claims,
   review_items: data.review_queue.length,
   errors: errors.length,
   warnings: issues.length - errors.length,

@@ -2,7 +2,7 @@
 
 **verge.raya.ac/port-pirie.html**
 
-Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 timeline events, 15 verbatim evidence snippets, 32 local image mappings. Data extracted from 17,163 vault person files, DOJ DataSet 9, epstein-data.com OCR, and public-record context.
+Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 timeline events, 15 verbatim evidence snippets, 7 claim threads, 32 local image mappings. Data extracted from 17,163 vault person files, DOJ DataSet 9, epstein-data.com OCR, and public-record context.
 
 ## Files
 
@@ -12,9 +12,9 @@ Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 t
 
 | File | Role |
 |------|------|
-| `port-pirie.html` | Main page — entity cards, scoped search, receipt inspector, source viewer, compare panel, review queue, graph/edge inspector, address sketch, exports, image audit, filtered timeline |
-| `port-pirie-data.js` | Generated `const VERGE_DATA = {...}` payload — meta, stats, nodes, enriched edges, timeline, evidence, public layer, images, review queue, color map |
-| `port-pirie-network.json` | Canonical data — enriched nodes with `sources`, enriched edges with `reason`, `confidence`, and `source_refs` |
+| `port-pirie.html` | Main page — claim threads, entity cards, scoped search, receipt inspector, source viewer, compare panel, review queue, graph/edge inspector, address sketch, exports, image audit, filtered timeline |
+| `port-pirie-data.js` | Generated `const VERGE_DATA = {...}` payload — meta, stats, claims, nodes, enriched edges, timeline, evidence, public layer, images, review queue, color map |
+| `port-pirie-network.json` | Canonical data — claim threads, enriched nodes with `sources`, enriched edges with `reason`, `confidence`, and `source_refs` |
 | `scripts/build-port-pirie.mjs` | Build/validate pipeline for `port-pirie-network.json` → `port-pirie-data.js` |
 | `port-pirie-public-layer.json` | Public-record source fragment folded into `port-pirie-network.json.public_layer` |
 | `assets/port-pirie-og.png` | OpenGraph/social preview image generated from the live page |
@@ -28,18 +28,19 @@ Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 t
 
 ## Architecture — port-pirie.html
 
+- **Claim Threads:** claim-first paths through the dataset. Each claim has involved entities, source refs, generated edge/timeline matches, confidence/status fields, and shareable URLs like `#claim-gp-plus-replica`. Selecting a claim filters cards, timeline, and graph emphasis around that thread.
 - **Cards/workbench:** vanilla JS renders entity cards from `VERGE_DATA.nodes`. Sticky category workbench, scoped search, needs-work mode, sourced-image counts, source-status chips, connection counts, map-focus narrowing, and card image rendering driven by `VERGE_DATA.image_meta`. `mc` nodes use full label "Motorcycle Club" — category field is `motorcycle`, color `#d44`.
-- **Quality summary:** coverage tiles show evidence coverage, image coverage, review surface, and enriched edge metadata coverage from generated stats.
+- **Quality summary:** coverage tiles show evidence coverage, image coverage, review surface, and claim-thread count from generated stats.
 - **Receipt inspector:** shared entity panel for card clicks, graph-node clicks, map pins, deep links, and connected-entity buttons. Shows source status, confidence label, source ledger, source viewer buttons, evidence refs, snippet, image provenance, related timeline events, and direct connections with reason labels.
 - **Source viewer:** modal for entity evidence snippets and individual source rows. Keeps source refs visible instead of hiding them inside card text.
 - **Review queue:** generated from the validator/build script. Filterable by severity and issue type; clicking a row opens the affected entity.
 - **Compare mode:** browser-side two-entity compare for direct edge status, shared links, shared refs, categories, and timeline overlap.
 - **Deep links:** selecting an entity writes `#entity_id` into the URL. Loading a valid hash opens the inspector and marks the matching card without auto-selecting anyone on normal first load.
-- **Graph:** D3 v7 force simulation. Collapsed by default behind "network graph" toggle. Click nodes for receipts and edges for edge inspector. Drag/zoom/pan. Edge confidence filters: all, direct, mixed, public, derived. Graph images use the same `image_meta` surface rules as cards.
+- **Graph:** D3 v7 force simulation. Collapsed by default behind "network graph" toggle. Click nodes for receipts and edges for edge inspector. Drag/zoom/pan. Edge confidence filters: all, claim edges, direct, mixed, public, derived. Graph images use the same `image_meta` surface rules as cards.
 - **Map:** schematic Port Pirie address/context sketch with pins for RDB, Portside, CBA, SAPOL, SA Health, HCSCC, ICAC, Glenside, council, and lead-smelter context. Pin clicks focus the card set to the place/context node plus connected entities.
 - **Audit:** collapsible image/source audit table for all 50 nodes.
 - **Timeline:** 36 events from 1845–2026 split into two-column layout with filters for Port Pirie, politics, police/legal, health, and Epstein/DOJ context. Data from `VERGE_DATA.timeline`.
-- **Exports/build stamp:** visible build/data stamp plus browser-generated JSON, nodes CSV, edges CSV, evidence CSV, and review CSV exports.
+- **Exports/build stamp:** visible build/data stamp plus browser-generated JSON, claims CSV, nodes CSV, edges CSV, evidence CSV, and review CSV exports.
 - **Images:** 32 verified public/official image mappings in `VERGE_DATA.images`, all served from local `assets/` files. `VERGE_DATA.image_meta` records portrait/logo/badge/place rendering and dark/light surface choice. Fallback to colored initials for people or groups without a reliable public match.
 - **Publish metadata:** canonical URL plus OpenGraph/Twitter metadata points to `assets/port-pirie-og.png`.
 - **Disclaimer:** at top.
