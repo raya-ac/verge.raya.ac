@@ -100,11 +100,11 @@ body::before{
 .scope-search{flex:1;min-width:260px;background:#0f110e;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-family:inherit;font-size:.66rem;padding:.55rem .68rem;outline:none}
 .scope-search:focus{border-color:#51614f;box-shadow:0 0 0 1px rgba(91,159,101,.12)}
 .scope-search::placeholder{color:var(--quiet)}
-.view-state button,.export-links button,.copy-link,.timeline-tools button,.compare-panel button,.source-modal button,.tool-row button,.review-filters button,.edge-tools button{background:#10120f;border:1px solid var(--line);color:var(--muted);border-radius:4px;font-family:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.08em;transition:color .2s,border-color .2s,background .2s}
-.view-state button:hover,.export-links button:hover,.copy-link:hover,.timeline-tools button:hover,.compare-panel button:hover,.source-modal button:hover,.tool-row button:hover,.review-filters button:hover,.edge-tools button:hover{color:var(--ink);border-color:#3b4237;background:#151912}
+.view-state button,.export-links button,.copy-link,.timeline-tools button,.compare-panel button,.source-modal button,.tool-row button,.review-filters button,.edge-tools button,.source-layer-tools button{background:#10120f;border:1px solid var(--line);color:var(--muted);border-radius:4px;font-family:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.08em;transition:color .2s,border-color .2s,background .2s}
+.view-state button:hover,.export-links button:hover,.copy-link:hover,.timeline-tools button:hover,.compare-panel button:hover,.source-modal button:hover,.tool-row button:hover,.review-filters button:hover,.edge-tools button:hover,.source-layer-tools button:hover{color:var(--ink);border-color:#3b4237;background:#151912}
 .view-state button{font-size:.52rem;padding:.18rem .38rem;margin-top:-.15rem}
-.tool-row button,.review-filters button,.edge-tools button{font-size:.55rem;padding:.45rem .58rem}
-.tool-row button.active,.review-filters button.active,.edge-tools button.active{color:var(--ink);border-color:#51614f;background:rgba(91,159,101,.1)}
+.tool-row button,.review-filters button,.edge-tools button,.source-layer-tools button{font-size:.55rem;padding:.45rem .58rem}
+.tool-row button.active,.review-filters button.active,.edge-tools button.active,.source-layer-tools button.active{color:var(--ink);border-color:#51614f;background:rgba(91,159,101,.1)}
 .build-stamp{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:-.72rem 0 1.35rem;padding:.55rem .72rem;border:1px solid rgba(255,255,255,.055);border-radius:5px;background:rgba(17,19,16,.48);font-size:.56rem;color:var(--quiet);letter-spacing:.08em;text-transform:uppercase}
 .build-stamp span{color:var(--muted)}
 .export-links{display:flex;gap:.36rem;flex-wrap:wrap}
@@ -122,8 +122,11 @@ body::before{
 .source-boundary-panel p,.source-boundary-panel li{font-size:.62rem;color:var(--text);line-height:1.55}
 .source-boundary-panel ul{padding-left:.9rem}
 .source-register-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.55rem}
-.source-register-card{display:block;text-decoration:none;border:1px solid rgba(184,154,98,.18);border-radius:5px;background:rgba(184,154,98,.038);padding:.62rem .68rem;min-width:0;transition:border-color .2s,background .2s,transform .2s}
-.source-register-card:hover{border-color:rgba(184,154,98,.42);background:rgba(184,154,98,.07);transform:translateY(-1px)}
+.source-register-filters{display:flex;gap:.36rem;flex-wrap:wrap;margin:0 0 .74rem}
+.source-register-filters button{background:#10120f;border:1px solid var(--line);color:var(--muted);border-radius:4px;font-family:inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.08em;transition:color .2s,border-color .2s,background .2s;font-size:.52rem;padding:.32rem .46rem}
+.source-register-filters button:hover,.source-register-filters button.active{color:var(--ink);border-color:#51614f;background:rgba(91,159,101,.1)}
+.source-register-card{display:block;text-align:left;font-family:inherit;border:1px solid rgba(184,154,98,.18);border-radius:5px;background:rgba(184,154,98,.038);padding:.62rem .68rem;min-width:0;transition:border-color .2s,background .2s,transform .2s;cursor:pointer}
+.source-register-card:hover,.source-register-card.active{border-color:rgba(184,154,98,.54);background:rgba(184,154,98,.075);transform:translateY(-1px)}
 .source-register-card strong{display:block;color:var(--ink);font-size:.66rem;font-weight:500;line-height:1.36;margin-bottom:.28rem}
 .source-register-card p{font-size:.58rem;color:var(--text);line-height:1.45;margin-top:.22rem}
 .source-register-card em{display:block;font-style:normal;font-size:.52rem;color:var(--muted);line-height:1.42;margin-top:.35rem;word-break:break-word}
@@ -202,6 +205,8 @@ body::before{
 .receipt-item strong{font-size:.66rem;color:var(--text);font-weight:500;line-height:1.45}
 .source-refs{display:flex;gap:.34rem;flex-wrap:wrap;margin:.48rem 0 .68rem}
 .source-ref{font-size:.52rem;color:var(--evidence);border:1px solid rgba(184,154,98,.34);border-radius:3px;padding:.12rem .34rem;background:rgba(184,154,98,.05)}
+button.source-ref{font-family:inherit;cursor:pointer}
+button.source-ref:hover,button.source-ref.active{color:var(--ink);border-color:rgba(184,154,98,.72);background:rgba(184,154,98,.12)}
 .ledger-list{display:grid;gap:.42rem;margin-bottom:.75rem}
 .ledger-row{display:grid;grid-template-columns:7rem 1fr;gap:.65rem;align-items:start;border:1px solid rgba(255,255,255,.055);border-radius:5px;padding:.48rem .56rem;background:rgba(255,255,255,.018)}
 .ledger-row span{font-size:.5rem;color:var(--quiet);letter-spacing:.1em;text-transform:uppercase}
@@ -226,7 +231,7 @@ body::before{
 .review-item span{display:block;color:var(--muted);font-size:.5rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.18rem}
 .review-item p{font-size:.62rem;color:var(--text);line-height:1.48}
 .review-severity-high{border-color:rgba(184,96,88,.3)}.review-severity-medium{border-color:rgba(184,154,98,.25)}
-.edge-tools{display:flex;gap:.36rem;flex-wrap:wrap;margin-top:.58rem}
+.edge-tools,.source-layer-tools{display:flex;gap:.36rem;flex-wrap:wrap;margin-top:.58rem}
 .compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;padding:1rem}
 .compare-panel select{width:100%;background:#0f110e;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-family:inherit;font-size:.64rem;padding:.5rem;margin-top:.32rem}
 .compare-output{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.055);padding-top:.72rem;font-size:.64rem;color:var(--text);line-height:1.55}
@@ -366,6 +371,7 @@ body::before{
     <button type="button" id="needs-work-toggle">needs work</button>
   </div>
   <div class="controls" id="controls"></div>
+  <div class="source-layer-tools" id="source-layer-tools"></div>
   <div class="edge-tools" id="edge-tools"></div>
   <div class="view-state" id="view-state"></div>
 </div>
@@ -418,7 +424,7 @@ body::before{
 </div>
 </div>
 
-<script src="port-pirie-data.js?v=20260506-research"></script>
+<script src="port-pirie-data.js?v=20260506-source-nav"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 (function(){
@@ -479,7 +485,7 @@ body::before{
     {id:'icac',label:'ICAC / OPI',x:76,y:23},
     {id:'glenside',label:'Glenside',x:86,y:82}
   ];
-  var NODE_BY_ID={},ADJ={},EDGE_BY_KEY={},CLAIM_BY_ID={},selectedId=null,activeClaim=null,mapFocus=null,timelineFilter='all',searchTerm='',reviewFilter='all',edgeFilter='all',needsWork=false,compareA='',compareB='',graphState=null;
+  var NODE_BY_ID={},ADJ={},EDGE_BY_KEY={},CLAIM_BY_ID={},selectedId=null,activeClaim=null,activeSourceId=null,mapFocus=null,timelineFilter='all',searchTerm='',reviewFilter='all',edgeFilter='all',sourceLayer='all',sourceRegisterFilter='all',needsWork=false,compareA='',compareB='',graphState=null;
   NODES.forEach(function(n){NODE_BY_ID[n.id]=n;ADJ[n.id]=[]});
   EDGES.forEach(function(e){EDGE_BY_KEY[e.s+'>'+e.t]=e;EDGE_BY_KEY[e.t+'>'+e.s]=e;if(ADJ[e.s])ADJ[e.s].push({id:e.t,w:e.w,edge:e});if(ADJ[e.t])ADJ[e.t].push({id:e.s,w:e.w,edge:e})});
   CLAIMS.forEach(function(c){CLAIM_BY_ID[c.id]=c});
@@ -518,6 +524,37 @@ body::before{
   function claimEdgeSet(claim){var set={};(claim&&claim.edge_indices||[]).forEach(function(i){var e=EDGES[i];if(e){set[e.s+'>'+e.t]=1;set[e.t+'>'+e.s]=1}});return set}
   function claimTimelineSet(claim){var set={};(claim&&claim.timeline_indices||[]).forEach(function(i){set[i]=1});return set}
   function publicRecordForNode(id){return PUBLIC_RECORDS[id]||(id==='portpirie_city'?PUBLIC_RECORDS.port_pirie:null)||PUBLIC_RECORDS[id.replace(/_city$/,'')]}
+  function sourceKind(source){
+    var type=String(source&&source.type||'').toLowerCase();
+    if(type.indexOf('doj')>=0||type.indexOf('source-bound')>=0)return 'doj';
+    if(type.indexOf('news')>=0)return 'news';
+    if(type.indexOf('directory')>=0)return 'directory';
+    if(type.indexOf('official')>=0||type.indexOf('operator')>=0||type.indexOf('university')>=0)return 'public';
+    return 'other';
+  }
+  function sourceToken(id){
+    var match=String(id||'').match(/^doj_efta(\d+)$/);
+    return match?'EFTA'+match[1]:id;
+  }
+  function sourceRefHtml(ref){
+    var id=String(ref||''),registered=!!SOURCE_REGISTER[id],active=activeSourceId===id?' active':'';
+    return registered?'<button type="button" class="source-ref'+active+'" data-source-id="'+esc(id)+'">'+esc(id)+'</button>':'<span class="source-ref">'+esc(id)+'</span>';
+  }
+  function bindSourceRefs(root){
+    Array.prototype.forEach.call((root||document).querySelectorAll('[data-source-id]'),function(btn){
+      btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();selectSource(btn.dataset.sourceId,{scroll:true})});
+    });
+  }
+  function nodeUsesSource(n,id){
+    if(!n||!id)return false;
+    var source=SOURCE_REGISTER[id],token=sourceToken(id);
+    if(source&&(source.applies_to||[]).indexOf(n.id)>=0)return true;
+    if(String(EV[n.id]||'').indexOf(token)>=0)return true;
+    return (n.sources||[]).some(function(s){return(s.refs||[]).indexOf(id)>=0||(s.refs||[]).indexOf(token)>=0});
+  }
+  function sourceMatchesFilter(id){
+    return sourceRegisterFilter==='all'||sourceKind(SOURCE_REGISTER[id])===sourceRegisterFilter;
+  }
   function claimSearchText(claim){return [claim.id,claim.title,claim.kind,claim.status,claim.summary,claim.confidence,claim.review_status,(claim.keywords||[]).join(' '),(claim.source_refs||[]).join(' '),(claim.entity_ids||[]).map(function(id){return NODE_BY_ID[id]&&NODE_BY_ID[id].label||id}).join(' ')].join(' ').toLowerCase()}
   function matchesClaimSearch(claim){return !searchTerm||claimSearchText(claim).indexOf(searchTerm)>=0}
   function edgeMatchesFilter(e){
@@ -639,20 +676,24 @@ body::before{
     var entities=(claim.entity_ids||[]).map(function(id){return NODE_BY_ID[id]}).filter(Boolean);
     var timeline=(claim.timeline_indices||[]).map(function(i){return T[i]}).filter(Boolean);
     var edgeCount=(claim.edge_indices||[]).length;
-    var refs=(claim.source_refs||[]).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('');
+    var refs=(claim.source_refs||[]).map(sourceRefHtml).join('');
     panel.classList.add('open');
     panel.innerHTML='<div class="inspector-head"><div class="inspector-title"><div class="inspector-tags"><span class="source-chip mixed">'+esc(claim.confidence||'claim thread')+'</span><span class="link-chip">'+esc(entities.length)+' entities</span><span class="link-chip">'+esc(edgeCount)+' edges</span><span class="link-chip">'+esc(timeline.length)+' events</span></div><h3>'+esc(claim.title)+'</h3><p>'+esc(claim.summary||'')+'</p><div class="inspector-actions"><button type="button" class="copy-link" data-copy-claim="'+esc(claim.id)+'">copy claim link</button><button type="button" class="copy-link" data-clear-claim>clear claim</button></div></div></div>'+
       '<div class="inspector-grid"><div><div class="inspector-block"><h4>Claim Status</h4><div class="receipt-grid"><div class="receipt-item"><span>kind</span><strong>'+esc(claim.kind||'claim')+'</strong></div><div class="receipt-item"><span>status</span><strong>'+esc(claim.status||'not assigned')+'</strong></div><div class="receipt-item"><span>review</span><strong>'+esc(claim.review_status||'not assigned')+'</strong></div><div class="receipt-item"><span>source refs</span><strong>'+esc((claim.source_refs||[]).length)+'</strong></div></div><div class="source-refs">'+refs+'</div></div><div class="inspector-block"><h4>Timeline In This Claim</h4><div class="timeline-mini">'+(timeline.length?timeline.map(function(t){return '<div class="timeline-mini-item"><strong>'+esc(t.date)+'</strong>'+esc(t.event)+'</div>'}).join(''):'<div class="empty-note">No timeline matches generated for this claim.</div>')+'</div></div></div><div><div class="inspector-block"><h4>Claim Entities</h4><div class="connection-list">'+entities.map(function(n){return '<button type="button" class="connection-btn" data-id="'+esc(n.id)+'"><strong>'+esc(n.label)+'</strong><span>'+esc(catLabel(n.category))+'</span><em>'+esc(n.desc)+'</em></button>'}).join('')+'</div></div></div></div>';
     Array.prototype.forEach.call(panel.querySelectorAll('.connection-btn'),function(btn){btn.addEventListener('click',function(){selectEntity(btn.dataset.id,{scroll:true})})});
     Array.prototype.forEach.call(panel.querySelectorAll('[data-copy-claim]'),function(btn){btn.addEventListener('click',function(){copyClaimLink(btn.dataset.copyClaim,btn)})});
     Array.prototype.forEach.call(panel.querySelectorAll('[data-clear-claim]'),function(btn){btn.addEventListener('click',function(){clearClaim()})});
+    bindSourceRefs(panel);
   }
   function selectClaim(id,opts){
     var claim=CLAIM_BY_ID[id];
     if(!claim)return;
     activeClaim=claim;
+    activeSourceId=null;
     mapFocus=null;
     setCategory('all');
+    closeSourceModal();
+    renderSourceRegister();
     renderClaims();
     renderCards();
     renderTimeline();
@@ -699,19 +740,23 @@ body::before{
   function renderSourceRegister(){
     var el=document.getElementById('source-register-section');
     if(!el)return;
-    var ids=Object.keys(SOURCE_REGISTER).sort(function(a,b){
+    var ids=Object.keys(SOURCE_REGISTER).filter(sourceMatchesFilter).sort(function(a,b){
       var at=SOURCE_REGISTER[a].type||'',bt=SOURCE_REGISTER[b].type||'';
       return at===bt?(SOURCE_REGISTER[a].title||a).localeCompare(SOURCE_REGISTER[b].title||b):at.localeCompare(bt);
     });
+    var filterDefs=[['all','all'],['public','public/official'],['doj','DOJ/OCR'],['news','news'],['directory','directory']];
+    var filterHtml='<div class="source-register-filters">'+filterDefs.map(function(f){return '<button type="button" data-source-register-filter="'+esc(f[0])+'" class="'+(sourceRegisterFilter===f[0]?'active':'')+'">'+esc(f[1])+'</button>'}).join('')+'</div>';
     var boundary=SOURCE_BOUNDARY.rule||'Public records and source-bound allegations are tracked separately.';
     var gaps=(RESEARCH_GAPS.high_priority||[]).slice(0,5);
     var boundaryHtml='<div class="source-boundary"><div class="source-boundary-panel"><span>boundary rule</span><p>'+esc(boundary)+'</p></div>'+
       '<div class="source-boundary-panel"><span>open research gaps</span>'+(gaps.length?'<ul>'+gaps.map(function(g){return '<li>'+esc(g)+'</li>'}).join('')+'</ul>':'<p>No high-priority gaps are listed in the current payload.</p>')+'</div></div>';
     var cards=ids.map(function(id){
       var s=SOURCE_REGISTER[id]||{},facts=(s.facts||[]).slice(0,2).map(function(f){return '<p>'+esc(f)+'</p>'}).join('');
-      return '<a class="source-register-card" href="'+esc(s.url||'#')+'" target="_blank" rel="noreferrer"><span>'+esc(s.type||'source')+'</span><strong>'+esc(s.title||id)+'</strong><em>'+esc(id)+' · '+esc((s.applies_to||[]).slice(0,4).join(', ')||'general')+'</em>'+facts+(s.caveat?'<p>'+esc(s.caveat)+'</p>':'')+'</a>';
+      return '<button type="button" class="source-register-card '+(activeSourceId===id?'active':'')+'" data-source-card-id="'+esc(id)+'"><span>'+esc(s.type||'source')+'</span><strong>'+esc(s.title||id)+'</strong><em>'+esc(id)+' · '+esc((s.applies_to||[]).slice(0,4).join(', ')||'general')+'</em>'+facts+(s.caveat?'<p>'+esc(s.caveat)+'</p>':'')+'</button>';
     }).join('');
-    el.innerHTML='<details class="audit-box" open><summary>Source register · '+fmtNumber(ids.length)+' records · public/source-bound boundary</summary><div class="source-register-wrap">'+boundaryHtml+'<div class="source-register-grid">'+cards+'</div></div></details>';
+    el.innerHTML='<details class="audit-box" open><summary>Source register · '+fmtNumber(Object.keys(SOURCE_REGISTER).length)+' records · public/source-bound boundary</summary><div class="source-register-wrap">'+boundaryHtml+filterHtml+'<div class="source-register-grid">'+(cards||'<div class="empty-note">No registered sources match this filter.</div>')+'</div></div></details>';
+    Array.prototype.forEach.call(el.querySelectorAll('[data-source-register-filter]'),function(btn){btn.addEventListener('click',function(){sourceRegisterFilter=btn.dataset.sourceRegisterFilter;renderSourceRegister()})});
+    Array.prototype.forEach.call(el.querySelectorAll('[data-source-card-id]'),function(btn){btn.addEventListener('click',function(){selectSource(btn.dataset.sourceCardId,{scroll:true})})});
   }
 
   // Controls
@@ -727,6 +772,22 @@ body::before{
   window.filterCat=function(c){setCategory(c);renderCards()};
   window.clearMapFocus=function(){mapFocus=null;renderCards();updateSelections()};
   window.clearClaim=function(){activeClaim=null;renderClaims();renderCards();renderTimeline();applyGraphSelection();history.replaceState(null,'',location.pathname+location.search)};
+  window.clearSource=function(){activeSourceId=null;renderSourceRegister();renderCards();applyGraphSelection();closeSourceModal();history.replaceState(null,'',location.pathname+location.search)};
+  function selectSource(id,opts){
+    if(!SOURCE_REGISTER[id])return;
+    activeSourceId=id;
+    activeClaim=null;
+    mapFocus=null;
+    setCategory('all');
+    renderSourceRegister();
+    renderClaims();
+    renderCards();
+    renderTimeline();
+    openRegisteredSource(id);
+    applyGraphSelection();
+    if(!opts||opts.hash!==false)history.replaceState(null,'',location.pathname+location.search+'#source-'+encodeURIComponent(id));
+    if(opts&&opts.scroll){document.getElementById('source-register-section').scrollIntoView({behavior:'smooth',block:'nearest'})}
+  }
 
   function init(l){return(l||'').split(' ').map(function(w){return w[0]}).slice(0,3).join('').toUpperCase()}
   function fallbackPhoto(photo,label,cl){photo.innerHTML='<div class="initials" style="color:'+cl+'">'+init(label)+'</div>'}
@@ -736,7 +797,9 @@ body::before{
     var label=current==='all'?'all categories':catLabel(current);
     var focus=mapFocus&&NODE_BY_ID[mapFocus]?' · map focus <span>'+esc(NODE_BY_ID[mapFocus].label)+'</span> <button type="button" onclick="clearMapFocus()">clear</button>':'';
     var claim=activeClaim?' · claim <span>'+esc(activeClaim.title)+'</span> <button type="button" onclick="clearClaim()">clear</button>':'';
-    document.getElementById('view-state').innerHTML='<span>'+esc(f.length)+'</span> shown · <span>'+esc(sourced)+'</span> sourced images · <span>'+esc(evidence)+'</span> evidence-linked cards · '+esc(label)+focus+claim;
+    var source=activeSourceId&&SOURCE_REGISTER[activeSourceId]?' · source <span>'+esc(activeSourceId)+'</span> <button type="button" onclick="clearSource()">clear</button>':'';
+    var layer=sourceLayer==='all'?'all source layers':sourceLayer+' layer';
+    document.getElementById('view-state').innerHTML='<span>'+esc(f.length)+'</span> shown · <span>'+esc(sourced)+'</span> sourced images · <span>'+esc(evidence)+'</span> evidence-linked cards · '+esc(label)+' · '+esc(layer)+focus+claim+source;
   }
   function nodeSearchText(n){
     return [
@@ -749,12 +812,16 @@ body::before{
   function matchesSearch(n){return !searchTerm||nodeSearchText(n).indexOf(searchTerm)>=0}
   function matchesNeedsWork(n){return !needsWork||reviewItemsFor(n.id).length>0}
   function matchesActiveClaim(n){return !activeClaim||!!claimEntitySet(activeClaim)[n.id]}
+  function matchesActiveSource(n){return !activeSourceId||nodeUsesSource(n,activeSourceId)}
+  function matchesSourceLayer(n){return sourceLayer==='all'||receiptFor(n).key===sourceLayer}
 
   function renderCards(){
     var focus=mapFocus?focusSetFor(mapFocus):null;
     var f=current==='all'?NODES.slice():NODES.filter(function(n){return n.category===current});
     if(focus)f=f.filter(function(n){return !!focus[n.id]});
     if(activeClaim)f=f.filter(matchesActiveClaim);
+    if(activeSourceId)f=f.filter(matchesActiveSource);
+    if(sourceLayer!=='all')f=f.filter(matchesSourceLayer);
     if(searchTerm)f=f.filter(matchesSearch);
     if(needsWork)f=f.filter(matchesNeedsWork);
     f.sort(sortNode);
@@ -791,7 +858,7 @@ body::before{
       return '<button type="button" class="connection-btn" data-id="'+esc(c.node.id)+'"><strong>'+esc(c.node.label)+'</strong><span>'+esc(catLabel(c.node.category))+' · strength '+esc(c.w||0)+' · '+esc(c.edge&&c.edge.confidence||'derived')+'</span><em>'+esc(edgeReason(n,c.node,c.w||0,c.edge))+'</em></button>';
     }).join(''):'<div class="empty-note">No direct edges in the current network slice.</div>';
     var timeHtml=hits.length?hits.map(function(t){return '<div class="timeline-mini-item"><strong>'+esc(t.date)+'</strong>'+esc(t.event)+'</div>'}).join(''):'<div class="empty-note">No direct timeline event is assigned by the current matching rules.</div>';
-    var refHtml=refs.map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('');
+    var refHtml=refs.map(sourceRefHtml).join('');
     var quote=ev?'<div class="quote-block">"'+esc(ev)+'"</div>':'<div class="empty-note">No verbatim evidence snippet is assigned to this entity yet.</div>';
     var imageLine=img?esc(img):'initials fallback';
     panel.classList.add('open');
@@ -816,6 +883,7 @@ body::before{
     Array.prototype.forEach.call(panel.querySelectorAll('[data-copy-link]'),function(btn){btn.addEventListener('click',function(){copyEntityLink(btn.dataset.copyLink,btn)})});
     Array.prototype.forEach.call(panel.querySelectorAll('[data-open-evidence]'),function(btn){btn.addEventListener('click',function(){openEvidence(btn.dataset.openEvidence)})});
     Array.prototype.forEach.call(panel.querySelectorAll('[data-source-entity]'),function(btn){btn.addEventListener('click',function(){openSource(btn.dataset.sourceEntity,Number(btn.dataset.sourceIndex||0))})});
+    bindSourceRefs(panel);
     Array.prototype.forEach.call(panel.querySelectorAll('img'),function(im){im.addEventListener('error',function(){var ph=im.parentElement;fallbackPhoto(ph,ph.dataset.label,ph.dataset.color||'#888')})});
   }
 
@@ -863,6 +931,13 @@ body::before{
     el.innerHTML=filters.map(function(f){return '<button type="button" data-edge-filter="'+esc(f[0])+'" class="'+(edgeFilter===f[0]?'active':'')+'">'+esc(f[1])+'</button>'}).join('');
     Array.prototype.forEach.call(el.querySelectorAll('button'),function(btn){btn.addEventListener('click',function(){edgeFilter=btn.dataset.edgeFilter;renderEdgeTools();applyGraphSelection()})});
   }
+  function renderSourceLayerTools(){
+    var el=document.getElementById('source-layer-tools');
+    if(!el)return;
+    var filters=[['all','all source layers'],['public','public only'],['mixed','mixed'],['vault','source-bound'],['pending','pending']];
+    el.innerHTML=filters.map(function(f){return '<button type="button" data-source-layer="'+esc(f[0])+'" class="'+(sourceLayer===f[0]?'active':'')+'">'+esc(f[1])+'</button>'}).join('');
+    Array.prototype.forEach.call(el.querySelectorAll('button'),function(btn){btn.addEventListener('click',function(){sourceLayer=btn.dataset.sourceLayer;renderSourceLayerTools();renderCards();applyGraphSelection()})});
+  }
   function renderComparePanel(){
     var panel=document.getElementById('compare-panel');
     if(!panel)return;
@@ -909,6 +984,7 @@ body::before{
   function selectEntity(id,opts){
     if(!NODE_BY_ID[id])return;
     selectedId=id;
+    closeSourceModal();
     var edgePanel=document.getElementById('edge-inspector');
     if(edgePanel)edgePanel.classList.remove('open');
     renderInspector(id);
@@ -935,20 +1011,35 @@ body::before{
     document.getElementById('source-modal-title').textContent=title;
     document.getElementById('source-modal-body').innerHTML=html;
     modal.hidden=false;
+    bindSourceRefs(modal);
   }
   function closeSourceModal(){document.getElementById('source-modal').hidden=true}
   function openEvidence(id){
     var n=NODE_BY_ID[id],ev=EV[id];
     if(!n)return;
-    var refs=refsFor(n).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('');
+    var refs=refsFor(n).map(sourceRefHtml).join('');
     showSourceModal(n.label+' · evidence',refs+'<pre>'+esc(ev||'No verbatim evidence snippet is assigned to this entity yet.')+'</pre>');
+  }
+  function sourceEntities(id){
+    return NODES.filter(function(n){return nodeUsesSource(n,id)}).sort(sortNode);
+  }
+  function openRegisteredSource(id){
+    var source=SOURCE_REGISTER[id];
+    if(!source)return;
+    var entities=sourceEntities(id);
+    var facts=(source.facts||[]).map(function(f){return '<li>'+esc(f)+'</li>'}).join('');
+    var entityList=entities.length?'<div class="connection-list">'+entities.map(function(n){return '<button type="button" class="connection-btn" data-id="'+esc(n.id)+'"><strong>'+esc(n.label)+'</strong><span>'+esc(catLabel(n.category))+' · '+esc(receiptFor(n).label)+'</span><em>'+esc(n.desc)+'</em></button>'}).join('')+'</div>':'<div class="empty-note">No cards are directly tied to this registered source yet.</div>';
+    var link=source.url?'<p><a class="source-button" href="'+esc(source.url)+'" target="_blank" rel="noreferrer"><strong>Open original source</strong><span>'+esc(source.type||'source')+'</span><em>'+esc(source.url)+'</em></a></p>':'';
+    showSourceModal((source.title||id),'<div class="source-refs">'+sourceRefHtml(id)+'</div><div class="receipt-grid"><div class="receipt-item"><span>source id</span><strong>'+esc(id)+'</strong></div><div class="receipt-item"><span>type</span><strong>'+esc(source.type||'source')+'</strong></div><div class="receipt-item"><span>applies to</span><strong>'+esc((source.applies_to||[]).join(', ')||'not assigned')+'</strong></div><div class="receipt-item"><span>matched cards</span><strong>'+esc(entities.length)+'</strong></div></div>'+link+'<div class="inspector-block"><h4>Recorded Facts</h4>'+(facts?'<ul>'+facts+'</ul>':'<div class="empty-note">No fact notes recorded.</div>')+'</div>'+(source.caveat?'<pre>'+esc(source.caveat)+'</pre>':'')+'<div class="inspector-block"><h4>Cards Using This Source</h4>'+entityList+'</div>');
+    var modal=document.getElementById('source-modal');
+    Array.prototype.forEach.call(modal.querySelectorAll('.connection-btn'),function(btn){btn.addEventListener('click',function(){selectEntity(btn.dataset.id,{scroll:true})})});
   }
   function openSource(id,index){
     var n=NODE_BY_ID[id],source=n&&n.sources&&n.sources[index];
     if(!n||!source)return;
     var registered=(source.refs||[]).map(function(r){return SOURCE_REGISTER[r]&&{id:r,source:SOURCE_REGISTER[r]}}).filter(Boolean);
     var registeredHtml=registered.length?'<div class="source-list">'+registered.map(function(item){return '<a class="source-button" href="'+esc(item.source.url||'#')+'" target="_blank" rel="noreferrer"><strong>'+esc(item.source.title||item.id)+'</strong><span>'+esc(item.id)+' · '+esc(item.source.type||'source')+'</span><em>'+esc((item.source.facts||[])[0]||item.source.url||'registered source')+'</em></a>'}).join('')+'</div>':'';
-    showSourceModal(n.label+' · '+(source.label||source.type),'<div class="source-refs">'+(source.refs||[]).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('')+'</div>'+registeredHtml+'<pre>'+esc(source.note||'No note assigned.')+'</pre>');
+    showSourceModal(n.label+' · '+(source.label||source.type),'<div class="source-refs">'+(source.refs||[]).map(sourceRefHtml).join('')+'</div>'+registeredHtml+'<pre>'+esc(source.note||'No note assigned.')+'</pre>');
   }
   function focusMap(id){
     if(!NODE_BY_ID[id])return;
@@ -968,24 +1059,27 @@ body::before{
     var sid=edge.source&&edge.source.id||edge.source||edge.s,tid=edge.target&&edge.target.id||edge.target||edge.t;
     var a=NODE_BY_ID[sid],b=NODE_BY_ID[tid];
     if(!panel||!a||!b)return;
-    var refs=(edge.source_refs||edge.sourceRefs||[]).map(function(r){return '<span class="source-ref">'+esc(r)+'</span>'}).join('');
+    var refs=(edge.source_refs||edge.sourceRefs||[]).map(sourceRefHtml).join('');
     panel.classList.add('open');
     panel.innerHTML='<div class="inspector-head"><div class="inspector-title"><div class="inspector-tags"><span class="link-chip">strength '+esc(edge.w||edge.strength||0)+'</span><span class="source-chip context">'+esc(edge.confidence||'derived')+'</span></div><h3>'+esc(a.label)+' -> '+esc(b.label)+'</h3><p>'+esc(edge.reason||edgeReason(a,b,edge.w||edge.strength||0,edge))+'</p></div></div>'+
       '<div class="inspector-grid"><div><div class="inspector-block"><h4>Edge Source</h4><div class="source-refs">'+refs+'</div><div class="empty-note">Type: '+esc(edge.type||'untyped')+'</div></div></div><div><div class="inspector-block"><h4>Actions</h4><div class="connection-list"><button type="button" class="connection-btn" data-id="'+esc(a.id)+'"><strong>'+esc(a.label)+'</strong><span>open source entity</span></button><button type="button" class="connection-btn" data-id="'+esc(b.id)+'"><strong>'+esc(b.label)+'</strong><span>open target entity</span></button></div></div></div></div>';
     Array.prototype.forEach.call(panel.querySelectorAll('.connection-btn'),function(btn){btn.addEventListener('click',function(){selectEntity(btn.dataset.id,{scroll:true})})});
+    bindSourceRefs(panel);
     panel.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
   function applyGraphSelection(){
     if(!graphState||!graphState.nodes)return;
+    var sourceSet=null;
+    if(activeSourceId){sourceSet={};NODES.forEach(function(n){if(nodeUsesSource(n,activeSourceId))sourceSet[n.id]=1})}
     if(!selectedId){
-      graphState.nodes.attr('opacity',function(d){return !activeClaim||claimEntitySet(activeClaim)[d.id]?1:.18});
+      graphState.nodes.attr('opacity',function(d){if(sourceSet&&!sourceSet[d.id])return .12;if(sourceLayer!=='all'&&receiptFor(d).key!==sourceLayer)return .12;return !activeClaim||claimEntitySet(activeClaim)[d.id]?1:.18});
       graphState.links.attr('opacity',function(d){return edgeMatchesFilter(d)?0.55:0.04}).attr('stroke-width',function(d){return edgeMatchesFilter(d)?(d.w||3)*0.45:0.3});
       return;
     }
     var linked=connectedSet(selectedId);
     var claimSet=activeClaim?claimEntitySet(activeClaim):null;
-    graphState.nodes.attr('opacity',function(d){if(claimSet&&!claimSet[d.id])return .12;return d.id===selectedId||linked[d.id]?1:.22});
+    graphState.nodes.attr('opacity',function(d){if(sourceSet&&!sourceSet[d.id])return .12;if(sourceLayer!=='all'&&receiptFor(d).key!==sourceLayer)return .12;if(claimSet&&!claimSet[d.id])return .12;return d.id===selectedId||linked[d.id]?1:.22});
     graphState.links.attr('opacity',function(d){if(!edgeMatchesFilter(d))return 0.04;var s=d.source.id||d.source,t=d.target.id||d.target;return(s===selectedId||t===selectedId)?0.9:0.13})
       .attr('stroke-width',function(d){var s=d.source.id||d.source,t=d.target.id||d.target,on=s===selectedId||t===selectedId;return edgeMatchesFilter(d)?(on?Math.max(1.6,(d.w||3)*.78):(d.w||3)*.38):0.3});
   }
@@ -1048,6 +1142,7 @@ body::before{
   renderSourceRegister();
   renderClaims();
   renderReviewQueue();
+  renderSourceLayerTools();
   renderEdgeTools();
   renderTimelineTools();
   renderTimeline();
@@ -1090,6 +1185,7 @@ body::before{
   function openHash(scroll){
     var raw=decodeURIComponent(location.hash.replace(/^#/,''));if(!raw)return;
     if(raw.indexOf('claim-')===0){selectClaim(raw.slice(6),{scroll:scroll,hash:false});return}
+    if(raw.indexOf('source-')===0){selectSource(raw.slice(7),{scroll:scroll,hash:false});return}
     if(NODE_BY_ID[raw])revealEntity(raw,{scroll:scroll,hash:false});
   }
   window.addEventListener('hashchange',function(){openHash(true)});

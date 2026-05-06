@@ -8,7 +8,7 @@ const dataPath = path.join(root, 'port-pirie-data.js');
 const htmlPath = path.join(root, 'port-pirie.html');
 const checkOnly = process.argv.includes('--check');
 
-const DATA_VERSION = '20260506-research';
+const DATA_VERSION = '20260506-source-nav';
 const VAULT_FILES = 17163;
 const REF_RE = /\bEFTA\d+\b|\bM\d{2}\/\d+\b|\b\d{4}\/\d{6}\b|\bDataSet\s*\d+\b|\bDOJ DataSet\s*\d+\b|\bICAC\b|\bOPI\b/g;
 const publicContextIds = new Set(['ellis', 'brock', 'portpirie_city', 'lead_crisis', 'glenside', 'cba', 'portside', 'univ', 'sapol', 'sa_health', 'hcsc', 'icac', 'epstein_maxwell']);

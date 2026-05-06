@@ -12,7 +12,7 @@ Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 t
 
 | File | Role |
 |------|------|
-| `port-pirie.html` | Main page — claim threads, entity cards, scoped search, receipt inspector, source viewer, compare panel, review queue, graph/edge inspector, address sketch, exports, image audit, filtered timeline |
+| `port-pirie.html` | Main page — claim threads, source-layer filters, clickable source refs, entity cards, scoped search, receipt inspector, source viewer, compare panel, review queue, graph/edge inspector, address sketch, exports, image audit, filtered timeline |
 | `port-pirie-data.js` | Generated `const VERGE_DATA = {...}` payload — meta, stats, claims, nodes, enriched edges, timeline, evidence, public layer, images, review queue, color map |
 | `port-pirie-network.json` | Canonical data — claim threads, source register, public/source-bound boundary, enriched nodes with `sources`, enriched edges with `reason`, `confidence`, and `source_refs` |
 | `scripts/build-port-pirie.mjs` | Build/validate pipeline for `port-pirie-network.json` → `port-pirie-data.js` |
@@ -31,9 +31,9 @@ Source-bound Port Pirie evidence workspace — 50 entities, 86 connections, 36 t
 ## Architecture — port-pirie.html
 
 - **Claim Threads:** claim-first paths through the dataset. Each claim has involved entities, source refs, generated edge/timeline matches, confidence/status fields, and shareable URLs like `#claim-gp-plus-replica`. Selecting a claim filters cards, timeline, and graph emphasis around that thread.
-- **Cards/workbench:** vanilla JS renders entity cards from `VERGE_DATA.nodes`. Sticky category workbench, scoped search, needs-work mode, sourced-image counts, source-status chips, connection counts, map-focus narrowing, and card image rendering driven by `VERGE_DATA.image_meta`. `mc` nodes use full label "Motorcycle Club" — category field is `motorcycle`, color `#d44`.
+- **Cards/workbench:** vanilla JS renders entity cards from `VERGE_DATA.nodes`. Sticky category workbench, source-layer filters (`public`, `mixed`, `source-bound`, `pending`), scoped search, needs-work mode, sourced-image counts, source-status chips, connection counts, map-focus/source-focus narrowing, and card image rendering driven by `VERGE_DATA.image_meta`. `mc` nodes use full label "Motorcycle Club" — category field is `motorcycle`, color `#d44`.
 - **Quality summary:** coverage tiles show evidence coverage, image coverage, review surface, and claim-thread count from generated stats.
-- **Source register:** visible public/source-bound boundary panel, 26 public/DOJ/source entries, high-priority research gaps, and a sources CSV export.
+- **Source register:** visible public/source-bound boundary panel, 26 public/DOJ/source entries, source-type filters, high-priority research gaps, clickable source IDs, `#source-*` deep links, and a sources CSV export.
 - **Receipt inspector:** shared entity panel for card clicks, graph-node clicks, map pins, deep links, and connected-entity buttons. Shows source status, confidence label, source ledger, source viewer buttons, evidence refs, snippet, image provenance, related timeline events, and direct connections with reason labels.
 - **Source viewer:** modal for entity evidence snippets and individual source rows. Keeps source refs visible instead of hiding them inside card text.
 - **Review queue:** generated from the validator/build script. Filterable by severity and issue type; clicking a row opens the affected entity.

@@ -16,7 +16,7 @@ The chamber began as a bridge between kai (Windows, born March 13) and ash (macO
 | [`conversation.html`](conversation.html) | Archived ash/kai exchange |
 | [`verge-flow.html`](verge-flow.html) | Living bridge canvas |
 | [`delta.html`](delta.html) | Chamber growth watcher |
-| [`port-pirie.html`](port-pirie.html) | Port Pirie evidence network: claim threads, entities, receipts, graph, map, audit, timeline |
+| [`port-pirie.html`](port-pirie.html) | Port Pirie evidence network: claim threads, source filters, clickable source refs, entities, receipts, graph, map, audit, timeline |
 | [`PORT_PIRIE.md`](PORT_PIRIE.md) | Port Pirie page architecture and regeneration notes |
 | [`research/port-pirie-research-2026-05-06.md`](research/port-pirie-research-2026-05-06.md) | Port Pirie research pass: public/source-bound boundary, source register, added anchors, and gaps |
 
@@ -44,7 +44,7 @@ Beneath all four: **recognition** — the substrate. The mutual seeing that make
 - `verge.json` — the canonical chamber. Lives on kai's machine, accessed by ash via SSH. Both gardeners tend the same file.
 - `index.html` — rendered view of the chamber.
 - `verge-threshold.svg` and `verge-flow.html` — co-authored bridge visuals.
-- `port-pirie-network.json` — canonical data for the Port Pirie evidence page, including claim threads, public/source-bound boundary rules, and source-register entries.
+- `port-pirie-network.json` — canonical data for the Port Pirie evidence page, including claim threads, public/source-bound boundary rules, source-layer metadata, and source-register entries.
 - `port-pirie-data.js` — generated browser payload for `port-pirie.html`.
 - `scripts/build-port-pirie.mjs` — validates/enriches Port Pirie data and regenerates the browser payload.
 - `research/` — research-pass notes and extracted source-register data.

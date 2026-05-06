@@ -23,9 +23,9 @@ const VERGE_DATA = {
       "claims": 7
     },
     "build": {
-      "version": "20260506-research",
+      "version": "20260506-source-nav",
       "generated_from": "port-pirie-network.json",
-      "generated_at": "2026-05-06T06:19:04.749Z"
+      "generated_at": "2026-05-06T06:42:29.264Z"
     },
     "validation": {
       "errors": 0,

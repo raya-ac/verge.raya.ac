@@ -6,6 +6,8 @@ Canonical data: `/Users/ari/verge.raya.ac/port-pirie-network.json`
 
 Generated source register: `/Users/ari/verge.raya.ac/research/port-pirie-source-register.json`
 
+Latest browser payload version: `20260506-source-nav`
+
 ## Boundary Rule
 
 Public records confirm offices, addresses, institutions, timelines, and environmental context. DOJ/EFTA OCR confirms that a name or allegation appears in the packet. Neither layer alone proves the underlying allegations.
@@ -24,6 +26,10 @@ That split now lives in `public_layer.sourceBoundary`, `public_layer.sourceRegis
 | Local images | 32 |
 | Registered sources | 26 |
 | Generated review items | 32 |
+
+## Follow-Up UI Pass
+
+The page now treats source IDs as navigation, not inert labels. Registered source chips open a source modal, filter the card grid to entities tied to that source, and support `#source-*` deep links. The workbench also has source-layer filters for `public`, `mixed`, `source-bound`, and `pending`, while the source register itself can be narrowed to public/official, DOJ/OCR, news, or directory sources.
 
 ## Public-Record Anchors Added Or Strengthened
 
